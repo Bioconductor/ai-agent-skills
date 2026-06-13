@@ -24,18 +24,7 @@ Skills do not reference `platforms:`, `triggers:`, or other agent-specific confi
 
 ### 3. Natural Language Invocation
 
-Skills are discovered and invoked through natural language matching, not rigid command syntax:
-
-- **Discovery**: Agents read SKILLS.md to find available skills
-- **Matching**: Agent matches user's natural language intent to skill descriptions
-- **Invocation**: Agent invokes the skill using its own platform mechanics
-- **Flexibility**: Platform-specific shortcuts (slash commands, @workspace) are optional conveniences, documented separately
-
-Example:
-- User says: "I want to create a new skill"
-- Agent reads SKILLS.md and finds: "create-skill: Help create a new AI agent skill through collaborative Q&A"
-- Agent recognizes the match and invokes the skill
-- Claude Code might use `/create-skill` shortcut; Copilot might route via `@workspace` pattern
+Skills are discovered and invoked through natural language matching, not rigid command syntax. See § Skill Discovery & Invocation for details.
 
 ### 4. Skill Execution Model
 
@@ -52,8 +41,6 @@ Skills are **prompts**, not code. Agents interpret and execute them using their 
 ### 5. Portability Over Convenience
 
 - Prioritize long-term interoperability over short-term optimization
-- Design for future agents, not just current platforms
-- Avoid locking skills to specific agent APIs or syntax
 - Make skills work on minimal assumptions (just markdown + YAML frontmatter)
 
 ### 6. Workflow over Code Snippets
@@ -130,26 +117,14 @@ Additional context or caveats.
 
 Skills must maintain this document (AGENTS.md) as the single source of truth for format specifications and standards.
 
-### What NOT to Duplicate in Skills
-
-Skills MUST NOT duplicate:
-- ❌ YAML field specifications from § Skill File Format
-- ❌ Required/prohibited field lists from § Minimal Required Fields / § What NOT to Include
-- ❌ Platform-agnostic principles from § Agent Neutrality
-- ❌ Content structure requirements from § Content Structure
-- ❌ External standards or checklists (reference the source instead)
-
 ### How to Reference Properly
 
 Instead of duplicating, use references:
 ```markdown
 ✅ "See AGENTS.md § Skill File Format for complete specification"
 ✅ "Check that frontmatter conforms to AGENTS.md § Minimal Required Fields"
-✅ "Use the standardized labels defined in [external source URL]"
-
-❌ Do not list: "Required fields: name, description, version, category..."
-❌ Do not copy: YAML templates or field descriptions
-❌ Do not duplicate: External classification systems or checklists
+❌ Do not list required fields or copy YAML templates
+❌ Do not duplicate external classification systems or checklists
 ```
 
 ### When to Include Content
@@ -237,33 +212,15 @@ Compliant agents:
 
 ### What Adapters Are
 
-Platform adapters are **thin wrapper documents** that explain:
-- How to install skills for a specific agent
-- Platform-specific invocation shortcuts (optional)
-- Troubleshooting tips for that platform
-- How that platform differs from the canonical behavior
+Platform adapters are **thin wrapper documents** located in `instructions/{agent-name}.md` that explain how to install skills for a specific agent, provide optional shortcuts, and list troubleshooting tips.
 
-Located in: `instructions/{agent-name}.md`
-
-### What Adapters Must NOT Do
-
-- ❌ Duplicate skill logic
-- ❌ Define new invocation patterns (reference SKILLS.md instead)
-- ❌ Require platform-specific fields in skills
-- ❌ Create vendor lock-in
-
-### What Adapters Should Include
+### What Adapters Should/Must Not Include
 
 - ✅ Setup/installation instructions specific to the platform
 - ✅ References to AGENTS.md and SKILLS.md as authoritative sources
 - ✅ Optional platform-specific shortcuts (if any) with explanations
-- ✅ Troubleshooting tips for that platform
-- ✅ Brief explanation of how that platform differs from canonical behavior (if applicable)
-
-**What Adapters Must NOT Include**:
-- ❌ Skill invocation examples (those belong in SKILLS.md only)
-- ❌ Skill descriptions or purpose statements (reference SKILLS.md instead)
-- ❌ Step-by-step skill process details (these live in SKILL.md files)
+- ❌ Do not duplicate skill logic, descriptions, or purpose statements
+- ❌ Do not define new invocation patterns or require platform-specific fields
 
 Example minimal structure:
 
@@ -287,118 +244,18 @@ Example minimal structure:
 See [AGENTS.md](../AGENTS.md) for canonical behavior and [SKILLS.md](../SKILLS.md) for skill catalog.
 ```
 
-## Responsibility Mapping: Single Source of Truth
+## Responsibility Mapping
 
-This section clarifies **what goes where** to maintain clean separation of concerns and avoid duplication.
-
-### Skill Invocation Examples
-
-**Who owns it**: SKILLS.md only
-
-**What goes in SKILLS.md**:
-```markdown
-**Invocation**:
-- "Help me create a new skill"
-- "Create a skill for [domain]"
-- "I want to make a skill that..."
-```
-
-**What does NOT go in instructions/{agent}.md**:
-- ❌ Lists of invocation examples
-- ❌ "When to use this skill" descriptions
-- ❌ Alternative ways to say the same thing
-
-**Why**: Duplicating invocation examples across platform adapters creates maintenance burden. SKILLS.md is the single source.
-
-### Platform-Specific Shortcuts
-
-**Who owns it**: instructions/{agent}.md only
-
-**What goes in instructions/{agent}.md**:
-```markdown
-Optional shortcuts for this platform:
-- `/create-skill` - Shortcut for "create a new skill"
-- `/analyze-r-package` - Shortcut for "analyze this R package"
-```
-
-**What goes in skill files**: Nothing. Shortcuts are platform-specific conveniences, not core skill metadata.
-
-**Why**: Shortcuts vary by platform (Claude Code uses `/`, Copilot uses `@workspace`, etc.). They're configuration, not skill logic.
-
-### Skill Process & Logic
-
-**Who owns it**: SKILL.md files only
-
-**What goes in SKILL.md**:
-- Step-by-step process
-- Prerequisites
-- Output format
-- Examples
-- Platform-agnostic logic
-
-**What does NOT go in instructions/{agent}.md**:
-- ❌ How to run the skill
-- ❌ What the skill produces
-- ❌ Step-by-step skill process
-
-**Why**: Skill logic is platform-agnostic. All agents follow the same process.
-
-### Setup & Configuration
-
-**Who owns it**: instructions/{agent}.md only
-
-**What goes in instructions/{agent}.md**:
-- How to install skills for this platform
-- Configuration files (settings.json, CLAUDE.md, etc.)
-- Platform-specific troubleshooting
-- References to authoritative sources (AGENTS.md, SKILLS.md)
-
-**Example**: "Add to ~/.claude/CLAUDE.md: [reference]/SKILLS.md"
-
-### Canonical Behavior Rules
-
-**Who owns it**: AGENTS.md (this file)
-
-**What goes in AGENTS.md**:
-- How agents discover skills (via SKILLS.md)
-- How agents invoke skills (natural language matching)
-- Mandatory agent responsibilities
-- Prohibited skill metadata (platforms, triggers)
-- Compliance criteria
-
-### Technical Format Specification
-
-**Who owns it**: SKILL_STANDARD.md
-
-**What goes in SKILL_STANDARD.md**:
-- YAML frontmatter fields
-- Markdown structure
-- Validation checklist
-- Examples of well-formed skills
-
----
-
-## Compliance Criteria
-
-An agent is **compliant** with this standard if it:
-
-1. **Reads SKILLS.md** as the primary skill index
-2. **Matches natural language** user requests to skill descriptions
-3. **Invokes skills** by reading and following SKILL.md documentation
-4. **Adapts tool usage** to the agent's available capabilities
-5. **Produces output** as documented in each skill
-6. **Does not require** platform-specific metadata in skills
-7. **Documents deviations** (if any) in instructions/{agent}.md
+| Concept | Who owns it | What it contains | What it MUST NOT contain |
+|---------|-------------|------------------|--------------------------|
+| **Skill Invocation Examples** | `SKILLS.md` | Natural language examples ("I want to make a skill that...") | N/A (Do not duplicate in `instructions/{agent}.md`) |
+| **Platform-Specific Shortcuts** | `instructions/{agent}.md` | Optional shortcuts (e.g., `/create-skill`) | N/A (Do not put shortcuts in skill files) |
+| **Skill Process & Logic** | `SKILL.md` files | Step-by-step process, prerequisites, output format, platform-agnostic logic | Platform-specific setup, shortcuts, or configuration (do not put these in skill files) |
+| **Setup & Configuration** | `instructions/{agent}.md` | How to install skills, platform-specific troubleshooting | N/A |
+| **Canonical Behavior Rules** | `AGENTS.md` | Discovery/invocation rules, compliance criteria, prohibited metadata | N/A |
+| **Technical Format** | `SKILL_STANDARD.md` | YAML frontmatter fields, markdown structure, validation checklist | N/A |
 
 ## Scope & Limitations
-
-### This Standard Covers
-
-- How agents discover skills
-- How agents invoke skills
-- What metadata skills should/must not contain
-- How platform differences are documented
-- Compliance criteria for agents
 
 ### This Standard Does Not Cover
 
@@ -416,17 +273,9 @@ An agent is **compliant** with this standard if it:
 
 ## Questions & Clarifications
 
-### Q: Can we have platform-specific triggers in YAML?
-
-**A**: No. Triggers are platform-specific by nature. Use natural language matching via SKILLS.md instead. Platform shortcuts are optional conveniences documented in instructions/{agent}.md, not core skill metadata.
-
 ### Q: What if a skill needs different logic for different agents?
 
 **A**: Document the platform differences in a "Platform-Specific Notes" section within the skill. Let each agent adapt the approach to their capabilities.
-
-### Q: How do agents discover new skills?
-
-**A**: They read SKILLS.md. When you add a skill, update SKILLS.md with location, purpose, and example invocations.
 
 ### Q: Can agents cache SKILLS.md or skill files?
 
@@ -439,11 +288,6 @@ An agent is **compliant** with this standard if it:
 ## Version History
 
 - **2.0.0** (2026-04-03) - Agent behavior standard
-  - Established core principles: agent neutrality, single source of truth, natural language discovery
-  - Defined mandatory and optional agent responsibilities
-  - Specified prohibited skill metadata (platforms, triggers)
-  - Established SKILLS.md as primary discovery mechanism
-  - Clarified responsibility mapping and single source of truth principles
 
 ## Maintenance
 

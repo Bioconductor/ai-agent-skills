@@ -2,13 +2,14 @@
 
 This is the canonical index of all available AI agent skills in the waldronlab/ai-agent-skills repository. Use this to discover and understand what skills are available and when to use them.
 
+> **Note**: All skills are located at `skills/{skill-name}/SKILL.md`.
+
 ## Quick Start
 
 1. **Browse by category** below to find a skill that matches your need
 2. **Read the skill description** to understand when to use it
 3. **Invoke naturally**: Describe what you need to your AI agent
    - Example: "Help me create a new skill"
-   - Agent will match this to the appropriate skill and invoke it
 
 **Platform shortcuts**: Optional shortcuts (like `/skill-name` or `@workspace` patterns) are documented in [instructions/](instructions/) for each platform.
 
@@ -29,25 +30,12 @@ Infrastructure and workflow skills for working with this repository itself.
 
 **Purpose**: Help create a new AI agent skill through collaborative Q&A
 
-**Location**: `skills/create-skill/SKILL.md`
-
 **When to use**:
-- Creating a new skill from scratch
-- Converting a manual workflow into a reusable skill
-- Starting from a rough idea
+- Creating a new skill from scratch or from a manual workflow
 
 **Invocation**:
 - "Help me create a new skill"
 - "Create a skill for [domain]"
-- "I want to make a skill that..."
-
-**What happens**:
-- Collaborative Q&A to understand your intent
-- Guidance on domain and location
-- Step-by-step process outline
-- Generated skill file in markdown format
-- Automatic validation with `validate-skill`
-- Automatic documentation update with `document-skill`
 
 **Output**: A complete skill with validated file and updated SKILLS.md, ready for testing and committing
 
@@ -59,25 +47,12 @@ Infrastructure and workflow skills for working with this repository itself.
 
 **Purpose**: List and verify installed waldronlab skills
 
-**Location**: `skills/check-waldronlab-skills/SKILL.md`
-
 **When to use**:
-- Verifying skills are correctly installed
-- Discovering what skills are available
-- Troubleshooting skill discovery issues
-- Checking setup for Claude Code or Copilot
+- Verifying skills are correctly installed or discovering available skills
 
 **Invocation**:
 - "What skills are available?"
 - "List waldronlab skills"
-- "Load waldronlab skills"
-- "Do I have the waldronlab skills?"
-
-**What happens**:
-- Scans the repository for available skills
-- Verifies your agent can access them
-- Lists skills by category with descriptions
-- Suggests next steps
 
 **Output**: List of available skills and setup status
 
@@ -87,29 +62,14 @@ Infrastructure and workflow skills for working with this repository itself.
 
 **Purpose**: Validate that a skill conforms to the ai-agent-skills repository standards
 
-**Location**: `skills/validate-skill/SKILL.md`
-
 **When to use**:
-- Creating new skills (before committing)
-- Reviewing PRs
-- Ensuring existing skills meet current standards
-- CI/CD validation in automated workflows
+- Creating new skills, reviewing PRs, or ensuring standards compliance
 
 **Invocation**:
 - "Validate this skill"
 - "Check if skills/[skill-name]/SKILL.md meets standards"
-- "Does this skill conform to standards?"
 
-**What happens**:
-- Runs generic validation (markdownlint, yamllint) if available
-- Validates waldronlab-specific requirements:
-  - Checks for prohibited fields (platforms, triggers)
-  - Ensures platform-agnostic language (no tool references)
-  - Validates required fields (name, description, version, category)
-  - Checks naming conventions and consistency
-- Generates detailed report with issues, fixes, and references to AGENTS.md/SKILL_STANDARD.md
-
-**Output**: Comprehensive validation report with pass/fail status, categorized issues (CRITICAL/WARNING/INFO), and specific fix suggestions
+**Output**: Comprehensive validation report with pass/fail status, categorized issues, and specific fix suggestions
 
 **Related skills**: create-skill, check-waldronlab-skills, document-skill
 
@@ -119,26 +79,12 @@ Infrastructure and workflow skills for working with this repository itself.
 
 **Purpose**: Automate documentation updates to SKILLS.md after creating or modifying a skill
 
-**Location**: `skills/document-skill/SKILL.md`
-
 **When to use**:
-- After creating a new skill with create-skill
-- After modifying an existing skill
-- When you need to update SKILLS.md with new skill information
-- As part of the skill creation workflow
+- After creating a new skill or modifying an existing skill to update SKILLS.md
 
 **Invocation**:
 - "Document the new skill I just created"
 - "Update SKILLS.md for the validate-r-docs skill"
-- "Add documentation for my new skill"
-
-**What happens**:
-- Reads and validates the skill file
-- Extracts metadata and structure from YAML frontmatter
-- Auto-generates invocation examples and asks for confirmation
-- Creates complete SKILLS.md entry with all sections
-- Updates category, tag tables, and use case workflows
-- Shows preview diffs and asks for confirmation before applying changes
 
 **Output**: Updated SKILLS.md with the skill entry added to all relevant sections
 
@@ -154,25 +100,12 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 **Purpose**: Analyze R/Bioconductor package structure and characteristics
 
-**Location**: `skills/analyze-r-package/SKILL.md`
-
 **When to use**:
-- Understanding a package's architecture and design
-- Determining package type (data, analysis, infrastructure)
-- Identifying key functions and data structures
-- Before generating documentation for a package
+- Understanding a package's architecture, type, or identifying key functions
 
 **Invocation**:
 - "Analyze this R package"
 - "What type of package is this?"
-- "Tell me about the package structure"
-
-**What happens**:
-- Reads package metadata (DESCRIPTION, README, code)
-- Identifies package type and purpose
-- Lists key functions and classes
-- Detects data access patterns (ExperimentHub, DuckDB, etc.)
-- Summarizes architecture and design patterns
 
 **Output**: Structured analysis of the package
 
@@ -182,31 +115,14 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 **Purpose**: Generate comprehensive .github/instructions files for R/Bioconductor packages
 
-**Location**: `skills/create-package-instructions/SKILL.md`
-
 **When to use**:
-- Creating AI agent instructions for a new R package
-- Generating documentation for AI agents working on the package
-- Standardizing package documentation across waldronlab
-- After analyzing a package with analyze-r-package
+- Creating AI agent instructions for a new R package or standardizing documentation
 
 **Invocation**:
 - "Create .github/instructions for this package"
 - "Generate AI agent instructions"
-- "Create instructions for this R package"
 
-**What happens**:
-- Uses analyze-r-package internally to understand the package
-- Reads shared standards (Bioconductor conventions, waldronlab patterns)
-- Generates modular instruction files in .github/instructions/
-- Creates package-specific guidance
-- References reusable standards to avoid duplication
-
-**Output**:
-- `.github/instructions/00-overview.md` - Package classification and architecture
-- `.github/instructions/10-data-access.md` - Data handling patterns (if applicable)
-- `.github/instructions/20-development.md` - Development patterns and conventions
-- `.github/instructions/30-vignettes.md` - Vignette purposes and standards (if applicable)
+**Output**: Modular instruction files in `.github/instructions/`
 
 **Related skills**: analyze-r-package, update-package-instructions
 
@@ -216,25 +132,12 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 **Purpose**: Update existing .github/instructions files based on recent package changes
 
-**Location**: `skills/update-package-instructions/SKILL.md`
-
 **When to use**:
-- Refreshing package instructions after major changes
-- Updating instructions when architecture changes
-- Adding new data patterns or functions
-- Keeping AI agent instructions current with the package
+- Refreshing package instructions after major architecture or pattern changes
 
 **Invocation**:
 - "Update the package instructions"
 - "Refresh .github/instructions"
-- "Update instructions based on recent changes"
-
-**What happens**:
-- Re-analyzes the current package state
-- Compares with existing instructions
-- Updates changed sections
-- Preserves customizations and hand-written notes
-- References updated standards if needed
 
 **Output**: Updated `.github/instructions/` files
 
@@ -244,27 +147,14 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 ### improve-code-coverage
 
-**Purpose**: Analyze R package code coverage using covr, classify testing gaps, and proactively write test cases to improve coverage and result correctness.
-
-**Location**: `skills/improve-code-coverage/SKILL.md`
+**Purpose**: Analyze R package code coverage using covr, classify testing gaps, and proactively write test cases.
 
 **When to use**:
-- Increasing an R package's test coverage
-- Evaluating testing rigor and identifying gaps
-- Proactively writing test cases categorized by normal use, edge cases, error handling, and correctness
+- Evaluating testing rigor, identifying gaps, and proactively writing test cases
 
 **Invocation**:
 - "Check my code coverage and help me write missing tests."
-- "Run covr on the package and improve testing for uncovered lines in R/my_function.R."
 - "Improve code coverage, focusing on edge cases and correctness."
-- "Summarize current code coverage."
-
-**What happens**:
-- Runs `covr` package coverage analysis and extracts percentages for `R/` and `src/`.
-- Summarizes coverage results, evaluating the types of tests present.
-- Identifies uncovered functions and logic branches.
-- Classifies missing testing needs into Normal Use, Edge Cases, Error Handling, or Correctness.
-- Drafts new `testthat` code blocks targeting identified gaps.
 
 **Output**: A chat summary breaking down coverage by test category, and code blocks containing `testthat` cases.
 
@@ -276,29 +166,14 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 **Purpose**: Perform comprehensive security audit of R/Bioconductor packages
 
-**Location**: `skills/security-audit-r-package/SKILL.md`
-
 **When to use**:
-- Auditing packages before CRAN/Bioconductor submission
-- Self-review for security vulnerabilities and code quality issues
-- Reviewing native code (C/C++/Fortran) for memory safety issues
-- Before public release or major version updates
+- Auditing packages before CRAN/Bioconductor submission or reviewing for vulnerabilities
 
 **Invocation**:
 - "Run security audit on this R package"
 - "Check this package for security vulnerabilities"
-- "Perform security review of this Bioconductor package"
-- "Security audit only the R/ directory"
 
-**What happens**:
-- Determines audit scope (default: DESCRIPTION, NAMESPACE, R/, src/)
-- Fetches standardized security audit instructions from reference gist
-- Reads all package files in the audit scope
-- Analyzes for security vulnerabilities, native code issues, code quality concerns, and dependency risks
-- Generates security report with standardized issue labels and severity ratings
-- Outputs report to console with flexible formatting based on context
-
-**Output**: Security audit report (markdown format) with findings categorized by severity, or clean report if no issues found. Each issue includes standardized label, severity, location, description, and recommended fix.
+**Output**: Security audit report (markdown format) with findings categorized by severity.
 
 **Related skills**: analyze-r-package, validate-skill, create-package-instructions
 
@@ -337,11 +212,6 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 Skills for standard metagenomics data processing and analysis workflows.
 
-**Coming soon**:
-- Standard preprocessing pipelines
-- Taxonomic profiling workflows
-- Functional analysis patterns
-
 ---
 
 ## Statistical Methods Skills
@@ -349,12 +219,6 @@ Skills for standard metagenomics data processing and analysis workflows.
 *Planned for future release*
 
 Skills for statistical analysis patterns in microbiome and multi-omics research.
-
-**Coming soon**:
-- Differential abundance analysis
-- Dimension reduction approaches
-- Batch effect correction
-- Multi-omics integration
 
 ---
 
@@ -395,35 +259,19 @@ Skills for statistical analysis patterns in microbiome and multi-omics research.
 ## Finding Skills by Use Case
 
 ### "I want to work on an R package..."
-
-1. **Understand the package** → `analyze-r-package`
-2. **Create AI instructions** → `create-package-instructions`
-3. **Improve test coverage** → `improve-code-coverage`
-4. **Audit for security issues** → `security-audit-r-package`
-5. **Keep instructions updated** → `update-package-instructions`
-6. **Update NEWS for upcoming release** → `update-r-news`
+Use `analyze-r-package` to understand it, `create-package-instructions` to generate AI docs, `improve-code-coverage` or `security-audit-r-package` for quality control, and `update-r-news` for release notes.
 
 ### "I want to create a new skill..."
-
-1. **Get guided help** → `create-skill`
-2. **Validate it meets standards** → `validate-skill`
-3. **Update documentation** → `document-skill`
-4. **Verify it's accessible** → `check-waldronlab-skills`
+Start with `create-skill` for guided help, then `validate-skill` and `document-skill`.
 
 ### "I want to verify my setup..."
-
-1. **Check installed skills** → `check-waldronlab-skills`
-2. See [instructions/](instructions/) for platform-specific setup
+Run `check-waldronlab-skills` or check the `instructions/` directory.
 
 ### "I want to analyze a workflow and automate it..."
-
-1. **Create a skill for it** → `create-skill`
+Use `create-skill`.
 
 ### "I want to ensure my skill meets standards..."
-
-1. **Validate the skill** → `validate-skill`
-2. **Fix any issues** based on the validation report
-3. **Re-validate** until it passes
+Use `validate-skill` iteratively until it passes.
 
 ---
 
@@ -431,22 +279,16 @@ Skills for statistical analysis patterns in microbiome and multi-omics research.
 
 ### For Users
 
-1. **Browse this file** (SKILLS.md) to understand what's available
+1. **Browse this file** to understand what's available
 2. **Describe your need** to your AI agent in natural language
-3. **Agent handles the rest**:
-   - Matches your description to a skill
-   - Reads the skill file
-   - Executes the skill process
-   - Provides output
+3. **Agent handles the rest**: Matches need, reads skill file, executes process, and outputs result
 
 ### For AI Agents
 
-1. **Read SKILLS.md** (this file) as the primary discovery mechanism
-2. **Match user intent** to skill descriptions and purposes
-3. **Locate the skill file** at the specified location
-4. **Read and follow** the skill documentation
-5. **Execute** using your platform's available tools
-6. **Deliver output** as documented in the skill
+1. **Read SKILLS.md** as the primary discovery mechanism
+2. **Match user intent** to skill descriptions
+3. **Locate and read** the skill file at `skills/{skill-name}/SKILL.md`
+4. **Execute** using platform tools and deliver output
 
 See [AGENTS.md](AGENTS.md) for the complete agent behavior standard.
 
@@ -456,10 +298,10 @@ See [AGENTS.md](AGENTS.md) for the complete agent behavior standard.
 
 Want to add a new skill?
 
-1. **Brainstorm**: Use `create-skill` to develop your idea
-2. **Create**: Follow the guidance and create the skill file
-3. **Validate**: Run `validate-skill` to ensure standards compliance
-4. **Document**: Use `document-skill` to update this file (SKILLS.md)
+1. **Brainstorm**: Use `create-skill`
+2. **Create**: Follow guidance to create the skill file
+3. **Validate**: Run `validate-skill`
+4. **Document**: Use `document-skill` to update this file
 5. **Test**: Verify it works on your platform
 6. **Submit**: Create a PR for review
 
@@ -470,37 +312,13 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 ## Platform-Specific Information
 
 ### Claude Code
-
-See [instructions/claude.md](instructions/claude.md) for:
-- Setup and installation
-- Optional `/skill-name` shortcuts
-- Troubleshooting
+See [instructions/claude.md](instructions/claude.md) for setup and `/skill-name` shortcuts.
 
 ### GitHub Copilot
-
-See [instructions/copilot.md](instructions/copilot.md) for:
-- Setup and installation
-- Optional `@workspace` shortcuts
-- Troubleshooting
+See [instructions/copilot.md](instructions/copilot.md) for setup and `@workspace` shortcuts.
 
 ### Other Agents
-
-We're working on support for additional agents. See [instructions/](instructions/) for available adapters.
-
----
-
-## Skill File Structure
-
-Each skill is a markdown file with:
-- **YAML frontmatter**: Metadata (name, description, version, category, tags)
-- **Usage section**: How to invoke the skill
-- **Prerequisites section**: What's needed before running
-- **Process section**: Step-by-step instructions
-- **Output section**: What the skill produces
-- **Examples section**: Concrete usage scenarios
-- **Optional sections**: Platform notes, error handling, etc.
-
-For technical details on skill format, see [SKILL_STANDARD.md](SKILL_STANDARD.md).
+See [instructions/](instructions/) for available adapters.
 
 ---
 
@@ -516,6 +334,6 @@ For technical details on skill format, see [SKILL_STANDARD.md](SKILL_STANDARD.md
 
 ---
 
-**Last Updated**: 2026-04-03
+**Last Updated**: 2026-06-13
 **Version**: 2.0.0
 **Maintained by**: waldronlab
