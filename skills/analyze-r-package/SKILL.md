@@ -25,7 +25,7 @@ Invoke this skill when you want to understand an R package's architecture:
 ## Process
 
 1. **Read Package Metadata**: Analyze `DESCRIPTION` for name, purpose, version, dependencies, and classify its type (Data, Analysis, Infrastructure, Utility) based on `biocViews`.
-2. **Identify Exports**: Parse `NAMESPACE` for exported functions and classes/methods (S3, S4, R6, S7). Categorize them broadly (Data access, Processing, Visualization, Utility).
+2. **Identify Exports**: Parse `NAMESPACE` for exported functions and (if present) S4 classes/methods. Categorize exports broadly (Data access, Processing, Visualization, Utility).
 3. **Examine Directory Structure**: Note the presence of `data/`, `inst/extdata/`, `vignettes/`, `tests/testthat/`, and `src/`.
 4. **Detect Data Access Patterns**: Search `R/` source files for remote data access (ExperimentHub, AnnotationHub, DuckDB, AWS S3, HuggingFace, etc.) vs local data access.
 5. **Identify Classes**: List R class definitions (S3, S4, R6, S7) and their properties/slots/fields.

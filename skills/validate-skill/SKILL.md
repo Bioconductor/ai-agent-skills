@@ -25,7 +25,7 @@ Invoke this skill to validate a skill file:
 ## Process
 
 1. **Locate Target Skill**: Determine the skill to validate from the user's prompt or current directory.
-2. **Run Generic Validation (Optional)**: If available, run `markdownlint` and `yamllint -d relaxed` on the file.
+2. **Run Generic Validation (Optional)**: If available, run `markdownlint` on the file, and validate the YAML frontmatter syntax (e.g., by extracting the frontmatter and running `yamllint -d relaxed` on it).
 3. **Validate Repository Standards**: Check the file against the requirements in [AGENTS.md](../../AGENTS.md) and [SKILL_STANDARD.md](../../SKILL_STANDARD.md).
    - Ensure the YAML frontmatter contains required fields and no prohibited fields (`platforms`, `triggers`).
    - Check that the structure matches the standard format.
@@ -46,7 +46,7 @@ Generate a validation report in markdown format:
 
 ## Generic Validation
 **markdownlint**: ✅ PASS | ⚠️ [N] warnings
-**yamllint**: ✅ PASS | ❌ FAIL
+**YAML frontmatter**: ✅ PASS | ❌ FAIL
 
 ## Waldronlab-Specific Validation
 ### CRITICAL Issues (Must Fix)

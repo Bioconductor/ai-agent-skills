@@ -250,7 +250,7 @@ See [AGENTS.md](../AGENTS.md) for canonical behavior and [SKILLS.md](../SKILLS.m
 |---------|-------------|------------------|--------------------------|
 | **Skill Invocation Examples** | `SKILLS.md` | Natural language examples ("I want to make a skill that...") | N/A (Do not duplicate in `instructions/{agent}.md`) |
 | **Platform-Specific Shortcuts** | `instructions/{agent}.md` | Optional shortcuts (e.g., `/create-skill`) | N/A (Do not put shortcuts in skill files) |
-| **Skill Process & Logic** | `SKILL.md` files | Step-by-step process, prerequisites, output format, platform-agnostic logic | How to run the skill, what it produces (Do not put in `instructions/{agent}.md`) |
+| **Skill Process & Logic** | `SKILL.md` files | Step-by-step process, prerequisites, output format, platform-agnostic logic | Platform-specific setup, shortcuts, or configuration (do not put these in skill files) |
 | **Setup & Configuration** | `instructions/{agent}.md` | How to install skills, platform-specific troubleshooting | N/A |
 | **Canonical Behavior Rules** | `AGENTS.md` | Discovery/invocation rules, compliance criteria, prohibited metadata | N/A |
 | **Technical Format** | `SKILL_STANDARD.md` | YAML frontmatter fields, markdown structure, validation checklist | N/A |

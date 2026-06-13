@@ -26,7 +26,7 @@ Invoke this skill to check your setup or discover available skills:
 1. **Read SKILLS.md** from the repository root.
 2. **Parse** skill names, descriptions, and categories.
 3. **List/Recommend**: Present skills organized by category, or recommend the 1-2 best-fit skills for a specific task.
-4. **Report Status**: Start with "🏃 Levi says let's go!" if found, or "❌ Not detected" if missing.
+4. **Report Status**: Start with "✅ Skills detected" if found, or "❌ Skills not detected" if missing.
 
 ## Examples
 
@@ -36,7 +36,7 @@ Invoke this skill to check your setup or discover available skills:
 
 **Agent**: (Reads SKILLS.md)
 ```
-🏃 Levi says let's go!
+✅ Skills detected
 
 Available waldronlab skills:
 [Lists top-level categories and skills]
