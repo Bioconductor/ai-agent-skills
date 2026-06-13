@@ -13,13 +13,7 @@ Quick reference for creating skills with validation checklist, version managemen
 
 ## Quick Format Summary
 
-**For complete format specification, see [AGENTS.md § Skill File Format](AGENTS.md#skill-file-format).**
-
-**Quick reference**:
-- Required fields: `name`, `description`, `version`, `category`
-- Prohibited fields: `platforms`, `triggers` (agent-agnostic design)
-- Use natural language invocation examples
-- Describe WHAT to do, not HOW (tool-specific)
+See [AGENTS.md § Skill File Format](AGENTS.md#skill-file-format) for the complete format specification, including required fields, prohibited fields, and structural recommendations.
 
 ---
 
@@ -50,12 +44,10 @@ Skills use semantic versioning (MAJOR.MINOR.PATCH):
 Use this checklist when creating or updating skills (or run `validate-skill` to automate):
 
 ### Required Elements
-- [ ] YAML frontmatter includes all required fields (`name`, `description`, `version`, `category`)
+- [ ] Frontmatter conforms to [AGENTS.md § Minimal Required Fields](AGENTS.md#minimal-required-fields)
+- [ ] No prohibited fields present (see [AGENTS.md § What NOT to Include](AGENTS.md#what-not-to-include))
 - [ ] `name` is unique and kebab-case
-- [ ] `description` is one clear sentence suitable for discovery
-- [ ] `category` matches an existing domain or is a new domain with rationale
 - [ ] Core logic is platform-agnostic (describes WHAT, not HOW)
-- [ ] No `platforms:` or `triggers:` fields in YAML
 - [ ] Usage section shows natural language invocation examples
 
 ### Content Quality
@@ -64,7 +56,7 @@ Use this checklist when creating or updating skills (or run `validate-skill` to 
 - [ ] Output format is documented (if applicable)
 - [ ] Prerequisites are clear and complete
 - [ ] Cross-references use correct relative paths
-- [ ] Strategic code snippets are embedded only as guardrails within workflows (e.g., specific APIs), not as the primary logic
+- [ ] Strategic code snippets are embedded only as guardrails within workflows, not as the primary logic
 
 ### Portability
 - [ ] Tool references are generalized or in platform-specific notes
@@ -75,179 +67,61 @@ Use this checklist when creating or updating skills (or run `validate-skill` to 
 - [ ] No duplication of YAML field specifications from AGENTS.md
 - [ ] No duplication of validation rules or prohibited fields
 - [ ] External sources referenced, not copied (e.g., gists, standards)
-- [ ] References use format: "See [SOURCE] § [SECTION]"
 - [ ] Domain-specific content is skill's own, not duplicated from elsewhere
 
 ---
 
 ## Complete Skill Example
 
-Here's a well-formed skill demonstrating all key elements:
+Here's a well-formed skill demonstrating the structural elements:
 
 ```markdown
 ---
-name: analyze-r-package
-description: Analyze R/Bioconductor package structure to extract key information about its purpose, exports, and characteristics
+name: example-skill
+description: Brief one-line description of the skill's purpose
 version: 1.0.0
-category: r-packages
-tags: [r-packages, analysis, bioconductor, documentation]
-author: waldronlab
+category: meta
+tags: [example, demo]
 ---
 
-# analyze-r-package
+# example-skill
 
-Analyze an R/Bioconductor package to understand its structure, purpose, and key characteristics.
+Brief overview of what the skill does (1-2 paragraphs).
 
 ## Usage
 
-Invoke when you want to understand an R package's architecture:
-- "Analyze this R package"
-- "What type of R package is this?"
-- "Tell me about this package structure"
+- "Invoke this example skill"
+- "Show me how the skill format works"
 
 ## Prerequisites
 
-- Working directory is an R package root (contains DESCRIPTION file)
-- Package has standard R structure (R/, NAMESPACE, etc.)
+- Required dependencies or context.
 
 ## Process
 
-### 1. Read Package Metadata
+### 1. First Step
 
-Read and analyze the DESCRIPTION file to extract:
-- Package name from `Package` field
-- Title from `Title` field
-- Description from `Description` field
-- Version from `Version` field
+Describe what the agent should do, not how.
 
-### 2. Identify Exported Functions
+### 2. Second Step
 
-Parse the NAMESPACE file to extract all exports and categorize by function type.
-
-### 3. Detect Data Access Patterns
-
-Check for:
-- ExperimentHub metadata
-- DuckDB connections
-- Remote data sources
-
-### 4. Classify Package Type
-
-Based on the analysis, classify as:
-- Data package
-- Analysis package
-- Infrastructure package
-- Workflow package
+Continue the workflow.
 
 ## Output Format
 
-Produce a structured markdown summary with:
-- Package classification
-- Key exports (functions, classes, methods)
-- Data access patterns
-- Documentation status
-- Architecture notes
+Describe the expected result structure.
 
 ## Examples
 
-**User**: "Analyze this R package"
+**User**: "Invoke this example skill"
 
 **Skill produces**:
-```
-## Package Analysis: packageName
-### Classification
-- **Type**: Data Package
-- **Version**: 1.0.0
-- **Bioconductor**: Yes
-
-### Key Exports
-- Functions: `loadData()`, `queryDatabase()`
-- Data objects: `metadata`
-
-### Data Access
-- DuckDB remote parquet files via URL
-- ExperimentHub integration
-
-### Architecture
-- Uses DuckDB for efficient remote data access
-- Lazy loading for memory efficiency
-```
+`[Example output here]`
 
 ## Notes
 
-- This skill produces analysis for use by other skills or for user understanding
-- Manual verification recommended for complex packages
-- Results can be used directly as input to `create-package-instructions`
-
-See [SKILL_STANDARD.md](../../SKILL_STANDARD.md) for format details and [create-package-instructions](../create-package-instructions/SKILL.md) for how to use this analysis.
+- Platform-specific tips or additional caveats.
 ```
-
----
-
-## Migration from v1.x
-
-If you have skills from v1.x format (pre-agent-agnostic):
-
-### 1. Remove Platform-Specific Fields
-
-**Delete** from YAML frontmatter:
-```yaml
-platforms: [claude, copilot]  # ❌ Remove this
-triggers:                      # ❌ Remove this entire section
-  claude:
-    - /analyze-r-package
-  copilot:
-    - "@workspace analyze this R package"
-```
-
-### 2. Add Required Metadata
-
-**Add** to YAML frontmatter:
-```yaml
-category: r-packages           # ✅ Add domain
-tags: [analysis, bioconductor] # ✅ Add tags (optional but recommended)
-```
-
-### 3. Update Invocation Examples
-
-**Change** from platform-specific to natural language:
-
-**Before**:
-```markdown
-## Usage
-- Claude Code: `/analyze-r-package`
-- GitHub Copilot: `@workspace analyze this R package`
-```
-
-**After**:
-```markdown
-## Usage
-- "Analyze this R package"
-- "What type of R package is this?"
-
-Platform adapters may provide optional shortcuts.
-```
-
-### 4. Remove Tool-Specific Language
-
-**Change** from tool-specific to platform-agnostic:
-
-**Before**:
-```markdown
-Use the Read tool to read DESCRIPTION:
-- Read: DESCRIPTION file
-```
-
-**After**:
-```markdown
-Read and analyze the DESCRIPTION file to extract package metadata.
-```
-
-### 5. Test on Both Platforms
-
-- Verify natural language invocation works
-- Check optional shortcuts work (if configured in platform adapters)
-- Update SKILLS.md using `document-skill`
 
 ---
 
@@ -256,14 +130,12 @@ Read and analyze the DESCRIPTION file to extract package metadata.
 - **How does skill discovery work?** → See [AGENTS.md § Skill Discovery & Invocation](AGENTS.md#skill-discovery--invocation)
 - **How do I create a new skill?** → Use the `create-skill` skill or see [CONTRIBUTING.md](CONTRIBUTING.md)
 - **Where are skills stored?** → `skills/{skill-name}/SKILL.md` (flat structure)
-- **How do platform shortcuts work?** → See [instructions/claude.md](instructions/claude.md) or [instructions/copilot.md](instructions/copilot.md)
+- **How do platform shortcuts work?** → See `instructions/` for your specific platform
 - **How do I validate my skill?** → Run `validate-skill` or use the checklist above
 - **I found an issue** → File at https://github.com/waldronlab/ai-agent-skills/issues
 
 ---
 
 **Version**: 2.1.0
-**Last Updated**: 2026-04-03
+**Last Updated**: 2026-06-13
 **Authors**: waldronlab
-
-See [AGENTS.md](AGENTS.md) for canonical format specification, [SKILLS.md](SKILLS.md) for skill index, [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.

@@ -15,117 +15,34 @@ Update existing `.github/instructions/` files when an R/Bioconductor package cha
 
 Invoke this skill when your package has changed and you want to refresh the AI instructions:
 - "Update the package instructions"
-- "Refresh AI documentation"
-- "Update instructions based on package changes"
 - "Sync instructions with current package state"
-
-You must have existing `.github/instructions/` files for this skill to work.
 
 ## Prerequisites
 
-- Working directory is an R package root (contains DESCRIPTION file)
-- Existing instructions exist at `.github/instructions/`
-- Instructions were previously generated or created
+- Working directory is an R package root.
+- Existing instructions exist at `.github/instructions/`.
 
 ## Process
 
-### 1. Run Package Analysis
-
-Analyze the current package state.
-
-**Action**: Run the `analyze-r-package` skill to produce a complete current package analysis.
-
-This provides the current package structure and characteristics.
-
-### 2. Read Existing Instructions
-
-Read all existing instruction files in `.github/instructions/`:
-
-For each `.md` file:
-- Read the complete content
-- Note the structure and sections
-- Identify manually-added content (domain explanations, specific examples, warnings)
-- Extract key documented information (version numbers, function lists, etc.)
-
-### 3. Identify Changes
-
-Compare current package analysis to documented state:
-
-**Change categories**:
-- **Metadata**: Version, description, dependencies, biocViews
-- **Structure**: New/removed/renamed functions, vignettes, S4 classes, test files
-- **Content**: Data sources, access patterns, examples
-
-### 4. Determine Update Scope
-
-For each instruction file, check if template variables have changed:
-
-1. Read template from `templates/package-instructions/[filename].template`
-2. Extract template variables (all `{{VARIABLE_NAME}}` placeholders)
-3. Compare variable values: current analysis vs. existing documentation
-4. If any variable differs, file needs update
-
-See `templates/package-instructions/README.md` for:
-- Template variable mappings
-- Update trigger rules by file
-
-### 5. Update Strategy
-
-**Preserve custom content**:
-- Domain explanations, examples, warnings, author notes
-- Detect: Multi-sentence paragraphs not matching template structure
-
-**Update systematically**:
-- **Version numbers**: Find-replace across all files
-- **Function lists**: Add new with `[Description needed]`, remove deleted, preserve custom descriptions
-- **Sections**: Targeted edits, not wholesale replacement
-
-**Mark changes** (optional):
-```markdown
-<!-- Auto-updated 2026-04-03: Added new function -->
-```
-
-### 6. Apply Updates
-
-For each file with changed variables:
-- Make targeted edits to update variable values
-- Preserve surrounding custom content
-- Verify cross-references after changes
-
-### 7. Provide Update Summary
-
-Report:
-- Changes detected
-- Files updated
-- Customizations preserved
-- Items needing manual review
+1. **Analyze Current State**: Run the `analyze-r-package` skill to produce a current package analysis.
+2. **Identify Changes**: Read existing `.github/instructions/` `.md` files. Compare the current package analysis to the documented state to identify changes in metadata (version, dependencies), structure (functions, vignettes, classes), and content (data sources).
+3. **Determine Update Scope**: Check which template variables have changed by referencing `templates/package-instructions/README.md`. If a variable differs, its corresponding file needs an update.
+4. **Apply Updates Strategy**:
+   - **Preserve Custom Content**: Retain manually-added domain explanations, examples, and warnings.
+   - **Update Systematically**: Update version numbers globally. Add new functions (with `[Description needed]`), remove deleted ones, and preserve custom descriptions.
+   - **Targeted Edits**: Modify only the changed variables, rather than completely replacing files.
+5. **Provide Update Summary**: Report the detected changes, updated files, and any items requiring manual review.
 
 ## Error Handling
 
-- **No instructions found**: Direct to `create-package-instructions`
-- **No changes detected**: Report up-to-date status
-- **Conflicts**: Prompt for keep/replace/merge decision
-- **Format mismatch**: Offer skip/attempt/regenerate options
-- **Template not found**: Verify `templates/package-instructions/` exists
+- **No instructions found**: Direct the user to `create-package-instructions`.
+- **Conflicts**: Prompt for a keep/replace/merge decision if manual changes conflict directly with template updates.
 
 ## Integration
 
-**This skill uses**:
-- `analyze-r-package` - To get current package state
-
-**This skill is used by**:
-- Users manually when package changes
-
-**Works with**:
-- `create-package-instructions` - For initial creation
-
-## Notes
-
-- Preserve customizations unless user requests overwrite
-- Use template structure to identify what changed
-- Verify cross-references after updates
-- See `templates/package-instructions/README.md` for update rules
+- **Uses**: `analyze-r-package`
+- **Works with**: `create-package-instructions`
 
 ---
 
-**Related**: See [create-package-instructions](../create-package-instructions/SKILL.md) for creating new instructions, [analyze-r-package](../analyze-r-package/SKILL.md) for package analysis.
+**Related**: See [create-package-instructions](../create-package-instructions/SKILL.md), [analyze-r-package](../analyze-r-package/SKILL.md).

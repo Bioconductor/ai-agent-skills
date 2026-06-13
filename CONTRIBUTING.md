@@ -11,29 +11,12 @@ Have a workflow or pattern that would help others?
 **Quick start**: Use the `create-skill` skill for guided help:
 - "Help me create a new skill for [purpose]"
 
-**Manual process**:
-1. Create directory: `skills/{skill-name}/`
-2. Create file: `skills/{skill-name}/SKILL.md`
-3. Follow [SKILL_STANDARD.md](SKILL_STANDARD.md) format
-4. **Validate**: Use `validate-skill` to check compliance
-5. Fix any issues found in validation report
-6. Test on at least 3 different projects
-7. Submit PR
-
 ### Improve Existing Skills
 
 Found a bug or enhancement?
 1. Test your changes on multiple projects
 2. Update [SKILLS.md](SKILLS.md) if description changes
 3. Document breaking changes clearly
-4. Submit PR
-
-### Examples
-
-Add examples showing skill output:
-1. Use `skills/{skill-name}/examples/` directory
-2. Include representative real-world case
-3. Document what makes it notable
 4. Submit PR
 
 ### Documentation
@@ -61,55 +44,12 @@ Report bugs or suggest features via [GitHub Issues](https://github.com/waldronla
 5. **Validate**: Run `validate-skill` to ensure standards compliance
 6. Fix any CRITICAL or WARNING issues from validation
 7. Test thoroughly (at least 3 projects)
-8. Update [SKILLS.md](SKILLS.md) to include your skill
+8. Update [SKILLS.md](SKILLS.md) using `document-skill` to include your skill
 9. Submit pull request
 
 ## Skill Guidelines
 
-### Required
-
-- Follow [SKILL_STANDARD.md](SKILL_STANDARD.md) format
-- Include required YAML frontmatter: `name`, `description`, `version`, `category`
-- No `platforms:` or `triggers:` fields (skills are agent-agnostic)
-- Use natural language invocation examples
-- Test on multiple projects before submitting
-
-### Format Example
-
-```yaml
----
-name: my-skill
-description: One-line purpose for discovery
-version: 1.0.0
-category: domain
-tags: [tag1, tag2]
-author: your-name
----
-
-# my-skill
-
-What this skill does.
-
-## Usage
-
-Natural language examples:
-- "Do [task] for me"
-- "Help me with [thing]"
-
-## Process
-
-### 1. First Step
-
-Platform-agnostic description of what to do.
-
-### 2. Second Step
-
-Continue with clear steps.
-
-## Examples
-
-Show realistic usage scenarios.
-```
+Skills must conform strictly to [AGENTS.md § Skill File Format](AGENTS.md#skill-file-format) and [SKILL_STANDARD.md](SKILL_STANDARD.md). Do not duplicate required fields or metadata definitions in your skill files.
 
 ### Testing & Validation
 
@@ -140,9 +80,3 @@ Before submitting:
 ## License
 
 By contributing, you agree that your contributions will be licensed under the MIT License.
-
----
-
-For technical details on skill format, see [SKILL_STANDARD.md](SKILL_STANDARD.md).
-
-For understanding how skills work, see [AGENTS.md](AGENTS.md) and [SKILLS.md](SKILLS.md).

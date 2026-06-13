@@ -486,6 +486,17 @@ browseVignettes("PackageName")
 **Workflows**:
 - https://bioconductor.org/packages/release/BiocViews.html#___Workflow
 
+## Verification
+
+### Run BiocCheck
+
+If you are modifying or validating a package, you can run BiocCheck:
+
+```r
+# Run BiocCheck on the package
+BiocCheck::BiocCheck(".")
+```
+
 ## External Resources
 
 - [Bioconductor User Documentation](https://bioconductor.org/help/)
