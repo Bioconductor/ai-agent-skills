@@ -179,6 +179,33 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 ---
 
+### update-r-news
+
+**Purpose**: Draft or update an R package NEWS file from git commit history, examining diffs when commit messages are vague
+
+**Location**: `skills/update-r-news/SKILL.md`
+
+**When to use**:
+- Adding a NEWS entry before a Bioconductor release
+- Drafting a changelog from recent commits
+- Updating `NEWS.md`, `NEWS`, or `NEWS.Rd` after a development cycle
+- Saving time when commit messages alone are insufficient to write clear NEWS entries
+
+**What happens**:
+- Detects the NEWS file format in use (`NEWS.md`, `NEWS`, or `NEWS.Rd`)
+- Derives the upcoming even-numbered release version from the current devel version
+- Finds the last release tag and retrieves all commits since then
+- Extracts PR titles from merge commits when available
+- Identifies vague commit messages (≤ 3 words or known filler phrases) and inspects their diffs to infer what changed
+- Categorises changes using headings already present in the NEWS file
+- Shows a full preview and asks for confirmation before writing to disk
+
+**Output**: A drafted NEWS block shown for review; upon confirmation, the updated NEWS file on disk with the new version block prepended.
+
+**Related skills**: analyze-r-package, update-package-instructions
+
+---
+
 ## Metagenomics Skills
 
 *Planned for future release*
@@ -202,7 +229,7 @@ Skills for statistical analysis patterns in microbiome and multi-omics research.
 | Category | Skills | Purpose |
 |----------|--------|---------|
 | **meta** | create-skill, check-waldronlab-skills, document-skill, validate-skill | Repository and workflow infrastructure |
-| **r-packages** | analyze-r-package, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions | R/Bioconductor package development |
+| **r-packages** | analyze-r-package, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
 | **metagenomics** | (Planned) | Metagenomics data workflows |
 | **statistical-methods** | (Planned) | Statistical analysis patterns |
 
@@ -214,22 +241,25 @@ Skills for statistical analysis patterns in microbiome and multi-omics research.
 | **testing** | improve-code-coverage | Software testing and coverage |
 | **validation** | security-audit-r-package, validate-skill | Quality control and standards compliance |
 | **quality-control** | security-audit-r-package, validate-skill | Ensuring skill quality |
-| **documentation** | create-package-instructions, document-skill, update-package-instructions | Generating and maintaining docs |
-| **automation** | document-skill | Automating repetitive documentation tasks |
+| **documentation** | create-package-instructions, document-skill, update-package-instructions, update-r-news | Generating and maintaining docs |
+| **automation** | document-skill, update-r-news | Automating repetitive documentation tasks |
 | **analysis** | analyze-r-package | Understanding code and architecture |
 | **security** | security-audit-r-package | Security audits and vulnerability detection |
 | **audit** | security-audit-r-package | Comprehensive code auditing |
-| **bioconductor** | analyze-r-package, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions | Bioconductor-specific workflows |
+| **bioconductor** | analyze-r-package, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
 | **code-coverage** | improve-code-coverage | Code coverage analysis |
 | **covr** | improve-code-coverage | Tools wrapping the covr package |
 | **data-access** | analyze-r-package (detects), create-package-instructions | Working with remote data |
+| **git** | update-r-news | Git-based workflows |
+| **changelog** | update-r-news | Changelog and release note generation |
+| **news** | update-r-news | R package NEWS file management |
 
 ---
 
 ## Finding Skills by Use Case
 
 ### "I want to work on an R package..."
-Use `analyze-r-package` to understand it, `create-package-instructions` to generate AI docs, and `improve-code-coverage` or `security-audit-r-package` for quality control.
+Use `analyze-r-package` to understand it, `create-package-instructions` to generate AI docs, `improve-code-coverage` or `security-audit-r-package` for quality control, and `update-r-news` for release notes.
 
 ### "I want to create a new skill..."
 Start with `create-skill` for guided help, then `validate-skill` and `document-skill`.
