@@ -4,7 +4,7 @@ description: Automate documentation updates to SKILLS.md after creating or modif
 version: 1.0.1
 category: meta
 tags: [meta, infrastructure, documentation, automation]
-author: waldronlab
+author: bioconductor
 ---
 
 # document-skill

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document defines the canonical behavior rules that ALL AI agents must follow to work with waldronlab's skill repository. It establishes a platform-agnostic contract: agents adapt to this standard, not the other way around.
+This document defines the canonical behavior rules that ALL AI agents must follow to work with bioconductor's skill repository. It establishes a platform-agnostic contract: agents adapt to this standard, not the other way around.
 
 ## Core Principles
 
@@ -17,7 +17,7 @@ Skills do not reference `platforms:`, `triggers:`, or other agent-specific confi
 
 ### 2. Single Source of Truth
 
-- **One repository**: waldronlab/ai-agent-skills is the authoritative source
+- **One repository**: bioconductor/ai-agent-skills is the authoritative source
 - **One skill file per skill**: Located at `skills/{skill-name}/SKILL.md`
 - **One description per skill**: Agents use this description to understand when to invoke the skill
 - **No duplication**: Do not maintain separate versions for Claude, Copilot, or other agents
@@ -59,7 +59,7 @@ name: skill-name              # Unique identifier (kebab-case, REQUIRED)
 description: Brief purpose    # One-line description driving discovery (REQUIRED)
 version: 1.0.0               # Semantic version (REQUIRED)
 category: meta               # Primary domain: meta, r-packages, etc. (REQUIRED)
-author: waldronlab           # Creator/maintainer (OPTIONAL)
+author: bioconductor           # Creator/maintainer (OPTIONAL)
 tags: [tag1, tag2]          # Searchable tags (OPTIONAL)
 ---
 ```
@@ -291,7 +291,7 @@ See [AGENTS.md](../AGENTS.md) for canonical behavior and [SKILLS.md](../SKILLS.m
 
 ## Maintenance
 
-**Maintained by**: waldronlab
+**Maintained by**: bioconductor
 
 **When to update**:
 - New compliance criteria identified

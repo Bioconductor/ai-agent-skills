@@ -36,10 +36,10 @@ For AI agents helping with **package development**:
 
 **Usage**: Referenced by generated instruction files to avoid duplication of universal standards. Package-specific instructions focus on what's unique to that package.
 
-### [waldronlab-standards.md](waldronlab-standards.md)
+### [bioconductor-standards.md](bioconductor-standards.md)
 **Purpose**: Lab-specific conventions and patterns
 
-Waldronlab conventions that complement Bioconductor standards:
+Bioconductor conventions that complement Bioconductor standards:
 - Git workflow (branch naming, commit messages)
 - AI agent acknowledgments in commits
 - Pull request guidelines
@@ -67,7 +67,7 @@ Package-specific `.github/instructions/` files include:
 ### Referenced Standards
 Package instructions **reference** (not duplicate) universal rules:
 - Core Bioconductor standards → [bioconductor-development.md](bioconductor-development.md)
-- Lab-wide conventions → [waldronlab-standards.md](waldronlab-standards.md)
+- Lab-wide conventions → [bioconductor-standards.md](bioconductor-standards.md)
 
 ### Example Structure
 
@@ -77,8 +77,8 @@ A generated `20-development.md` file looks like:
 # Development Patterns
 
 For complete Bioconductor standards, see:
-- [Core standards](https://github.com/waldronlab/ai-agent-skills/blob/main/skills/create-package-instructions/templates/bioconductor-development.md)
-- [Waldronlab conventions](https://github.com/waldronlab/ai-agent-skills/blob/main/skills/create-package-instructions/templates/waldronlab-standards.md)
+- [Core standards](https://github.com/bioconductor/ai-agent-skills/blob/main/skills/create-package-instructions/templates/bioconductor-development.md)
+- [Bioconductor conventions](https://github.com/bioconductor/ai-agent-skills/blob/main/skills/create-package-instructions/templates/bioconductor-standards.md)
 
 ## Package-Specific Patterns
 
@@ -116,7 +116,7 @@ Functions in this package use these validation helpers:
 - New best practices emerge for R package development
 - testthat or roxygen2 introduce breaking changes
 
-### Update waldronlab-standards.md when:
+### Update bioconductor-standards.md when:
 - Lab adopts new conventions
 - Git workflow changes
 - New domain-specific patterns emerge
@@ -158,9 +158,9 @@ After generating instructions:
 
 ## Version History
 
-- **1.0.0** (2026-04-03) - Initial creation with bioconductor-standards.md and waldronlab-standards.md
+- **1.0.0** (2026-04-03) - Initial creation with bioconductor-standards.md and bioconductor-standards.md
 
 ---
 
-**Maintainers**: waldronlab
+**Maintainers**: bioconductor
 **Purpose**: Shared standards and templates for R package instruction generation

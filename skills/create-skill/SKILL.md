@@ -4,7 +4,7 @@ description: Help create a new AI agent skill through collaborative Q&A
 version: 1.3.0
 category: meta
 tags: [meta, infrastructure, skill-creation]
-author: waldronlab
+author: bioconductor
 ---
 
 # create-skill

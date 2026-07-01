@@ -1,25 +1,25 @@
 ---
-name: check-waldronlab-skills
-description: Verify that waldronlab/ai-agent-skills are available and help users find the right skill
+name: check-bioconductor-skills
+description: Verify that bioconductor/ai-agent-skills are available and help users find the right skill
 version: 1.0.0
 category: meta
 tags: [meta, infrastructure, discovery]
-author: waldronlab
+author: bioconductor
 ---
 
-# check-waldronlab-skills
+# check-bioconductor-skills
 
-Confirm waldronlab skills are installed and visible, then provide a concise catalog of available skills by querying SKILLS.md.
+Confirm bioconductor skills are installed and visible, then provide a concise catalog of available skills by querying SKILLS.md.
 
 ## Usage
 
 Invoke this skill to check your setup or discover available skills:
-- "Do I have the waldronlab skills?"
-- "Is there a good waldronlab skill for [task]?"
+- "Do I have the bioconductor skills?"
+- "Is there a good bioconductor skill for [task]?"
 
 ## Prerequisites
 
-- The `waldronlab/ai-agent-skills` repository is present locally.
+- The `bioconductor/ai-agent-skills` repository is present locally.
 
 ## Process
 
@@ -32,13 +32,13 @@ Invoke this skill to check your setup or discover available skills:
 
 ### Example: Discovery and Recommendation
 
-**User**: "Do I have the waldronlab skills? Is there one for testing?"
+**User**: "Do I have the bioconductor skills? Is there one for testing?"
 
 **Agent**: (Reads SKILLS.md)
 ```
 ✅ Skills detected
 
-Available waldronlab skills:
+Available bioconductor skills:
 [Lists top-level categories and skills]
 
 For testing, I recommend:

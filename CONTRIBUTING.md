@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for your interest in contributing to waldronlab AI Agent Skills!
+Thank you for your interest in contributing to bioconductor AI Agent Skills!
 
 ## What You Can Contribute
 
@@ -25,7 +25,7 @@ Fix typos, clarify instructions, update outdated info - all welcome via PR.
 
 ### Issues
 
-Report bugs or suggest features via [GitHub Issues](https://github.com/waldronlab/ai-agent-skills/issues).
+Report bugs or suggest features via [GitHub Issues](https://github.com/bioconductor/ai-agent-skills/issues).
 
 ## How to Contribute
 
@@ -74,8 +74,8 @@ Before submitting:
 - **Skill creation help**: Use the `create-skill` skill
 - **Validation help**: Use the `validate-skill` skill to check if your skill meets standards
 - **Setup questions**: See [instructions/](instructions/) for your platform
-- **General questions**: [GitHub Discussions](https://github.com/waldronlab/ai-agent-skills/discussions)
-- **Bugs/features**: [GitHub Issues](https://github.com/waldronlab/ai-agent-skills/issues)
+- **General questions**: [GitHub Discussions](https://github.com/bioconductor/ai-agent-skills/discussions)
+- **Bugs/features**: [GitHub Issues](https://github.com/bioconductor/ai-agent-skills/issues)
 
 ## License
 

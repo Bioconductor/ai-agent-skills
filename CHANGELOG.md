@@ -55,7 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SKILL_STANDARD.md - Quick reference with checklist and examples
 - document-skill - Automates SKILLS.md updates after skill creation
 - validate-skill - Validates skills against repository standards
-- check-waldronlab-skills - Verifies installation and lists available skills
+- check-bioconductor-skills - Verifies installation and lists available skills
 - Complete r-packages skill suite (analyze-r-package, create-package-instructions, update-package-instructions)
 - instructions/ directory with platform adapters (claude.md, copilot.md, gemini.md)
 - Migration guide in SKILL_STANDARD.md for v1.x users

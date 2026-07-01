@@ -1,4 +1,4 @@
-# waldronlab AI Agent Skills
+# bioconductor AI Agent Skills
 
 A collection of agent-agnostic skills and instructions for AI assistants (Claude Code, GitHub Copilot, Gemini, and future platforms) working on projects relevant to the Waldron Lab at CUNY SPH. This repository provides domain-specific knowledge to help AI agents understand our codebases, workflows, and standards.
 
@@ -38,7 +38,7 @@ See [AGENTS.md](AGENTS.md) for detailed requirements and [SKILL_STANDARD.md](SKI
 
 ## Quick Start
 1. Install the skills on your platform (see [instructions/](instructions/))
-2. Ask your agent: "What waldronlab skills do I have?" to confirm
+2. Ask your agent: "What bioconductor skills do I have?" to confirm
 3. Use natural language to invoke skills (see [SKILLS.md](SKILLS.md) for examples)
 
 ## Usage Examples
@@ -89,8 +89,8 @@ We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Support and Feedback
 
-- **Issues**: Report bugs or request features via [GitHub Issues](https://github.com/waldronlab/ai-agent-skills/issues)
-- **Discussions**: Ask questions in [GitHub Discussions](https://github.com/waldronlab/ai-agent-skills/discussions)
+- **Issues**: Report bugs or request features via [GitHub Issues](https://github.com/bioconductor/ai-agent-skills/issues)
+- **Discussions**: Ask questions in [GitHub Discussions](https://github.com/bioconductor/ai-agent-skills/discussions)
 
 ## License
 
@@ -98,4 +98,4 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Acknowledgments
 
-These skills are developed and maintained by the waldronlab at CUNY SPH and collaborators to make AI agents more effective collaborators.
+These skills are developed and maintained by the bioconductor at CUNY SPH and collaborators to make AI agents more effective collaborators.

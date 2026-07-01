@@ -4,7 +4,7 @@ description: Analyze R/Bioconductor package structure to extract key information
 version: 1.0.0
 category: r-packages
 tags: [r-packages, analysis, bioconductor, documentation]
-author: waldronlab
+author: bioconductor
 ---
 
 # analyze-r-package

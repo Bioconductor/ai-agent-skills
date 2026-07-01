@@ -3,7 +3,7 @@
 Open Gemini Code Assist, and enter into the chat box:
 
 ```
-I want the waldronlab skills from https://github.com/waldronlab/ai-agent-skills
+I want the bioconductor skills from https://github.com/bioconductor/ai-agent-skills
 
 You must also read and adhere to the agent behavior and safe execution standards defined in AGENTS.md.
 ```
@@ -13,7 +13,7 @@ This should download all skills and store them locally at ~/.gemini/ai-agent-ski
 To test persistence, start a new conversation and ask Gemini to recall the skills you shared. For example:
 
 ```
-What waldronlab skills do I have?
+What bioconductor skills do I have?
 ```
 
 **Note**: Google AI Pro for students (https://gemini.google/students/) provides additional quota and access to more recent models. 

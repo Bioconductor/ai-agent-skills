@@ -233,6 +233,6 @@ When updating existing instructions:
 
 - Templates should be minimal and focus on structure
 - Variable names use SCREAMING_SNAKE_CASE
-- Preserve references to shared standards (bioconductor-development.md, waldronlab-standards.md)
+- Preserve references to shared standards (bioconductor-development.md, bioconductor-standards.md)
 - When adding new variables, update this README
 - Test template changes against multiple package types

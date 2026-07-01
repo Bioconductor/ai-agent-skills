@@ -4,7 +4,7 @@ description: Update existing AI instruction documentation when an R/Bioconductor
 version: 1.0.0
 category: r-packages
 tags: [r-packages, documentation, bioconductor]
-author: waldronlab
+author: bioconductor
 ---
 
 # update-package-instructions

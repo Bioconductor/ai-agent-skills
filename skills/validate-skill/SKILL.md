@@ -4,12 +4,12 @@ description: Validate that a skill conforms to the ai-agent-skills repository st
 version: 1.1.0
 category: meta
 tags: [meta, infrastructure, validation, quality-control]
-author: waldronlab
+author: bioconductor
 ---
 
 # validate-skill
 
-Validate that a skill conforms to waldronlab standards. Uses generic validators (markdownlint, yamllint) for basic checks, then adds waldronlab-specific validation for platform-agnostic compliance and repository conventions.
+Validate that a skill conforms to bioconductor standards. Uses generic validators (markdownlint, yamllint) for basic checks, then adds bioconductor-specific validation for platform-agnostic compliance and repository conventions.
 
 ## Usage
 
@@ -48,7 +48,7 @@ Generate a validation report in markdown format:
 **markdownlint**: ✅ PASS | ⚠️ [N] warnings
 **YAML frontmatter**: ✅ PASS | ❌ FAIL
 
-## Waldronlab-Specific Validation
+## Bioconductor-Specific Validation
 ### CRITICAL Issues (Must Fix)
 ❌ **[Issue title]** ([location])
    - Issue: [What violates standards]

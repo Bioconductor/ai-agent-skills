@@ -4,7 +4,7 @@ description: Create complete AI instruction documentation for an R/Bioconductor 
 version: 1.0.0
 category: r-packages
 tags: [r-packages, documentation, bioconductor]
-author: waldronlab
+author: bioconductor
 ---
 
 # create-package-instructions

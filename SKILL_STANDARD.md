@@ -132,10 +132,10 @@ Describe the expected result structure.
 - **Where are skills stored?** → `skills/{skill-name}/SKILL.md` (flat structure)
 - **How do platform shortcuts work?** → See `instructions/` for your specific platform
 - **How do I validate my skill?** → Run `validate-skill` or use the checklist above
-- **I found an issue** → File at https://github.com/waldronlab/ai-agent-skills/issues
+- **I found an issue** → File at https://github.com/bioconductor/ai-agent-skills/issues
 
 ---
 
 **Version**: 2.1.0
 **Last Updated**: 2026-06-13
-**Authors**: waldronlab
+**Authors**: bioconductor

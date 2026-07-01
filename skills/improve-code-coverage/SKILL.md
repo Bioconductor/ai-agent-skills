@@ -4,7 +4,7 @@ description: Analyze R package code coverage using covr, classify testing gaps, 
 version: 1.0.0
 category: r-packages
 tags: [r-packages, testing, code-coverage, covr, bioconductor]
-author: waldronlab
+author: bioconductor
 ---
 
 # improve-code-coverage

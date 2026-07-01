@@ -1,17 +1,17 @@
 # Claude Code Setup
 
-Add waldronlab skills to your global Claude instructions.
+Add bioconductor skills to your global Claude instructions.
 
 ## Setup
 
 1. Clone the repository (if needed):
    ```bash
-   git clone https://github.com/waldronlab/ai-agent-skills.git
+   git clone https://github.com/bioconductor/ai-agent-skills.git
    ```
 
 2. Add to `~/.claude/CLAUDE.md`:
    ```markdown
-   # waldronlab AI Agent Skills
+   # bioconductor AI Agent Skills
 
    See: `/path/to/ai-agent-skills/SKILLS.md`
    Behavior Standard: `/path/to/ai-agent-skills/AGENTS.md`

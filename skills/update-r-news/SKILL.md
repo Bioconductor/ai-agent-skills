@@ -4,7 +4,7 @@ description: Draft or update an R package NEWS file from git commit history, exa
 version: 1.0.0
 category: r-packages
 tags: [r-packages, documentation, git, changelog, news, bioconductor]
-author: waldronlab
+author: bioconductor
 ---
 
 # update-r-news

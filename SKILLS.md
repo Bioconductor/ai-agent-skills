@@ -1,6 +1,6 @@
 # Available Skills
 
-This is the canonical index of all available AI agent skills in the waldronlab/ai-agent-skills repository. Use this to discover and understand what skills are available and when to use them.
+This is the canonical index of all available AI agent skills in the bioconductor/ai-agent-skills repository. Use this to discover and understand what skills are available and when to use them.
 
 > **Note**: All skills are located at `skills/{skill-name}/SKILL.md`.
 
@@ -39,20 +39,20 @@ Infrastructure and workflow skills for working with this repository itself.
 
 **Output**: A complete skill with validated file and updated SKILLS.md, ready for testing and committing
 
-**Related skills**: validate-skill, document-skill, check-waldronlab-skills
+**Related skills**: validate-skill, document-skill, check-bioconductor-skills
 
 ---
 
-### check-waldronlab-skills
+### check-bioconductor-skills
 
-**Purpose**: List and verify installed waldronlab skills
+**Purpose**: List and verify installed bioconductor skills
 
 **When to use**:
 - Verifying skills are correctly installed or discovering available skills
 
 **Invocation**:
 - "What skills are available?"
-- "List waldronlab skills"
+- "List bioconductor skills"
 
 **Output**: List of available skills and setup status
 
@@ -71,7 +71,7 @@ Infrastructure and workflow skills for working with this repository itself.
 
 **Output**: Comprehensive validation report with pass/fail status, categorized issues, and specific fix suggestions
 
-**Related skills**: create-skill, check-waldronlab-skills, document-skill
+**Related skills**: create-skill, check-bioconductor-skills, document-skill
 
 ---
 
@@ -88,13 +88,13 @@ Infrastructure and workflow skills for working with this repository itself.
 
 **Output**: Updated SKILLS.md with the skill entry added to all relevant sections
 
-**Related skills**: create-skill, validate-skill, check-waldronlab-skills
+**Related skills**: create-skill, validate-skill, check-bioconductor-skills
 
 ---
 
 ## R/Bioconductor Package Skills
 
-Skills for analyzing, documenting, and developing R/Bioconductor packages following waldronlab conventions.
+Skills for analyzing, documenting, and developing R/Bioconductor packages following bioconductor conventions.
 
 ### analyze-r-package
 
@@ -206,6 +206,27 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 ---
 
+## Bioconductor How-Tos
+
+Skills indexing focused, practical how-tos for common Bioconductor data analysis tasks.
+
+### bioc-howto
+
+**Purpose**: A consolidated index of Bioconductor how-to skills covering genomics, sequencing, and omics data analysis tasks
+
+**When to use**:
+- Looking for step-by-step instructions for common Bioconductor tasks (e.g., loading BAM files, manipulating GRanges, extracting sequences)
+- Needing examples of standard Bioconductor workflows
+
+**Invocation**:
+- "How do I do [task] in Bioconductor?"
+- "Can you show me a Bioconductor how-to for [task]?"
+- "Check the bioc-howto index for [task]"
+
+**Output**: Links to and instructions from the relevant how-to markdown file.
+
+---
+
 ## Metagenomics Skills
 
 *Planned for future release*
@@ -228,8 +249,9 @@ Skills for statistical analysis patterns in microbiome and multi-omics research.
 
 | Category | Skills | Purpose |
 |----------|--------|---------|
-| **meta** | create-skill, check-waldronlab-skills, document-skill, validate-skill | Repository and workflow infrastructure |
+| **meta** | create-skill, check-bioconductor-skills, document-skill, validate-skill | Repository and workflow infrastructure |
 | **r-packages** | analyze-r-package, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
+| **bioconductor-how-tos** | bioc-howto | Bioconductor data analysis practical guides |
 | **metagenomics** | (Planned) | Metagenomics data workflows |
 | **statistical-methods** | (Planned) | Statistical analysis patterns |
 
@@ -237,7 +259,7 @@ Skills for statistical analysis patterns in microbiome and multi-omics research.
 
 | Tag | Skills | Use Case |
 |-----|--------|----------|
-| **infrastructure** | create-skill, check-waldronlab-skills, document-skill, validate-skill | Repository and workflow tasks |
+| **infrastructure** | create-skill, check-bioconductor-skills, document-skill, validate-skill | Repository and workflow tasks |
 | **testing** | improve-code-coverage | Software testing and coverage |
 | **validation** | security-audit-r-package, validate-skill | Quality control and standards compliance |
 | **quality-control** | security-audit-r-package, validate-skill | Ensuring skill quality |
@@ -253,6 +275,7 @@ Skills for statistical analysis patterns in microbiome and multi-omics research.
 | **git** | update-r-news | Git-based workflows |
 | **changelog** | update-r-news | Changelog and release note generation |
 | **news** | update-r-news | R package NEWS file management |
+| **data-analysis** | bioc-howto | Practical guides for analyzing omics data |
 
 ---
 
@@ -265,7 +288,10 @@ Use `analyze-r-package` to understand it, `create-package-instructions` to gener
 Start with `create-skill` for guided help, then `validate-skill` and `document-skill`.
 
 ### "I want to verify my setup..."
-Run `check-waldronlab-skills` or check the `instructions/` directory.
+Run `check-bioconductor-skills` or check the `instructions/` directory.
+
+### "I want to perform a Bioconductor data analysis task..."
+Check the `bioc-howto` index for step-by-step guides and code examples.
 
 ### "I want to analyze a workflow and automate it..."
 Use `create-skill`.
@@ -328,12 +354,12 @@ See [instructions/](instructions/) for available adapters.
 - **How do I create a new skill?** → Use `create-skill` or see [CONTRIBUTING.md](CONTRIBUTING.md)
 - **Where are the actual skill files?** → `skills/{skill-name}/SKILL.md`
 - **Can I use skills on multiple platforms?** → Yes! Skills are platform-agnostic
-- **How do I verify my setup?** → Use `check-waldronlab-skills` or see instructions/{agent}.md
-- **I found an issue with a skill** → File an issue at https://github.com/waldronlab/ai-agent-skills/issues
-- **I want to suggest a new skill** → Open a discussion at https://github.com/waldronlab/ai-agent-skills/discussions
+- **How do I verify my setup?** → Use `check-bioconductor-skills` or see instructions/{agent}.md
+- **I found an issue with a skill** → File an issue at https://github.com/bioconductor/ai-agent-skills/issues
+- **I want to suggest a new skill** → Open a discussion at https://github.com/bioconductor/ai-agent-skills/discussions
 
 ---
 
 **Last Updated**: 2026-06-13
 **Version**: 2.0.0
-**Maintained by**: waldronlab
+**Maintained by**: bioconductor

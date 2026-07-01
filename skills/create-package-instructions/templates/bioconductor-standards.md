@@ -1,6 +1,6 @@
-# Waldronlab R Package Standards
+# Bioconductor R Package Standards
 
-Lab-specific conventions and patterns for R packages developed in waldronlab at CUNY SPH. These complement the core [Bioconductor standards](bioconductor-development.md).
+Lab-specific conventions and patterns for R packages developed in bioconductor at CUNY SPH. These complement the core [Bioconductor standards](bioconductor-development.md).
 
 **For package-specific patterns, see the package's `.github/instructions/` directory.**
 
@@ -425,7 +425,7 @@ When reviewing PRs, pay attention to:
 
 ## External Resources
 
-- [Waldronlab GitHub](https://github.com/waldronlab)
+- [Bioconductor GitHub](https://github.com/bioconductor)
 - [Bioconductor standards](bioconductor-development.md)
 - [Conventional Commits](https://www.conventionalcommits.org/)
 
@@ -433,5 +433,5 @@ When reviewing PRs, pay attention to:
 
 **Version**: 1.0.0
 **Last Updated**: 2026-04-03
-**Maintainers**: waldronlab
+**Maintainers**: bioconductor
 **Purpose**: Lab-specific conventions complementing core Bioconductor standards

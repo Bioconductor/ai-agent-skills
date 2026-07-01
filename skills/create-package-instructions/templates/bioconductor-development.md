@@ -619,7 +619,7 @@ BiocCheck::BiocCheck(".")
 
 **Version**: 3.0.0
 **Last Updated**: 2026-04-03
-**Maintainers**: waldronlab
+**Maintainers**: bioconductor
 **Purpose**: Development standards for Bioconductor packages (see [bioconductor-usage.md](bioconductor-usage.md) for package usage)
 **Audience**: Package developers, AI agents assisting with package development
 **Source**: Based on official [Bioconductor R Code Guidelines](https://contributions.bioconductor.org/r-code.html)

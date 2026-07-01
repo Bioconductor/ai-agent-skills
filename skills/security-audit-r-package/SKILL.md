@@ -4,7 +4,7 @@ description: Perform comprehensive security audit of R/Bioconductor packages
 version: 1.0.0
 category: r-packages
 tags: [security, bioconductor, quality-control, validation, audit]
-author: waldronlab
+author: bioconductor
 ---
 
 # security-audit-r-package
