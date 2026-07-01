@@ -1,6 +1,6 @@
 # bioconductor AI Agent Skills
 
-A collection of agent-agnostic skills and instructions for AI assistants (Claude Code, GitHub Copilot, Gemini, and future platforms) working on projects relevant to the Waldron Lab at CUNY SPH. This repository provides domain-specific knowledge to help AI agents understand our codebases, workflows, and standards.
+A collection of agent-agnostic skills and instructions for AI assistants (Claude Code, GitHub Copilot, Gemini, etc). This repository provides domain-specific knowledge to help AI agents understand our codebases, workflows, and standards.
 
 ## What are AI Agent Skills?
 
@@ -98,4 +98,4 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Acknowledgments
 
-These skills are developed and maintained by the bioconductor at CUNY SPH and collaborators to make AI agents more effective collaborators.
+These skills are developed and maintained by the Bioconductor Agentic AI working group to make AI agents more efficient at developing and applying Bioconductor code.
