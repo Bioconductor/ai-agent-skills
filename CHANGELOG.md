@@ -57,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - validate-skill - Validates skills against repository standards
 - check-bioconductor-skills - Verifies installation and lists available skills
 - Complete r-packages skill suite (analyze-r-package, create-package-instructions, update-package-instructions)
-- instructions/ directory with platform adapters (claude.md, copilot.md, gemini.md)
+- instructions/ directory with platform adapters (claude.md, copilot.md, antigravity.md)
 - Migration guide in SKILL_STANDARD.md for v1.x users
 
 ### Improved
