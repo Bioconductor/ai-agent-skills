@@ -1,0 +1,43 @@
+# Data Access Patterns
+
+## Overview
+
+{{DATA_ACCESS_OVERVIEW}}
+
+## Primary Data Access Functions
+
+### High-Level Functions
+
+{{HIGH_LEVEL_FUNCTIONS}}
+
+### Low-Level Functions
+
+{{LOW_LEVEL_FUNCTIONS}}
+
+## Data Sources
+
+{{DATA_SOURCES_DETAILED}}
+
+## Access Patterns
+
+### Basic Retrieval
+
+{{BASIC_RETRIEVAL_EXAMPLE}}
+
+### Filtered Retrieval
+
+{{FILTERED_RETRIEVAL_EXAMPLE}}
+
+### Advanced Queries
+
+{{ADVANCED_QUERIES}}
+
+## Large File Handling
+
+{{LARGE_FILE_HANDLING}}
+
+## Testing with Data
+
+- **Production data**: {{PRODUCTION_DATA_ACCESS}}
+- **Test/example data**: {{TEST_DATA_LOCATION}}
+- **Running tests**: {{TEST_DATA_HANDLING}}

@@ -1,0 +1,27 @@
+# Development Patterns
+
+For complete Bioconductor and bioconductor standards, see:
+- [Core Bioconductor standards](../../skills/create-package-instructions/templates/bioconductor-development.md)
+- [Bioconductor conventions](../../skills/create-package-instructions/templates/bioconductor-standards.md)
+
+## Package-Specific Patterns
+
+### Function Organization
+
+{{FUNCTION_ORGANIZATION}}
+
+### Naming Conventions
+
+{{NAMING_CONVENTIONS}}
+
+## S4 Classes and Methods
+
+{{S4_CLASSES}}
+
+## Key Dependencies
+
+{{KEY_DEPENDENCIES}}
+
+## Code Style Notes
+
+{{CODE_STYLE_NOTES}}
