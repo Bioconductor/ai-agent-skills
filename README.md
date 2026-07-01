@@ -80,7 +80,7 @@ ai-agent-skills/
     ├── README.md                  # Adapter purpose and requirements
     ├── claude.md                  # Claude Code setup and shortcuts
     ├── copilot.md                 # GitHub Copilot setup and shortcuts
-    └── gemini.md                  # Google Gemini (placeholder)
+    └── antigravity.md             # Google Antigravity setup
 ```
 
 ## Contributing
