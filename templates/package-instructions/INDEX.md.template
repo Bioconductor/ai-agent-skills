@@ -1,0 +1,35 @@
+# Instructions Index
+
+Quick reference for AI assistants working with {{PACKAGE_NAME}}.
+
+## Quick Links
+
+- [Overview](00-overview.md) - Package classification and key functions
+{{CONDITIONAL_DATA_ACCESS}}- [Data Access](10-data-access.md) - Data retrieval patterns
+- [Development](20-development.md) - Coding standards
+- [Testing & Docs](30-testing-and-docs.md) - Testing and documentation
+{{CONDITIONAL_VIGNETTES}}- [Vignettes](40-vignettes.md) - Vignette guide
+
+## Package Metadata
+
+- **Name**: {{PACKAGE_NAME}}
+- **Type**: {{PACKAGE_TYPE}}
+- **Version**: {{VERSION}}
+- **Repository**: {{REPOSITORY_URL}}
+
+## Key Functions Quick Reference
+
+{{FUNCTIONS_QUICK_REF}}
+
+## External Resources
+
+{{EXTERNAL_RESOURCES}}
+
+## Quick Commands
+
+```r
+BiocManager::install("{{PACKAGE_NAME}}")
+library({{PACKAGE_NAME}})
+?{{KEY_FUNCTION}}
+browseVignettes("{{PACKAGE_NAME}}")
+```

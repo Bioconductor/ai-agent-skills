@@ -1,0 +1,57 @@
+# Testing and Documentation
+
+For complete standards, see:
+- [Core Bioconductor standards](../../templates/bioconductor-development.md)
+- [Waldronlab conventions](../../templates/waldronlab-standards.md)
+
+## Development and Checking Commands
+
+```bash
+# Build and check
+R CMD build .
+R CMD check {{PACKAGE_NAME}}_*.tar.gz
+
+# Documentation
+R -e "roxygen2::roxygenize()"
+
+# Tests
+R -e "devtools::test()"
+```
+
+## Package-Specific Considerations
+
+{{PACKAGE_CONSIDERATIONS}}
+
+## Package-Specific Testing
+
+### Test Organization
+
+{{TEST_ORGANIZATION}}
+
+### Test Data
+
+- **Location**: {{TEST_DATA_LOCATION}}
+- **File types**: {{TEST_DATA_TYPES}}
+- **Purpose**: {{TEST_DATA_PURPOSE}}
+
+### Remote Data Testing
+
+{{REMOTE_DATA_TESTING}}
+
+### Running Tests
+
+{{RUNNING_TESTS}}
+
+## Package-Specific Documentation Patterns
+
+### Function Categories
+
+{{FUNCTION_DOCUMENTATION}}
+
+### Common Parameters
+
+{{COMMON_PARAMETERS}}
+
+## Common Testing Patterns
+
+{{TESTING_PATTERNS}}

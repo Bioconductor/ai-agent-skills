@@ -1,0 +1,25 @@
+# {{PACKAGE_NAME}} Overview
+
+## Classification
+- **Type**: {{PACKAGE_TYPE}} Package
+- **Version**: {{VERSION}}
+
+## Purpose
+
+{{PURPOSE}}
+
+## Key Functions
+
+{{FUNCTIONS_BY_CATEGORY}}
+
+## Quick Start
+
+{{QUICK_START_EXAMPLE}}
+
+## Key Concepts
+
+{{KEY_CONCEPTS}}
+
+## Data Sources
+
+{{DATA_SOURCES}}

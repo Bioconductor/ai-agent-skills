@@ -1,0 +1,21 @@
+# Editor backups
+*~
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Temporary files
+*.tmp
+*.temp
+
+# Test outputs
+test-output/
+scratch/
