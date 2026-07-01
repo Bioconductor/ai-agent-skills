@@ -1,8 +1,8 @@
 # Testing and Documentation
 
 For complete standards, see:
-- [Core Bioconductor standards](../../templates/bioconductor-development.md)
-- [Bioconductor conventions](../../templates/bioconductor-standards.md)
+- [Core Bioconductor standards](../../skills/create-package-instructions/templates/bioconductor-development.md)
+- [Bioconductor conventions](../../skills/create-package-instructions/templates/bioconductor-standards.md)
 
 ## Development and Checking Commands
 

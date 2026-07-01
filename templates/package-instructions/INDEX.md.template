@@ -5,10 +5,10 @@ Quick reference for AI assistants working with {{PACKAGE_NAME}}.
 ## Quick Links
 
 - [Overview](00-overview.md) - Package classification and key functions
-{{CONDITIONAL_DATA_ACCESS}}- [Data Access](10-data-access.md) - Data retrieval patterns
+{{CONDITIONAL_DATA_ACCESS}}
 - [Development](20-development.md) - Coding standards
 - [Testing & Docs](30-testing-and-docs.md) - Testing and documentation
-{{CONDITIONAL_VIGNETTES}}- [Vignettes](40-vignettes.md) - Vignette guide
+{{CONDITIONAL_VIGNETTES}}
 
 ## Package Metadata
 

@@ -21,7 +21,7 @@ This directory contains templates for generating AI instruction documentation fo
 |----------|--------|---------|-------------|
 | `{{PACKAGE_NAME}}` | DESCRIPTION | `curatedMetagenomicData` | Package name |
 | `{{VERSION}}` | DESCRIPTION | `3.10.0` | Current version number |
-| `{{PACKAGE_TYPE}}` | Analysis | `Data Package` | Package classification |
+| `{{PACKAGE_TYPE}}` | Analysis | `Data` | Package classification (e.g., Data, Analysis, Infrastructure, Utility) |
 
 ### 00-overview.md.template
 
@@ -72,6 +72,7 @@ This directory contains templates for generating AI instruction documentation fo
 | `{{FUNCTION_DOCUMENTATION}}` | Code patterns | How functions are grouped and documented |
 | `{{COMMON_PARAMETERS}}` | Code analysis | Shared parameters across functions |
 | `{{TESTING_PATTERNS}}` | Code patterns | Package-specific testing patterns |
+| `{{PACKAGE_CONSIDERATIONS}}` | Analysis | Special requirements for this package |
 
 ### 40-vignettes.md.template
 
@@ -80,18 +81,12 @@ This directory contains templates for generating AI instruction documentation fo
 | `{{VIGNETTE_LIST}}` | vignettes/ + YAML | List of vignettes with titles and purposes |
 | `{{READING_ORDER}}` | Content analysis | Recommended order and rationale |
 
-
-| Variable | Source | Description |
-|----------|--------|-------------|
-| `{{PACKAGE_CONSIDERATIONS}}` | Analysis | Special requirements for this package |
-| `{{CI_CD_INFO}}` | .github/workflows/ | CI/CD configuration details |
-
 ### INDEX.md.template
 
 | Variable | Source | Description |
 |----------|--------|-------------|
-| `{{CONDITIONAL_DATA_ACCESS}}` | Package type | Empty string or blank for non-data packages |
-| `{{CONDITIONAL_VIGNETTES}}` | Vignette count | Empty string or blank if no vignettes |
+| `{{CONDITIONAL_DATA_ACCESS}}` | Package type | Either `- [Data Access](10-data-access.md) - Data retrieval patterns` or empty string |
+| `{{CONDITIONAL_VIGNETTES}}` | Vignette count | Either `- [Vignettes](40-vignettes.md) - Vignette guide` or empty string |
 | `{{REPOSITORY_URL}}` | README or DESCRIPTION | GitHub URL |
 | `{{FUNCTIONS_QUICK_REF}}` | Analysis | Quick reference by category |
 | `{{EXTERNAL_RESOURCES}}` | README/docs | Links to Bioconductor page, etc. |

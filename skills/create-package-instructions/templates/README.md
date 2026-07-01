@@ -110,7 +110,7 @@ Functions in this package use these validation helpers:
 
 ## When to Update These Files
 
-### Update bioconductor-standards.md when:
+### Update bioconductor-development.md when:
 - Bioconductor package guidelines change
 - CRAN policies update
 - New best practices emerge for R package development
@@ -158,7 +158,7 @@ After generating instructions:
 
 ## Version History
 
-- **1.0.0** (2026-04-03) - Initial creation with bioconductor-standards.md and bioconductor-standards.md
+- **1.0.0** (2026-04-03) - Initial creation with bioconductor-development.md and bioconductor-standards.md
 
 ---
 

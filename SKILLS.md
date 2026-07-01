@@ -194,7 +194,7 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 **What happens**:
 - Detects the NEWS file format in use (`NEWS.md`, `NEWS`, or `NEWS.Rd`)
 - Derives the upcoming even-numbered release version from the current devel version
-- Finds the last release tag and retrieves all commits since then
+- Finds the most recent Bioconductor devel-version bump commit ("bump x.y.z version to odd y...") and retrieves all commits since then
 - Extracts PR titles from merge commits when available
 - Identifies vague commit messages (≤ 3 words or known filler phrases) and inspects their diffs to infer what changed
 - Categorises changes using headings already present in the NEWS file
