@@ -371,11 +371,11 @@ See [instructions/](instructions/) for available adapters.
 - **How do I create a new skill?** → Use `create-skill` or see [CONTRIBUTING.md](CONTRIBUTING.md)
 - **Where are the actual skill files?** → `skills/{skill-name}/SKILL.md`
 - **Can I use skills on multiple platforms?** → Yes! Skills are platform-agnostic
-- **How do I verify my setup?** → Try entering _Do I have the Bioconductor skills?_ in you agent, which will invoke `check-bioconductor-skills` if your setup is working. See [instructions](instructions)/{agent}.md for agent-specific setup instructions.
+- **How do I verify my setup?** → Ask your agent: _Do I have the Bioconductor skills?_ This should invoke `check-bioconductor-skills` if your setup is working. See [instructions/](instructions/) for agent-specific setup (e.g. `instructions/copilot.md`).
 - **I found an issue with a skill or want to suggest a new skill** → File an issue at https://github.com/bioconductor/ai-agent-skills/issues
 
 ---
 
 **Last Updated**: 2026-07-02
 **Version**: 2.0.1
-**Maintained by**: Bioconductor Agentic AI Working Group
+**Maintained by**: bioconductor
