@@ -1,5 +1,8 @@
 # Available Skills
 
+**[🏠 Home](README.md)** | **[🎯 Skills Index](SKILLS.md)** | **[⚙️ Installation](instructions/README.md)** | **[🤖 Agent Behavior](AGENTS.md)** | **[📋 Skill Standards](SKILL_STANDARD.md)**
+
+---
 This is the canonical index of all available AI agent skills in the bioconductor/ai-agent-skills repository. Use this to discover and understand what skills are available and when to use them.
 
 > **Note**: All skills are located at `skills/{skill-name}/SKILL.md`.
@@ -21,6 +24,20 @@ This is the canonical index of all available AI agent skills in the bioconductor
 
 **Understanding the design:**
 - See [AGENTS.md](AGENTS.md) for how skill discovery and invocation work
+
+## Table of Contents
+
+- [Meta Skills](#meta-skills)
+- [R/Bioconductor Package Skills](#rbioconductor-package-skills)
+- [Bioconductor How-Tos](#bioconductor-how-tos)
+- [Metagenomics Skills](#metagenomics-skills)
+- [Statistical Methods Skills](#statistical-methods-skills)
+- [Skill Categories & Tags](#skill-categories--tags)
+- [Finding Skills by Use Case](#finding-skills-by-use-case)
+- [How Skills Are Discovered and Invoked](#how-skills-are-discovered-and-invoked)
+- [Contributing New Skills](#contributing-new-skills)
+- [Platform-Specific Information](#platform-specific-information)
+- [Questions?](#questions)
 
 ## Meta Skills
 
@@ -354,12 +371,11 @@ See [instructions/](instructions/) for available adapters.
 - **How do I create a new skill?** → Use `create-skill` or see [CONTRIBUTING.md](CONTRIBUTING.md)
 - **Where are the actual skill files?** → `skills/{skill-name}/SKILL.md`
 - **Can I use skills on multiple platforms?** → Yes! Skills are platform-agnostic
-- **How do I verify my setup?** → Use `check-bioconductor-skills` or see instructions/{agent}.md
-- **I found an issue with a skill** → File an issue at https://github.com/bioconductor/ai-agent-skills/issues
-- **I want to suggest a new skill** → Open a discussion at https://github.com/bioconductor/ai-agent-skills/discussions
+- **How do I verify my setup?** → Try entering _Do I have the Bioconductor skills?_ in you agent, which will invoke `check-bioconductor-skills` if your setup is working. See [instructions](instructions)/{agent}.md for agent-specific setup instructions.
+- **I found an issue with a skill or want to suggest a new skill** → File an issue at https://github.com/bioconductor/ai-agent-skills/issues
 
 ---
 
-**Last Updated**: 2026-06-13
-**Version**: 2.0.0
-**Maintained by**: bioconductor
+**Last Updated**: 2026-07-02
+**Version**: 2.0.1
+**Maintained by**: Bioconductor Agentic AI Working Group

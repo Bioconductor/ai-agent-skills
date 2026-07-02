@@ -1,5 +1,9 @@
 # bioconductor AI Agent Skills
 
+**[🏠 Home](README.md)** | **[🎯 Skills Index](SKILLS.md)** | **[⚙️ Installation](instructions/README.md)** | **[🤖 Agent Behavior](AGENTS.md)** | **[📋 Skill Standards](SKILL_STANDARD.md)**
+
+---
+
 This is a repository of "Skills" intended to make AI coding agents (Claude Code, GitHub Copilot, Antigravity, Mistral, Aider, etc etc)
 perform more effectively and in alignment with community standards and best practices for Bioconductor users and developers. 
 Its contents are written by humans and AI and vetted for accuracy and adherence to coding and analysis standards by human 
