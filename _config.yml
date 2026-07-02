@@ -1,0 +1,14 @@
+# _config.yml
+theme: jekyll-theme-cayman
+
+title: Bioconductor AI Agent Skills
+description: A centralized repository of AI agent skills for the Bioconductor community.
+
+# This adds a "View on GitHub" button to the header of the theme
+github:
+  is_project_page: true
+  repository_url: https://github.com/Bioconductor/ai-agent-skills
+
+# Enforce clean Markdown rendering and syntax highlighting
+markdown: kramdown
+highlighter: rouge

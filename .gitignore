@@ -19,3 +19,9 @@ Thumbs.db
 # Test outputs
 test-output/
 scratch/
+
+# Jekyll
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
