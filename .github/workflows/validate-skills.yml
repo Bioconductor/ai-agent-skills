@@ -1,0 +1,36 @@
+name: Validate Skills
+
+on:
+  pull_request:
+    branches: [devel, main]
+    paths:
+      - 'skills/**/SKILL.md'
+      - 'SKILLS.md'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Structural validation (gatekeeper)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Full history needed to diff against the base branch
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run skill validation
+        run: python scripts/validate_skills.py
+        env:
+          BASE_REF: ${{ github.base_ref }}

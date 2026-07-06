@@ -1,7 +1,7 @@
 ---
 name: validate-skill
 description: Validate that a skill conforms to the ai-agent-skills repository standards
-version: 1.1.0
+version: 1.2.0
 category: meta
 tags: [meta, infrastructure, validation, quality-control]
 author: bioconductor
@@ -21,6 +21,14 @@ Invoke this skill to validate a skill file:
 
 - Target skill file exists at `skills/{skill-name}/SKILL.md`
 - Optional: `markdownlint` and `yamllint` installed
+
+> **Note — CI/CD integration**: The deterministic subset of these checks
+> (frontmatter completeness, directory-name matching, name uniqueness,
+> SKILLS.md sync, broken links, version bump) runs automatically via GitHub
+> Actions on every PR that modifies a `SKILL.md` file. Use this skill for
+> **interactive local validation** before opening a PR and for the full
+> subjective review (agent neutrality, verbosity, SSOT compliance) that the
+> static script cannot evaluate.
 
 ## Process
 
