@@ -46,7 +46,11 @@ PROHIBITED_FIELDS = {"platforms", "triggers"}
 # ──────────────────────────────────────────────────────────────────────────────
 
 def git(*args):
-    result = subprocess.run(["git"] + list(args), capture_output=True, text=True, cwd=REPO_ROOT)
+    result = subprocess.run(["git", *args], capture_output=True, text=True, cwd=REPO_ROOT)
+    if result.returncode != 0:
+        cmd = " ".join(["git", *args])
+        print(f"ERROR: {cmd} failed: {result.stderr.strip()}", file=sys.stderr)
+        sys.exit(1)
     return result.stdout.strip()
 
 
@@ -185,12 +189,12 @@ def check_skills_md_sync(fm, skill_path, base_content, errors):
         description_changed = False
 
     if is_new or description_changed:
-        # The skill name must appear somewhere in SKILLS.md
-        if name not in skills_md_content:
+        # Both the skill name and current description should appear in SKILLS.md
+        if name not in skills_md_content or description not in skills_md_content:
             change_type = "new skill added" if is_new else "description changed"
             errors.append(
                 f"[{name}] SKILLS.md is out of sync ({change_type}). "
-                f"Add or update the entry for `{name}` in SKILLS.md. "
+                f"Add or update the entry for `{name}` in SKILLS.md so it includes the current description. "
                 f"(See SKILL_STANDARD.md § When Updating Skills)"
             )
 
@@ -203,7 +207,20 @@ def check_relative_links(body, skill_path, errors):
         path_part = link.split("#")[0]
         if not path_part:
             continue  # pure anchor link
+
+        if Path(path_part).is_absolute():
+            errors.append(f"[{skill_path.parent.name}] Absolute link paths are not allowed: `{link}`")
+            continue
+
         target = (skill_dir / path_part).resolve()
+        repo_root = REPO_ROOT.resolve()
+        if target != repo_root and repo_root not in target.parents:
+            errors.append(
+                f"[{skill_path.parent.name}] Relative link resolves outside repository: `{link}` "
+                f"(resolved to `{target}`)"
+            )
+            continue
+
         if not target.exists():
             errors.append(
                 f"[{skill_path.parent.name}] Broken relative link: `{link}` "
