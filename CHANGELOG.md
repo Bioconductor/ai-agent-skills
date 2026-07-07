@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - metagenomics analysis skills
 - statistical-methods skills
 
+## [3.0.0] - 2026-07-07
+
+### Added
+- **CI/CD Skills Validation**
+  - Added GitHub Actions workflow `.github/workflows/validate-skills.yml` to run structural validation automatically on PRs.
+  - Added deterministic check script `scripts/validate_skills.py` to enforce required frontmatter fields, name matching, uniqueness, link integrity, and version bumps.
+  - Added `.github/copilot-instructions.md` to guide GitHub Copilot Code Review for inline subjective feedback on PRs.
+- **Bioc-HowTo Integration**
+  - Merged `waldronlab/ai-agent-skills` into the official `bioconductor/ai-agent-skills` repository.
+  - Added `bioc-howto` skill and 11 R-oriented how-to guides (e.g. coverage computation, sequence composition, GRanges manipulation, BAM reading).
+- **GitHub Pages Navigation**
+  - Improved documentation structure and FAQ accessibility on GitHub Pages.
+
+### Changed
+- **validate-skill** (v1.1.0 → v1.2.0) - Updated with CI/CD integration note clarifying the local vs CI/CD division of labor.
+- **antigravity** adapter (formerly gemini) - Updated setup instructions and renamed adapter to `instructions/antigravity.md`.
+
 ## [2.1.0] - 2026-04-03
 
 ### Added
