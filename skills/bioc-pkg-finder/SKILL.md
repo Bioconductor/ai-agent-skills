@@ -1,7 +1,7 @@
 ---
 name: bioc-pkg-finder
 description: Find the R / Bioconductor packages best suited to a task or workflow
-version: 1.0.0
+version: 1.1.0
 category: r-packages
 tags: [r-packages, bioconductor, package-discovery, biocViews]
 author: bioconductor
@@ -47,6 +47,15 @@ treat them as the canonical shortlist for their topic. When the request is "what
 **data** / annotation is available for X" (not "what software"), lead with a Hub
 `query()`, not a remembered package name — the Hubs are the discovery layer for
 datasets and annotation the same way biocViews is for software.
+
+## Usage
+
+Agents should use this skill when asked to find, recommend, or discover R or Bioconductor packages for a specific bioinformatics task.
+
+## Prerequisites
+
+- Access to the internet to query CRAN and Bioconductor websites/APIs.
+- Ability to run R code (optional but recommended for live queries).
 
 ## Process
 
@@ -141,6 +150,13 @@ but stay a package-finder, not a coding cookbook. Examples that recur:
 Only surface a gotcha that bears on the *recommended tool*. Don't inject
 tangential methodology the question didn't touch (no replicate lecture on a
 "how do I find packages" question).
+
+## Examples
+
+- **User**: "What's a good package for single-cell RNA-seq differential expression?"
+  **Agent Action**: Queries `biocPkgList()` for the `SingleCell` and `DifferentialExpression` biocViews, checks download stats and recent updates for top hits (like `scran` or `Seurat`), and returns a recommendation with the installation command.
+- **User**: "I need human gene annotations."
+  **Agent Action**: Uses `AnnotationHub` query or recommends `org.Hs.eg.db`, making sure to ask the user what Bioconductor release they are on to ensure compatibility.
 
 ## Output
 
