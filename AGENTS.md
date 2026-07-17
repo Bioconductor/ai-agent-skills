@@ -1,5 +1,12 @@
+---
+layout: default
+title: Agent Behavior Standard
+---
 # Agent Behavior Standard
 
+**[🏠 Home](README.md)** | **[🎯 Skills Index](SKILLS.md)** | **[⚙️ Installation](instructions/README.md)** | **[🤖 Agent Behavior](AGENTS.md)** | **[📋 Skill Standards](SKILL_STANDARD.md)** | **[🤝 Contributing](CONTRIBUTING.md)**
+
+---
 ## Purpose
 
 This document defines the canonical behavior rules that ALL AI agents must follow to work with bioconductor's skill repository. It establishes a platform-agnostic contract: agents adapt to this standard, not the other way around.

@@ -1,5 +1,12 @@
+---
+layout: default
+title: Skill Format Standard
+---
 # Skill Format Standard (Quick Reference)
 
+**[🏠 Home](README.md)** | **[🎯 Skills Index](SKILLS.md)** | **[⚙️ Installation](instructions/README.md)** | **[🤖 Agent Behavior](AGENTS.md)** | **[📋 Skill Standards](SKILL_STANDARD.md)** | **[🤝 Contributing](CONTRIBUTING.md)**
+
+---
 Quick reference for creating skills with validation checklist, version management, and working examples.
 
 **Authoritative specification**: [AGENTS.md § Skill File Format](AGENTS.md#skill-file-format)
