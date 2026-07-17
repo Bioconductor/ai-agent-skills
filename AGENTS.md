@@ -5,7 +5,7 @@ nav_order: 4
 ---
 # Agent Behavior Standard
 
-<details>
+<details markdown="1">
 <summary><b>📖 Table of Contents (click to expand)</b></summary>
 
 * TOC

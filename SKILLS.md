@@ -5,7 +5,7 @@ nav_order: 2
 ---
 # Available Skills
 
-<details>
+<details markdown="1">
 <summary><b>📖 Table of Contents (click to expand)</b></summary>
 
 * TOC
