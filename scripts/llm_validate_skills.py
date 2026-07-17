@@ -284,7 +284,7 @@ def main():
     standard_docs = get_standard_docs()
 
     # 4 & 5. Aggregate Results
-    aggregate_report = "### 🤖 LLM Qualitative Skill Review\n\n"
+    skill_reports = ""
     any_failures = False
     any_skipped = False
 
@@ -301,7 +301,7 @@ def main():
             # so that already-evaluated skills' reports are not discarded.
             print(f"API Error during LLM call for {skill_name}: {e}")
             any_skipped = True
-            aggregate_report += (
+            skill_reports += (
                 f"<details>\n"
                 f"<summary>⏭️ <b>{skill_name}</b>: SKIPPED</summary>\n\n"
                 f"The {llm_provider} API encountered an error during evaluation: `{e}`.\n"
@@ -314,14 +314,23 @@ def main():
             any_failures = True
 
         emoji = "✅" if status == "PASS" else "❌"
-        aggregate_report += f"<details open>\n<summary>{emoji} <b>{skill_name}</b>: {status}</summary>\n\n{report}\n\n</details>\n\n"
+        skill_reports += f"<details open>\n<summary>{emoji} <b>{skill_name}</b>: {status}</summary>\n\n{report}\n\n</details>\n\n"
 
     if any_skipped:
-        aggregate_report += (
+        skill_reports += (
             "\n> [!WARNING]\n"
             f"> One or more skills could not be evaluated due to a {llm_provider} API error. "
             "Human review is required for the skipped skill(s).\n"
         )
+
+    if any_failures:
+        badge_url = "https://img.shields.io/badge/Qualitative%20Review-Fail-critical"
+    elif any_skipped:
+        badge_url = "https://img.shields.io/badge/Qualitative%20Review-No%20Review-inactive"
+    else:
+        badge_url = "https://img.shields.io/badge/Qualitative%20Review-Pass-success"
+
+    aggregate_report = f"### 🤖 LLM Qualitative Skill Review\n\n![Qualitative Review]({badge_url})\n\n" + skill_reports
 
     # 6. Deduplicate Comment
     if can_comment:
@@ -340,6 +349,9 @@ def main():
     # 7. Enforce Standards
     if any_failures:
         print("❌ One or more skills FAILED the qualitative review. See the PR comment for details.")
+        sys.exit(1)
+    elif any_skipped:
+        print("⚠️ One or more skills were skipped due to API errors. Qualitative review is incomplete.")
         sys.exit(1)
     else:
         print("✅ All skills passed the qualitative review.")

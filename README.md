@@ -1,4 +1,5 @@
 [![Validate Skills](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/validate-skills.yml)
+[![Qualitative Review](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/qualitative-review.yml/badge.svg)](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/qualitative-review.yml)
 
 # bioconductor AI Agent Skills
 
