@@ -2,8 +2,9 @@
 """
 llm_validate_skills.py — LLM qualitative review of bioconductor/ai-agent-skills.
 
-This script uses the Gemini API to perform a subjective review of modified SKILL.md
-files in a pull request. It checks for compliance with standard repository guidelines
+This script uses a configured LLM provider (GitHub Models or Gemini) to perform
+a subjective review of modified SKILL.md files in a pull request. It checks for
+compliance with standard repository guidelines
 (e.g., agent neutrality, workflow structure) that cannot be caught by deterministic
 static checks.
 
@@ -128,6 +129,9 @@ def get_standard_docs():
 def validate_skill_with_llm(client, provider, skill_path, skill_content, standard_docs):
     """Run the LLM against the skill content and standard docs."""
     skill_name = skill_path.parent.name
+    display_path = skill_path
+    if skill_path.is_absolute():
+        display_path = skill_path.relative_to(REPO_ROOT)
     
     prompt = f"""
 You are an expert Bioconductor AI Agent Skill Reviewer.
@@ -146,7 +150,7 @@ Here are the foundational documents defining the rules. The `copilot-instruction
 {standard_docs.get(".github/copilot-instructions.md", "")}
 
 ### Target Skill to Review
-File path: {skill_path.relative_to(REPO_ROOT)}
+File path: {display_path}
 
 ==== SKILL CONTENT ====
 {skill_content}
@@ -315,7 +319,7 @@ def main():
     if any_skipped:
         aggregate_report += (
             "\n> [!WARNING]\n"
-            "> One or more skills could not be evaluated due to a Gemini API error. "
+            f"> One or more skills could not be evaluated due to a {llm_provider} API error. "
             "Human review is required for the skipped skill(s).\n"
         )
 
