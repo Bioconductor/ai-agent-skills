@@ -41,8 +41,6 @@ This is the canonical index of all available AI agent skills in the bioconductor
 - [Meta Skills](#meta-skills)
 - [R/Bioconductor Package Skills](#rbioconductor-package-skills)
 - [Bioconductor How-Tos](#bioconductor-how-tos)
-- [Metagenomics Skills](#metagenomics-skills)
-- [Statistical Methods Skills](#statistical-methods-skills)
 - [Skill Categories & Tags](#skill-categories--tags)
 - [Finding Skills by Use Case](#finding-skills-by-use-case)
 - [How Skills Are Discovered and Invoked](#how-skills-are-discovered-and-invoked)
@@ -274,22 +272,6 @@ Skills indexing focused, practical how-tos for common Bioconductor data analysis
 
 ---
 
-## Metagenomics Skills
-
-*Planned for future release*
-
-Skills for standard metagenomics data processing and analysis workflows.
-
----
-
-## Statistical Methods Skills
-
-*Planned for future release*
-
-Skills for statistical analysis patterns in microbiome and multi-omics research.
-
----
-
 ## Skill Categories & Tags
 
 ### By Category
@@ -299,8 +281,6 @@ Skills for statistical analysis patterns in microbiome and multi-omics research.
 | **meta** | create-skill, check-bioconductor-skills, document-skill, validate-skill | Repository and workflow infrastructure |
 | **r-packages** | analyze-r-package, bioc-pkg-finder, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
 | **bioconductor-how-tos** | bioc-howto | Bioconductor data analysis practical guides |
-| **metagenomics** | (Planned) | Metagenomics data workflows |
-| **statistical-methods** | (Planned) | Statistical analysis patterns |
 
 ### By Tag
 
