@@ -1,6 +1,3 @@
-[![Validate Skills](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/validate-skills.yml)
-[![Qualitative Review](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/qualitative-review.yml/badge.svg)](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/qualitative-review.yml)
-
 # bioconductor AI Agent Skills
 
 **[🏠 Home](README.md)** | **[🎯 Skills Index](SKILLS.md)** | **[⚙️ Installation](instructions/README.md)** | **[🤖 Agent Behavior](AGENTS.md)** | **[📋 Skill Standards](SKILL_STANDARD.md)**
