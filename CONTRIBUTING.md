@@ -44,29 +44,17 @@ Report bugs or suggest features via [GitHub Issues](https://github.com/bioconduc
 
 ### New Skills or Major Changes
 
-1. **Open an issue first** to discuss your proposal
-2. Get feedback from maintainers
-3. Fork and create feature branch
-4. Develop following [SKILL_STANDARD.md](SKILL_STANDARD.md)
-5. **Validate**: Run `validate-skill` to ensure standards compliance
-6. Fix any CRITICAL or WARNING issues from validation
-7. Test thoroughly (at least 3 projects)
-8. Update [SKILLS.md](SKILLS.md) using `document-skill` to include your skill
-9. Submit pull request
+1. **Open an issue first** to discuss your proposal and get feedback
+2. Fork and create a feature branch
+3. Develop following [SKILL_STANDARD.md](SKILL_STANDARD.md) (use `create-skill` for new skills)
+4. Test thoroughly (on at least 3 different projects, checking edge cases)
+5. Update [SKILLS.md](SKILLS.md) using `document-skill` to include your skill
+6. Submit pull request
 
 ## Skill Guidelines
 
 Skills must conform strictly to [AGENTS.md § Skill File Format](AGENTS.md#skill-file-format) and [SKILL_STANDARD.md](SKILL_STANDARD.md). Do not duplicate required fields or metadata definitions in your skill files.
 
-### Testing & Validation
-
-Before submitting:
-- **Run validation**: Use `validate-skill` to check standards compliance
-- Fix all CRITICAL issues and strongly consider fixing WARNING issues
-- Test on at least 3 different projects
-- Verify output accuracy
-- Check edge cases
-- Get feedback from others if possible
 
 ## Pull Request Process
 
