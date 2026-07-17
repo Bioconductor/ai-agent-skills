@@ -1,3 +1,8 @@
+---
+layout: default
+title: GitHub Copilot
+parent: Installation
+---
 # GitHub Copilot
 
 ## Simple IDE-independent approach

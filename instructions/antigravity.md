@@ -1,3 +1,8 @@
+---
+layout: default
+title: Google Antigravity
+parent: Installation
+---
 # Google Antigravity Setup
 
 Open Google Antigravity (AGY), and enter into the chat box:

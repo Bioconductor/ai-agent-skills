@@ -1,3 +1,8 @@
+---
+layout: default
+title: Claude Code
+parent: Installation
+---
 # Claude Code Setup
 
 Add bioconductor skills to your global Claude instructions.
