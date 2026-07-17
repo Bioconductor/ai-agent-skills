@@ -63,11 +63,19 @@ Before submitting:
 
 ## Pull Request Process
 
-1. Create clear PR description explaining what and why
-2. Reference any related issues
-3. Ensure all tests pass (if applicable)
-4. Respond to review feedback
-5. Be patient - reviews typically take 2-7 days
+We use a combination of automated tools and human review to ensure high-quality skills. **Branch protection rules prevent even collaborators from committing directly to the `devel` branch**, so all changes must go through a pull request.
+
+When you submit a PR, you will receive automated feedback from three sources:
+1. **Validate Skills (CI)**: A deterministic script that enforces structural and metadata standards (e.g., frontmatter requirements, `SKILLS.md` synchronization).
+2. **Qualitative Skill Review (CI)**: An automated LLM that reviews your skill for qualitative guidelines (like agent-neutrality).
+3. **GitHub Copilot PR Review**: General AI feedback based on repository context.
+
+### Steps to merge
+1. Create clear PR description explaining what and why.
+2. Reference any related issues.
+3. **Resolve all CI errors**: Ensure that the "Validate Skills" and "Qualitative Skill Review" workflows both pass. 
+4. Wait for human review and respond to feedback. Be patient - reviews typically take 2-7 days.
+5. Once approved, maintainers will merge your PR.
 
 ## Questions?
 
