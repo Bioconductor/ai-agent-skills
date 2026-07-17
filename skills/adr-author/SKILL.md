@@ -21,7 +21,7 @@ Invoke this skill when you want to create a new Architecture Decision Record.
 ## Prerequisites
 
 - The repository keeps ADRs in a standard location, typically `docs/adr/`.
-- An index of ADRs (e.g., `docs/adr/README.md`) and a template (e.g., `docs/adr/template.md`) usually exist in this directory. If a `template.md` does not exist in the target repository, use the `template.md` provided alongside this skill.
+- An index of ADRs (e.g., `docs/adr/README.md`) and a template (e.g., `docs/adr/template.md`) usually exist in this directory. If a `template.md` does not exist in the target repository, copy the `template.md` provided alongside this skill into the target repository's `docs/adr/` directory so it is available for future use.
 
 ## Conventions
 
@@ -53,7 +53,7 @@ Do NOT write ADRs for routine bug fixes, version bumps, or anything self-evident
 
 1. Read the 2-3 latest ADRs in the repository (e.g., in `docs/adr/`) to understand the established tone and context.
 2. Determine the next sequential number `NNNN` for the new ADR.
-3. Copy the `template.md` (from the repository or from this skill's directory) to `docs/adr/NNNN-<kebab-case-title>.md`.
+3. Copy the `template.md` (from the repository or from this skill's directory) to `docs/adr/NNNN-<kebab-case-title>.md`. If the target repository did not have a template, also save a copy of the template to `docs/adr/template.md`.
 4. Fill in the template following the content guidance above.
 5. If the new ADR supersedes an older one, edit the old ADR's Status to `Superseded by NNNN`.
 6. Add an entry for the new ADR to the index file (`docs/adr/README.md`).
