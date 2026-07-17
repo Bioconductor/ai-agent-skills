@@ -4,6 +4,7 @@ title: Skills Index
 nav_order: 2
 ---
 # Available Skills
+{: .no_toc}
 
 <details markdown="1">
 <summary><b>📖 Table of Contents (click to expand)</b></summary>
@@ -19,12 +20,6 @@ This is the canonical index of all available AI agent skills in the bioconductor
 
 > **Note**: For instructions on how to use these skills, see the [Skills Usage Guide](USAGE.md). All skills are located at `skills/{skill-name}/SKILL.md`.
 
-## Table of Contents
-
-- [Meta Skills](#meta-skills)
-- [R/Bioconductor Package Skills](#rbioconductor-package-skills)
-- [Bioconductor How-Tos](#bioconductor-how-tos)
-- [Skill Categories & Tags](#skill-categories--tags)
 
 ## Meta Skills
 
