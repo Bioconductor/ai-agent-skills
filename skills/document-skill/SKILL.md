@@ -1,7 +1,7 @@
 ---
 name: document-skill
 description: Automate documentation updates to SKILLS.md after creating or modifying a skill
-version: 1.0.1
+version: 1.0.2
 category: meta
 tags: [meta, infrastructure, documentation, automation]
 author: bioconductor
@@ -30,7 +30,7 @@ Invoke this skill after creating or modifying a skill file:
    - Check if the skill already exists in SKILLS.md. If so, prompt to replace.
    - Insert the entry alphabetically into the appropriate domain section.
    - Update the "By Category" and "By Tag" tables.
-   - Ask the user if the skill should be added to any "Use Case Workflows".
+   - Ask the user if the skill should be added to the "Finding Skills by Use Case" section in [USAGE.md](../../USAGE.md).
 4. **Confirm and Apply**: Show a summary of changes to SKILLS.md and apply them upon user confirmation.
 
 ## Output Format

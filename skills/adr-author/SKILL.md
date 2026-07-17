@@ -21,7 +21,7 @@ Invoke this skill when you want to create a new Architecture Decision Record.
 ## Prerequisites
 
 - The repository keeps ADRs in a standard location, typically `docs/adr/`.
-- An index of ADRs (e.g., `README.md`) and a template (e.g., `template.md`) usually exist in this directory. If a `template.md` does not exist in the target repository, use the `template.md` provided alongside this skill.
+- An index of ADRs (e.g., `docs/adr/README.md`) and a template (e.g., `docs/adr/template.md`) usually exist in this directory. If a `template.md` does not exist in the target repository, use the `template.md` provided alongside this skill.
 
 ## Conventions
 
@@ -30,11 +30,11 @@ Invoke this skill when you want to create a new Architecture Decision Record.
   ```markdown
   # NNNN. <Title in sentence case>
 
-  - **Status:** Accepted   (or: Proposed | Superseded by [NNNN](...))
+  - **Status:** Accepted   (or: Proposed | Superseded by NNNN)
   - **Date:** YYYY-MM-DD
   - **Deciders:** <Names>
   ```
-- **Immutable:** Never rewrite an accepted ADR to reflect a new decision. Instead, write a NEW ADR and mark the old one `Superseded by [NNNN](...)`. The new ADR should say `supersedes [MMMM](...)` in its Status line.
+- **Immutable:** Never rewrite an accepted ADR to reflect a new decision. Instead, write a NEW ADR and mark the old one `Superseded by NNNN`. The new ADR should say `supersedes MMMM` in its Status line.
 - **Index:** Add a line to the index file, e.g., `docs/adr/README.md`.
 
 ## When an ADR is Warranted
@@ -49,15 +49,26 @@ Do NOT write ADRs for routine bug fixes, version bumps, or anything self-evident
 - **Alternatives considered** = Each rejected option AND why it was rejected. This is the part future readers actually reread.
 - **Consequences** = What gets better, and what new costs or trade-offs are accepted.
 
-## Procedure
+## Process
 
 1. Read the 2-3 latest ADRs in the repository (e.g., in `docs/adr/`) to understand the established tone and context.
 2. Determine the next sequential number `NNNN` for the new ADR.
 3. Copy the `template.md` (from the repository or from this skill's directory) to `docs/adr/NNNN-<kebab-case-title>.md`.
 4. Fill in the template following the content guidance above.
-5. If the new ADR supersedes an older one, edit the old ADR's Status to `Superseded by [NNNN](...)`.
+5. If the new ADR supersedes an older one, edit the old ADR's Status to `Superseded by NNNN`.
 6. Add an entry for the new ADR to the index file (`docs/adr/README.md`).
 7. Ask the user for approval or commit the changes with the related code change (or alone if it's purely a decision).
+
+## Examples
+
+### Example: Authoring an ADR
+**User:** "Write an ADR for switching our retry policy to exponential backoff."
+**Agent:**
+1. Checks `docs/adr/` for the latest ADR to get the tone and next sequence number.
+2. Copies `docs/adr/template.md` to `docs/adr/0012-exponential-backoff-retry-policy.md`.
+3. Fills out the Context, Decision, Alternatives Considered, and Consequences.
+4. Adds the new ADR to `docs/adr/README.md`.
+5. Prompts the user to review the ADR.
 
 ## Notes
 
