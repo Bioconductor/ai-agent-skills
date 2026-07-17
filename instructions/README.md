@@ -1,12 +1,9 @@
 ---
 layout: default
-title: Platform Instructions
+title: Installation
+nav_order: 3
 ---
 # Platform-specific instructions
-
-**[🏠 Home](../README.md)** | **[🎯 Skills Index](../SKILLS.md)** | **[⚙️ Installation](README.md)** | **[🤖 Agent Behavior](../AGENTS.md)** | **[📋 Skill Standards](../SKILL_STANDARD.md)** | **[🤝 Contributing](../CONTRIBUTING.md)**
-
----
 This directory contains setup and usage instructions for specific AI agents. This is the **only place** where platform-specific details should be documented. The core repository (AGENTS.md, SKILLS.md, SKILL_STANDARD.md) should remain platform-agnostic and universal.
 
 ## Available Adapters

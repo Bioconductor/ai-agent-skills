@@ -1,3 +1,3 @@
 title: bioconductor AI Agent Skills
 description: Portable, platform-agnostic AI agent skills for bioconductor
-theme: jekyll-theme-minimal
+remote_theme: just-the-docs/just-the-docs

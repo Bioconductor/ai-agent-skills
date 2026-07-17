@@ -1,12 +1,9 @@
 ---
 layout: default
-title: Agent Behavior Standard
+title: Agent Behavior
+nav_order: 4
 ---
 # Agent Behavior Standard
-
-**[🏠 Home](README.md)** | **[🎯 Skills Index](SKILLS.md)** | **[⚙️ Installation](instructions/README.md)** | **[🤖 Agent Behavior](AGENTS.md)** | **[📋 Skill Standards](SKILL_STANDARD.md)** | **[🤝 Contributing](CONTRIBUTING.md)**
-
----
 
 <details>
 <summary><b>📖 Table of Contents (click to expand)</b></summary>

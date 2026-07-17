@@ -1,12 +1,9 @@
 ---
 layout: default
-title: Available Skills
+title: Skills Index
+nav_order: 2
 ---
 # Available Skills
-
-**[🏠 Home](README.md)** | **[🎯 Skills Index](SKILLS.md)** | **[⚙️ Installation](instructions/README.md)** | **[🤖 Agent Behavior](AGENTS.md)** | **[📋 Skill Standards](SKILL_STANDARD.md)** | **[🤝 Contributing](CONTRIBUTING.md)**
-
----
 
 <details>
 <summary><b>📖 Table of Contents (click to expand)</b></summary>

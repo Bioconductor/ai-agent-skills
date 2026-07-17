@@ -1,12 +1,9 @@
 ---
 layout: default
 title: Contributing
+nav_order: 6
 ---
 # Contributing
-
-**[🏠 Home](README.md)** | **[🎯 Skills Index](SKILLS.md)** | **[⚙️ Installation](instructions/README.md)** | **[🤖 Agent Behavior](AGENTS.md)** | **[📋 Skill Standards](SKILL_STANDARD.md)** | **[🤝 Contributing](CONTRIBUTING.md)**
-
----
 Thank you for your interest in contributing to bioconductor AI Agent Skills!
 
 ## What You Can Contribute
