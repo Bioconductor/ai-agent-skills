@@ -1,7 +1,7 @@
 ---
 name: create-skill
 description: Help create a new AI agent skill through collaborative Q&A
-version: 1.3.0
+version: 1.3.1
 category: meta
 tags: [meta, infrastructure, skill-creation]
 author: bioconductor
@@ -41,7 +41,7 @@ Start with open-ended questions:
 
 ### 2. Determine Domain and Location
 
-**Existing domains**: `meta`, `r-packages`, `metagenomics`, `statistical-methods`
+**Existing domains**: `meta`, `r-packages`, `bioconductor-how-tos`
 If uncertain, suggest the closest match. Convert purpose to kebab-case for the filename: "analyze R package" → `analyze-r-package`.
 
 ### 3. Outline the Process

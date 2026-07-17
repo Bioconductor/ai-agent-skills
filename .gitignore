@@ -19,3 +19,7 @@ Thumbs.db
 # Test outputs
 test-output/
 scratch/
+
+# Python cache / Gemini
+__pycache__/
+.gemini/
