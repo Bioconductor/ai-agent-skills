@@ -30,6 +30,24 @@ This is the canonical index of all available AI agent skills in the bioconductor
 
 Infrastructure and workflow skills for working with this repository itself.
 
+### adr-author
+
+**Purpose**: Write a new Architecture Decision Record following the established Nygard format and conventions.
+
+**When to use**:
+- Documenting a non-trivial, behavior-affecting decision
+- When you need to create an ADR
+
+**Invocation**:
+- "Write an ADR for..."
+- "Record the decision to..."
+- "Document the design rationale for..."
+
+**Output**: A new ADR file in the target repository's `docs/adr/` directory
+
+---
+
+
 ### create-skill
 
 **Purpose**: Help create a new AI agent skill through collaborative Q&A
@@ -256,7 +274,7 @@ Skills indexing focused, practical how-tos for common Bioconductor data analysis
 
 | Category | Skills | Purpose |
 |----------|--------|---------|
-| **meta** | create-skill, check-bioconductor-skills, document-skill, validate-skill | Repository and workflow infrastructure |
+| **meta** | adr-author, check-bioconductor-skills, create-skill, document-skill, validate-skill | Repository and workflow infrastructure |
 | **r-packages** | analyze-r-package, bioc-pkg-finder, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
 | **bioconductor-how-tos** | bioc-howto | Bioconductor data analysis practical guides |
 
@@ -268,7 +286,10 @@ Skills indexing focused, practical how-tos for common Bioconductor data analysis
 | **testing** | improve-code-coverage | Software testing and coverage |
 | **validation** | security-audit-r-package, validate-skill | Quality control and standards compliance |
 | **quality-control** | security-audit-r-package, validate-skill | Ensuring skill quality |
-| **documentation** | create-package-instructions, document-skill, update-package-instructions, update-r-news | Generating and maintaining docs |
+| **documentation** | adr-author, create-package-instructions, document-skill, update-package-instructions, update-r-news | Generating and maintaining docs |
+| **adr** | adr-author | Architecture Decision Records |
+| **architecture** | adr-author | Architectural decisions |
+| **decision** | adr-author | Documenting decisions |
 | **automation** | document-skill, update-r-news | Automating repetitive documentation tasks |
 | **analysis** | analyze-r-package, bioc-pkg-finder | Understanding code and architecture |
 | **security** | security-audit-r-package | Security audits and vulnerability detection |
