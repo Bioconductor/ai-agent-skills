@@ -15,3 +15,8 @@ defaults:
       path: "skills"
     values:
       nav_exclude: true
+  -
+    scope:
+      path: "templates"
+    values:
+      nav_exclude: true
