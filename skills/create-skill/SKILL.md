@@ -92,3 +92,4 @@ Result: `skills/validate-r-documentation/SKILL.md`
 ---
 
 **Related**: See [SKILL_STANDARD.md](../../SKILL_STANDARD.md) for technical format details. See [AGENTS.md](../../AGENTS.md) for how agent discovery works.
+
