@@ -328,22 +328,22 @@ Skills for statistical analysis patterns in microbiome and multi-omics research.
 
 ## Finding Skills by Use Case
 
-### "I want to work on an R package..."
+**"I want to work on an R package..."**
 Use `analyze-r-package` to understand it, `create-package-instructions` to generate AI docs, `improve-code-coverage` or `security-audit-r-package` for quality control, and `update-r-news` for release notes.
 
-### "I want to create a new skill..."
+**"I want to create a new skill..."**
 Start with `create-skill` for guided help, then `validate-skill` and `document-skill`.
 
-### "I want to verify my setup..."
+**"I want to verify my setup..."**
 Run `check-bioconductor-skills` or check the `instructions/` directory.
 
-### "I want to perform a Bioconductor data analysis task..."
+**"I want to perform a Bioconductor data analysis task..."**
 Check the `bioc-howto` index for step-by-step guides and code examples.
 
-### "I want to analyze a workflow and automate it..."
+**"I want to analyze a workflow and automate it..."**
 Use `create-skill`.
 
-### "I want to ensure my skill meets standards..."
+**"I want to ensure my skill meets standards..."**
 Use `validate-skill` iteratively until it passes.
 
 ---
