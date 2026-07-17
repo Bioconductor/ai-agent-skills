@@ -16,25 +16,8 @@ nav_order: 2
 ---
 
 This is the canonical index of all available AI agent skills in the bioconductor/ai-agent-skills repository. Use this to discover and understand what skills are available and when to use them.
-> **Note**: All skills are located at `skills/{skill-name}/SKILL.md`.
 
-## Quick Start
-
-1. **Browse by category** below to find a skill that matches your need
-2. **Read the skill description** to understand when to use it
-3. **Invoke naturally**: Describe what you need to your AI agent
-   - Example: "Help me create a new skill"
-
-**Platform shortcuts**: Optional shortcuts (like `/skill-name` or `@workspace` patterns) are documented in [instructions/](instructions/) for each platform.
-
-## Setup & Discovery
-
-**First time?**
-- See [instructions/claude.md](instructions/claude.md) (Claude Code)
-- See [instructions/copilot.md](instructions/copilot.md) (GitHub Copilot)
-
-**Understanding the design:**
-- See [AGENTS.md](AGENTS.md) for how skill discovery and invocation work
+> **Note**: For instructions on how to use these skills, see the [Skills Usage Guide](USAGE.md). All skills are located at `skills/{skill-name}/SKILL.md`.
 
 ## Table of Contents
 
@@ -42,11 +25,6 @@ This is the canonical index of all available AI agent skills in the bioconductor
 - [R/Bioconductor Package Skills](#rbioconductor-package-skills)
 - [Bioconductor How-Tos](#bioconductor-how-tos)
 - [Skill Categories & Tags](#skill-categories--tags)
-- [Finding Skills by Use Case](#finding-skills-by-use-case)
-- [How Skills Are Discovered and Invoked](#how-skills-are-discovered-and-invoked)
-- [Contributing New Skills](#contributing-new-skills)
-- [Platform-Specific Information](#platform-specific-information)
-- [Questions?](#questions)
 
 ## Meta Skills
 
@@ -306,86 +284,6 @@ Skills indexing focused, practical how-tos for common Bioconductor data analysis
 
 ---
 
-## Finding Skills by Use Case
-
-**"I want to work on an R package..."**
-Use `analyze-r-package` to understand it, `create-package-instructions` to generate AI docs, `improve-code-coverage` or `security-audit-r-package` for quality control, and `update-r-news` for release notes.
-
-**"I want to create a new skill..."**
-Start with `create-skill` for guided help, then `validate-skill` and `document-skill`.
-
-**"I want to verify my setup..."**
-Run `check-bioconductor-skills` or check the `instructions/` directory.
-
-**"I want to perform a Bioconductor data analysis task..."**
-Check the `bioc-howto` index for step-by-step guides and code examples.
-
-**"I want to analyze a workflow and automate it..."**
-Use `create-skill`.
-
-**"I want to ensure my skill meets standards..."**
-Use `validate-skill` iteratively until it passes.
-
----
-
-## How Skills Are Discovered and Invoked
-
-### For Users
-
-1. **Browse this file** to understand what's available
-2. **Describe your need** to your AI agent in natural language
-3. **Agent handles the rest**: Matches need, reads skill file, executes process, and outputs result
-
-### For AI Agents
-
-1. **Read SKILLS.md** as the primary discovery mechanism
-2. **Match user intent** to skill descriptions
-3. **Locate and read** the skill file at `skills/{skill-name}/SKILL.md`
-4. **Execute** using platform tools and deliver output
-
-See [AGENTS.md](AGENTS.md) for the complete agent behavior standard.
-
----
-
-## Contributing New Skills
-
-Want to add a new skill?
-
-1. **Brainstorm**: Use `create-skill`
-2. **Create**: Follow guidance to create the skill file
-3. **Validate**: Run `validate-skill`
-4. **Document**: Use `document-skill` to update this file
-5. **Test**: Verify it works on your platform
-6. **Submit**: Create a PR for review
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
-
----
-
-## Platform-Specific Information
-
-### Claude Code
-See [instructions/claude.md](instructions/claude.md) for setup and `/skill-name` shortcuts.
-
-### GitHub Copilot
-See [instructions/copilot.md](instructions/copilot.md) for setup and `@workspace` shortcuts.
-
-### Other Agents
-See [instructions/](instructions/) for available adapters.
-
----
-
-## Questions?
-
-- **How does skill invocation work?** → See [AGENTS.md](AGENTS.md)
-- **How do I create a new skill?** → Use `create-skill` or see [CONTRIBUTING.md](CONTRIBUTING.md)
-- **Where are the actual skill files?** → `skills/{skill-name}/SKILL.md`
-- **Can I use skills on multiple platforms?** → Yes! Skills are platform-agnostic
-- **How do I verify my setup?** → Ask your agent: _Do I have the Bioconductor skills?_ This should invoke `check-bioconductor-skills` if your setup is working. See [instructions/](instructions/) for agent-specific setup (e.g. `instructions/copilot.md`).
-- **I found an issue with a skill or want to suggest a new skill** → File an issue at https://github.com/bioconductor/ai-agent-skills/issues
-
----
-
-**Last Updated**: 2026-07-02
-**Version**: 2.0.1
+**Last Updated**: 2026-07-17
+**Version**: 2.0.2
 **Maintained by**: bioconductor

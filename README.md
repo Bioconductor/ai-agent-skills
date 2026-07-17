@@ -49,7 +49,7 @@ See [AGENTS.md](AGENTS.md) for detailed requirements and [SKILL_STANDARD.md](SKI
 ## Quick Start
 1. Install the skills on your platform (see [instructions/](instructions/))
 2. Ask your agent: "What bioconductor skills do I have?" to confirm
-3. Use natural language to invoke skills (see [SKILLS.md](SKILLS.md) for examples)
+3. Use natural language to invoke skills (see [USAGE.md](USAGE.md) for examples)
 
 ## Usage Examples
 
@@ -75,6 +75,7 @@ ai-agent-skills/
 ├── README.md                      # This file
 ├── LICENSE                        # MIT License
 ├── AGENTS.md                      # Agent behavior standard (how discovery works)
+├── USAGE.md                       # How to use skills and examples
 ├── SKILLS.md                      # Human-readable skill index (what skills exist)
 ├── SKILL_STANDARD.md              # Technical format spec (how to format skills)
 ├── CONTRIBUTING.md                # Contribution guidelines
