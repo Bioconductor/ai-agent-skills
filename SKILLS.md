@@ -24,8 +24,6 @@ This is the canonical index of all available AI agent skills in the bioconductor
 - [Meta Skills](#meta-skills)
 - [R/Bioconductor Package Skills](#rbioconductor-package-skills)
 - [Bioconductor How-Tos](#bioconductor-how-tos)
-- [Metagenomics Skills](#metagenomics-skills)
-- [Statistical Methods Skills](#statistical-methods-skills)
 - [Skill Categories & Tags](#skill-categories--tags)
 
 ## Meta Skills
