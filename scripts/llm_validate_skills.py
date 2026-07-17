@@ -266,7 +266,7 @@ def main():
              sys.exit(1)
         client = openai.OpenAI(
             api_key=gh_token,
-            base_url="https://models.inference.ai.azure.com/v1"
+            base_url="https://models.inference.ai.azure.com"
         )
     else:
         print(f"ERROR: Unknown LLM_PROVIDER '{llm_provider}'. Must be 'gemini' or 'github-models'.")
