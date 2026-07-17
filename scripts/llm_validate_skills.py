@@ -24,7 +24,7 @@ try:
     from google import genai
     from google.genai import types
     import openai
-    from github import Github
+    from github import Github, Auth
 except ImportError:
     print("ERROR: Required dependencies missing. Ensure google-genai, openai, and PyGithub are installed.")
     sys.exit(1)
@@ -47,7 +47,7 @@ def get_modified_skill_files(gh_token=None, repo_name=None, pr_number=None):
     # 1. PR Context: Securely fetch from API
     if gh_token and repo_name and pr_number:
         print(f"Fetching modified files for PR #{pr_number} via GitHub API...")
-        g = Github(gh_token)
+        g = Github(auth=Auth.Token(gh_token))
         repo = g.get_repo(repo_name)
         pr = repo.get_pull(pr_number)
         
@@ -86,7 +86,7 @@ def get_modified_skill_files(gh_token=None, repo_name=None, pr_number=None):
 
 def post_or_update_pr_comment(gh_token, repo_name, pr_number, body):
     """Post a new comment or update an existing one matching COMMENT_MARKER."""
-    g = Github(gh_token)
+    g = Github(auth=Auth.Token(gh_token))
     repo = g.get_repo(repo_name)
     pr = repo.get_pull(pr_number)
     
