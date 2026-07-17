@@ -57,7 +57,7 @@ Do NOT write ADRs for routine bug fixes, version bumps, or anything self-evident
 4. Fill in the template following the content guidance above.
 5. If the new ADR supersedes an older one, edit the old ADR's Status to `Superseded by NNNN`.
 6. Add an entry for the new ADR to the index file (`docs/adr/README.md`).
-7. Ask the user for approval or commit the changes with the related code change (or alone if it's purely a decision).
+7. Ask the user for explicit approval before committing any changes. If approved, commit the changes with the related code change (or alone if it's purely a decision).
 
 ## Examples
 

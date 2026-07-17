@@ -1,6 +1,6 @@
-# [Short title of solved problem and solution]
+# NNNN. <Short title of solved problem and solution>
 
-- **Status:** [Proposed | Accepted | Rejected | Deprecated | Superseded by [ADR-0005](0005-example.md)]
+- **Status:** [Proposed | Accepted | Rejected | Deprecated | Supersedes [ADR-0004](0004-example.md) | Superseded by [ADR-0005](0005-example.md)]
 - **Date:** [YYYY-MM-DD]
 - **Deciders:** [List everyone involved in the decision]
 
