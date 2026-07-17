@@ -196,6 +196,25 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 ---
 
+### bioc-pkg-finder
+
+**Purpose**: Find the R / Bioconductor packages best suited to a task or workflow
+
+**When to use**:
+- When the user asks "what package should I use for X" or "is there a Bioconductor package that does Y"
+- Assembling an analysis workflow and needing to pick tools
+
+**Invocation**:
+- "What package should I use for differential expression?"
+- "Is there a Bioconductor package that does single-cell clustering?"
+- "Which package is standard for variant annotation?"
+
+**Output**: Recommended package(s) with biocViews term or CRAN Task View source, install path, and the key gotcha for the recommended tool
+
+**Related skills**: analyze-r-package, create-package-instructions
+
+---
+
 ### update-r-news
 
 **Purpose**: Draft or update an R package NEWS file from git commit history, examining diffs when commit messages are vague
@@ -267,7 +286,7 @@ Skills for statistical analysis patterns in microbiome and multi-omics research.
 | Category | Skills | Purpose |
 |----------|--------|---------|
 | **meta** | create-skill, check-bioconductor-skills, document-skill, validate-skill | Repository and workflow infrastructure |
-| **r-packages** | analyze-r-package, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
+| **r-packages** | analyze-r-package, bioc-pkg-finder, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
 | **bioconductor-how-tos** | bioc-howto | Bioconductor data analysis practical guides |
 | **metagenomics** | (Planned) | Metagenomics data workflows |
 | **statistical-methods** | (Planned) | Statistical analysis patterns |
@@ -282,10 +301,10 @@ Skills for statistical analysis patterns in microbiome and multi-omics research.
 | **quality-control** | security-audit-r-package, validate-skill | Ensuring skill quality |
 | **documentation** | create-package-instructions, document-skill, update-package-instructions, update-r-news | Generating and maintaining docs |
 | **automation** | document-skill, update-r-news | Automating repetitive documentation tasks |
-| **analysis** | analyze-r-package | Understanding code and architecture |
+| **analysis** | analyze-r-package, bioc-pkg-finder | Understanding code and architecture |
 | **security** | security-audit-r-package | Security audits and vulnerability detection |
 | **audit** | security-audit-r-package | Comprehensive code auditing |
-| **bioconductor** | analyze-r-package, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
+| **bioconductor** | analyze-r-package, bioc-pkg-finder, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
 | **code-coverage** | improve-code-coverage | Code coverage analysis |
 | **covr** | improve-code-coverage | Tools wrapping the covr package |
 | **data-access** | analyze-r-package (detects), create-package-instructions | Working with remote data |
