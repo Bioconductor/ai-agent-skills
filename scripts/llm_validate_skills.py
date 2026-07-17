@@ -11,10 +11,12 @@ Usage (in GitHub Actions):
   python scripts/llm_validate_skills.py
 """
 
+import json
 import os
 import sys
 import subprocess
 from pathlib import Path
+
 
 # Try importing the pinned dependencies
 try:
@@ -50,8 +52,16 @@ def get_modified_skill_files():
         
     try:
         changed = git("diff", "--name-only", f"origin/{base_ref}...HEAD")
-    except SystemExit:
-        # Fallback if the standard diff fails (e.g. running locally without origin/devel setup)
+    except SystemExit as e:
+        # Fallback if origin/<base_ref> is not available (e.g. running locally).
+        # Log the original failure clearly so it is visible in CI if this ever
+        # happens unexpectedly (fetch-depth: 0 + BASE_REF should prevent it).
+        print(
+            f"Warning: 'git diff origin/{base_ref}...HEAD' failed ({e}). "
+            f"Falling back to 'git diff {base_ref}...HEAD'. "
+            "Ensure the repository was checked out with fetch-depth: 0.",
+            file=sys.stderr,
+        )
         changed = git("diff", "--name-only", f"{base_ref}...HEAD")
 
     skill_files = []
@@ -168,7 +178,6 @@ File path: {skill_path.relative_to(REPO_ROOT)}
         ),
     )
     
-    import json
     try:
         # With response_json_schema and response_mime_type, response.text should be guaranteed valid JSON
         result = json.loads(response.text)
@@ -222,26 +231,40 @@ def main():
     # 4 & 5. Aggregate Results
     aggregate_report = "### 🤖 LLM Qualitative Skill Review\n\n"
     any_failures = False
-    
+    any_skipped = False
+
     for skill_path in modified:
         skill_name = skill_path.parent.name
         print(f"Evaluating {skill_name}...")
-        
+
         try:
             status, report = validate_skill_with_llm(client, skill_path, standard_docs)
         except Exception as e:
-            # Catch API errors, timeouts, etc.
-            print(f"API Error during LLM call: {e}")
-            msg = f"### 🤖 LLM Qualitative Review Skipped\nThe Gemini API encountered an error during evaluation: `{e}`. Human review is required."
-            if can_comment:
-                post_or_update_pr_comment(gh_token, repo_name, pr_number, msg)
-            sys.exit(0) # Graceful degradation
-            
+            # Catch API errors / timeouts — mark skill as skipped and continue
+            # so that already-evaluated skills' reports are not discarded.
+            print(f"API Error during LLM call for {skill_name}: {e}")
+            any_skipped = True
+            aggregate_report += (
+                f"<details>\n"
+                f"<summary>⏭️ <b>{skill_name}</b>: SKIPPED</summary>\n\n"
+                f"The Gemini API encountered an error during evaluation: `{e}`.\n"
+                f"Human review is required for this skill.\n\n"
+                f"</details>\n\n"
+            )
+            continue
+
         if status == "FAIL":
             any_failures = True
-            
+
         emoji = "✅" if status == "PASS" else "❌"
         aggregate_report += f"<details open>\n<summary>{emoji} <b>{skill_name}</b>: {status}</summary>\n\n{report}\n\n</details>\n\n"
+
+    if any_skipped:
+        aggregate_report += (
+            "\n> [!WARNING]\n"
+            "> One or more skills could not be evaluated due to a Gemini API error. "
+            "Human review is required for the skipped skill(s).\n"
+        )
 
     # 6. Deduplicate Comment
     if can_comment:
