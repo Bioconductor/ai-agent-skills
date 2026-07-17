@@ -228,6 +228,22 @@ def check_relative_links(body, skill_path, errors):
             )
 
 
+def check_structural_headers(body, skill_path, errors):
+    """Check that the skill body contains required markdown headings."""
+    required_headers = [
+        ("Usage", r"^##\s+Usage\b"),
+        ("Prerequisites", r"^##\s+Prerequisites\b"),
+        ("Process", r"^##\s+Process\b"),
+        ("Examples", r"^##\s+Examples\b"),
+    ]
+    for header_name, pattern in required_headers:
+        if not re.search(pattern, body, re.MULTILINE):
+            errors.append(
+                f"[{skill_path.parent.name}] MISSING structural header: `## {header_name}`. "
+                f"See SKILL_STANDARD.md for required sections."
+            )
+
+
 def check_version_bumped(fm, skill_path, base_content, errors):
     """If the file was modified (not new), version must have changed."""
     if base_content is None:
@@ -279,6 +295,7 @@ def main():
         check_name_uniqueness(fm, skill_path, all_names, all_errors)
         check_skills_md_sync(fm, skill_path, base_content, all_errors)
         check_relative_links(body, skill_path, all_errors)
+        check_structural_headers(body, skill_path, all_errors)
         check_version_bumped(fm, skill_path, base_content, all_errors)
 
     print()
