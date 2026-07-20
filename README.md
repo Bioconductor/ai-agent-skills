@@ -6,26 +6,16 @@ permalink: /
 ---
 # bioconductor AI Agent Skills
 
-This is a repository of "Skills" intended to make AI coding agents (Claude Code, GitHub Copilot, Antigravity, Mistral, Aider, etc etc)
-perform more effectively and in alignment with community standards and best practices for Bioconductor users and developers. 
-Its contents are written by humans and AI and vetted for accuracy and adherence to coding and analysis standards by human 
-Bioinformaticians from the Bioconductor community.
-
+This is a repository of "Skills" intended to make AI coding agents (Claude Code, GitHub Copilot, Antigravity, Mistral, Aider, etc etc) perform more effectively and in alignment with community standards and best practices for Bioconductor users and developers. 
+[Contributions](CONTRIBUTING.md) are made by PR and validated for adherence to repository structure by a [quantitative](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/validate-skills.yml) and a [qualitative](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/qualitative-review.yml) GitHub Action.
 
 ## What are AI Agent Skills?
-
-Each "Skill" provides structured, Markdown-formatted instructions that teach AI agents about topics including
-- Package structures and conventions
-- Analysis workflows and best practices
-- Data types and their handling
-- Testing and documentation standards
-- Bioconductor-wide patterns
 
 With these skills, AI agents can:
 - Create new skills and index them in [SKILLS.md](SKILLS.md)
 - Follow Bioconductor coding standards
 - Analyze R code and packages for security, efficiency, and code quality, and suggest improvements
-- Adhere to preferred bioinformatic workflows and statistical methods
+- [TODO] find, follow, and cite published bioinformatic and statistical protocols
 
 ## Design Philosophy of these Skills
 
