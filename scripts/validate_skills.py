@@ -5,7 +5,7 @@ validate_skills.py — Gatekeeper CI check for bioconductor/ai-agent-skills.
 Derived from: skills/validate-skill/SKILL.md (the gold standard for validation rules).
 
 Checks performed:
-  1. Required frontmatter fields present (name, description, version, category)
+  1. Required frontmatter fields present and non-empty (name, description, version, category, author)
   2. No prohibited frontmatter fields (platforms, triggers)
   3. Directory name matches the `name` field
   4. Skill name is globally unique (no collisions with other skills)
@@ -135,6 +135,9 @@ def check_required_fields(fm, skill_path, errors):
     missing = REQUIRED_FIELDS - set(fm.keys())
     for field in sorted(missing):
         errors.append(f"[{skill_path.parent.name}] MISSING required frontmatter field: `{field}`")
+    for field in sorted(REQUIRED_FIELDS & set(fm.keys())):
+        if not fm[field]:
+            errors.append(f"[{skill_path.parent.name}] EMPTY required frontmatter field: `{field}`")
 
 
 def check_prohibited_fields(fm, skill_path, errors):
