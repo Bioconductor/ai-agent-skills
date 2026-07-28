@@ -52,10 +52,26 @@ Flag as advisory comments (not blocking):
 
 ---
 
-## What NOT to Flag
+## CI Results
+
+This repository runs two automated checks on every pull request that modifies
+`SKILL.md` files. Your review is requested only after both have completed
+successfully. When reviewing:
+
+- **Reference the CI outcomes.** If `Validate Skills` or `Qualitative Skill
+  Review` posted comments on this PR, read them and incorporate their findings
+  into your review. Do not repeat findings already surfaced by CI.
+- **If CI caught a violation**, treat it as confirmed — do not second-guess a
+  structural failure. You may add context or suggest a fix, but mark the issue
+  as already identified.
+- **If CI passed**, you can focus your review on issues CI does not cover:
+  clarity of prose, correctness of examples, adherence to the workflow-over-
+  code-snippets principle, and overall usefulness of the skill.
+
+---
 
 - Normal Markdown formatting variation (e.g., use of bold vs. headers).
-- Optional frontmatter fields (`author`, `tags`) being absent.
+- Optional frontmatter fields (`tags`) being absent.
 - Code snippets when they are clearly embedded *within* numbered workflow steps
   as domain-specific guardrails (this is explicitly allowed and encouraged for
   Bioconductor-specific APIs).
