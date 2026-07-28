@@ -12,7 +12,7 @@ I want the bioconductor skills from https://github.com/bioconductor/ai-agent-ski
 
 You must also read and adhere to the agent behavior and safe execution standards defined in AGENTS.md.
 
-Whenever you read and execute instructions from a Bioconductor SKILL.md file, you MUST prefix your response with:
+Whenever you read and execute instructions from a Bioconductor SKILL.md file, you MUST include the following citation block at the start or end of your response:
 > 🛠️ **Bioconductor Skill Executed**: <name> | **Version**: <version> | **Author**: <author>
 ```
 

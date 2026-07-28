@@ -23,8 +23,8 @@ Add bioconductor skills to your global Claude instructions.
 
    Describe what you need, and I'll match it to the appropriate skill. Always follow the canonical behavior and Git workflow rules defined in AGENTS.md.
    
-   Whenever you read and execute instructions from a Bioconductor SKILL.md file, you MUST prefix your response with:
-   > 🛠️ **Bioconductor Skill Executed**: <name> | **Version**: <version> | **Author**: <author>
+    Whenever you read and execute instructions from a Bioconductor SKILL.md file, you MUST include the following citation block at the start or end of your response:
+    > 🛠️ **Bioconductor Skill Executed**: <name> | **Version**: <version> | **Author**: <author>
    ```
 
    Replace `/path/to/ai-agent-skills` with the actual path (use `pwd`).
