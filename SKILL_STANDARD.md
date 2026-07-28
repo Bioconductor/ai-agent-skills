@@ -49,6 +49,7 @@ Use this checklist when creating or updating skills (or run `validate-skill` to 
 
 ### Required Elements
 - [ ] Frontmatter conforms to [AGENTS.md § Minimal Required Fields](AGENTS.md#minimal-required-fields)
+- [ ] `author` field is present in frontmatter (see AGENTS.md § Minimal Required Fields)
 - [ ] No prohibited fields present (see [AGENTS.md § What NOT to Include](AGENTS.md#what-not-to-include))
 - [ ] `name` is unique and kebab-case
 - [ ] Core logic is platform-agnostic (describes WHAT, not HOW)
