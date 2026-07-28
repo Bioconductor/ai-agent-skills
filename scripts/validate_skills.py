@@ -38,7 +38,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = REPO_ROOT / "skills"
 SKILLS_MD = REPO_ROOT / "SKILLS.md"
 
-REQUIRED_FIELDS = {"name", "description", "version", "category"}
+REQUIRED_FIELDS = {"name", "description", "version", "category", "author"}
 PROHIBITED_FIELDS = {"platforms", "triggers"}
 
 # ──────────────────────────────────────────────────────────────────────────────

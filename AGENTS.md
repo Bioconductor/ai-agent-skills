@@ -74,7 +74,7 @@ name: skill-name              # Unique identifier (kebab-case, REQUIRED)
 description: Brief purpose    # One-line description driving discovery (REQUIRED)
 version: 1.0.0               # Semantic version (REQUIRED)
 category: meta               # Primary domain: meta, r-packages, etc. (REQUIRED)
-author: bioconductor           # Creator/maintainer (OPTIONAL)
+author: bioconductor           # Creator/maintainer (REQUIRED)
 tags: [tag1, tag2]          # Searchable tags (OPTIONAL)
 ---
 ```
@@ -203,6 +203,7 @@ Compliant agents:
 - [ ] MUST read and follow SKILL.md process documentation
 - [ ] MUST adapt tool usage to agent's available capabilities
 - [ ] MUST produce output as documented in the skill
+- [ ] MUST explicitly cite any Bioconductor skill executed in the response (header or footer), including skill name, version, and author — values taken directly from the skill's YAML frontmatter.
 - [ ] MUST NOT embed platform-specific requirements in skills
 - [ ] MUST ask the user if the work should be done on a new branch before editing files
 - [ ] MUST NOT commit changes without explicit approval from the user
