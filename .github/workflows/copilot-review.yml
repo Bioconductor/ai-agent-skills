@@ -1,0 +1,91 @@
+name: Request Copilot Review
+
+# Fires after any workflow_run completes on a pull_request event.
+# We check inside the job that BOTH required CI workflows have passed
+# before requesting the Copilot review, so Copilot always sees fresh results.
+on:
+  workflow_run:
+    workflows:
+      - "Validate Skills"
+      - "Qualitative Skill Review"
+    types:
+      - completed
+
+permissions:
+  actions: read
+  pull-requests: write
+jobs:
+  request-copilot-review:
+    name: Request Copilot review after CI
+    runs-on: ubuntu-latest
+    # Only proceed when the triggering workflow itself succeeded.
+    if: github.event.workflow_run.conclusion == 'success'
+
+    steps:
+      - name: Check all required CI workflows have passed
+        id: check-ci
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo  = context.repo.repo;
+
+            // Resolve the PR number from the workflow_run event.
+            const runs = await github.rest.actions.listWorkflowRunsForRepo({
+              owner, repo,
+              head_sha: context.payload.workflow_run.head_sha,
+              per_page: 50,
+            });
+
+            const required = ["Validate Skills", "Qualitative Skill Review"];
+            const statuses = {};
+
+            for (const run of runs.data.workflow_runs) {
+              if (required.includes(run.name) && statuses[run.name] === undefined) {
+                statuses[run.name] = run.conclusion;
+              }
+            }
+
+            const allPassed = required.every(name => statuses[name] === "success");
+
+            console.log("CI statuses:", JSON.stringify(statuses, null, 2));
+            console.log("All required workflows passed:", allPassed);
+
+            core.setOutput("all_passed", allPassed ? "true" : "false");
+
+            // Surface the PR number for the review request step.
+            const pr = context.payload.workflow_run.pull_requests?.[0];
+            if (!pr?.number) {
+              console.log("No PR associated with this workflow_run — skipping.");
+              core.setOutput("pr_number", "");
+            } else {
+              core.setOutput("pr_number", String(pr.number));
+            }
+
+      - name: Request Copilot PR review
+        if: steps.check-ci.outputs.all_passed == 'true' && steps.check-ci.outputs.pr_number != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = Number.parseInt(process.env.pr_number, 10);
+            if (Number.isNaN(prNumber)) {
+              throw new Error(`Invalid pr_number: ${process.env.pr_number}`);
+            }
+
+            try {
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo:  context.repo.repo,
+                pull_number: prNumber,
+                reviewers: ["copilot-pull-request-reviewer"],
+              });
+              console.log(`Requested Copilot review on PR #${prNumber}`);
+            } catch (e) {
+              if (e.status === 422) {
+                console.log(`Copilot review already requested on PR #${prNumber} — skipping.`);
+              } else {
+                throw e;
+              }
+            }
+        env:
+          pr_number: ${{ steps.check-ci.outputs.pr_number }}

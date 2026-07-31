@@ -60,3 +60,32 @@ Help me create a new skill
 Analyze this R package
 Create .github/instructions for this package
 ```
+
+## PR Code Review
+
+This repository disables Copilot's automatic PR review and instead gates the
+review request on CI completion via
+`.github/workflows/copilot-review.yml`. This avoids Copilot posting before
+the `Validate Skills` (~12 s) and `Qualitative Skill Review` (~30 s) checks
+have finished, which would mean Copilot never sees their results.
+
+### How it works
+
+1. A PR is opened or updated.
+2. Both CI workflows run in parallel (~45–60 s end-to-end including runner spin-up).
+3. Once **both** pass, `copilot-review.yml` fires and requests a review from
+   `copilot-pull-request-reviewer`.
+4. Copilot reviews the PR with full access to CI comments already posted.
+
+### Disabling automatic Copilot review
+
+In your repository settings, disable **"Automatically request Copilot review"**
+under **Settings → Code and automation → Code review → Copilot**. The gating
+workflow handles the review request instead.
+
+### CI-awareness in the review
+
+`.github/copilot-instructions.md` includes a **CI Results** section that
+instructs Copilot to read and incorporate CI findings rather than repeat them.
+Violations already flagged by CI are treated as confirmed; Copilot focuses on
+qualitative issues that automated checks cannot cover.
