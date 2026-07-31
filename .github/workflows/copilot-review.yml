@@ -41,7 +41,7 @@ jobs:
             const statuses = {};
 
             for (const run of runs.data.workflow_runs) {
-              if (required.includes(run.name)) {
+              if (required.includes(run.name) && statuses[run.name] === undefined) {
                 statuses[run.name] = run.conclusion;
               }
             }
