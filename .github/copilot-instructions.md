@@ -70,6 +70,8 @@ successfully. When reviewing:
 
 ---
 
+## Do Not Flag
+
 - Normal Markdown formatting variation (e.g., use of bold vs. headers).
 - Optional frontmatter fields (`tags`) being absent.
 - Code snippets when they are clearly embedded *within* numbered workflow steps
