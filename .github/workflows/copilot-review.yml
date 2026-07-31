@@ -54,17 +54,12 @@ jobs:
             core.setOutput("all_passed", allPassed ? "true" : "false");
 
             // Surface the PR number for the review request step.
-            const prs = await github.rest.pulls.list({
-              owner, repo,
-              head: `${context.payload.workflow_run.head_repository.owner.login}:${context.payload.workflow_run.head_branch}`,
-              state: "open",
-            });
-            const pr = prs.data[0];
-            if (!pr) {
-              console.log("No open PR found for this head — skipping.");
+            const pr = context.payload.workflow_run.pull_requests?.[0];
+            if (!pr?.number) {
+              console.log("No PR associated with this workflow_run — skipping.");
               core.setOutput("pr_number", "");
             } else {
-              core.setOutput("pr_number", pr.number);
+              core.setOutput("pr_number", String(pr.number));
             }
 
       - name: Request Copilot PR review
