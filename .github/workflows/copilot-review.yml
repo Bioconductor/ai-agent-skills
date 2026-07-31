@@ -12,8 +12,8 @@ on:
       - completed
 
 permissions:
+  actions: read
   pull-requests: write
-
 jobs:
   request-copilot-review:
     name: Request Copilot review after CI
