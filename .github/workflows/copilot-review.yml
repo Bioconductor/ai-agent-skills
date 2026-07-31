@@ -67,13 +67,25 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const prNumber = parseInt(core.getInput("pr_number"));
-            await github.rest.pulls.requestReviewers({
-              owner: context.repo.owner,
-              repo:  context.repo.repo,
-              pull_number: prNumber,
-              reviewers: ["copilot-pull-request-reviewer"],
-            });
-            console.log(`Requested Copilot review on PR #${prNumber}`);
+            const prNumber = Number.parseInt(process.env.pr_number, 10);
+            if (Number.isNaN(prNumber)) {
+              throw new Error(`Invalid pr_number: ${process.env.pr_number}`);
+            }
+
+            try {
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo:  context.repo.repo,
+                pull_number: prNumber,
+                reviewers: ["copilot-pull-request-reviewer"],
+              });
+              console.log(`Requested Copilot review on PR #${prNumber}`);
+            } catch (e) {
+              if (e.status === 422) {
+                console.log(`Copilot review already requested on PR #${prNumber} — skipping.`);
+              } else {
+                throw e;
+              }
+            }
         env:
           pr_number: ${{ steps.check-ci.outputs.pr_number }}
