@@ -263,6 +263,23 @@ Skills indexing focused, practical how-tos for common Bioconductor data analysis
 
 ---
 
+## Protocols
+
+Skills for discovering and executing citable analysis workflows from federated community repositories.
+
+### bioc-protocol-runner
+
+**Purpose**: Search, retrieve, evaluate trust, and execute citable workflows from federated protocol repositories
+**Location**: `skills/bioc-protocol-runner/SKILL.md`
+**Invocation**: 
+- "Run the 16S quality control protocol"
+- "Search for a metagenomics taxonomy protocol and run it"
+**When to use**: 
+- Following a specific scientific method or pipeline
+- Needing to compose multiple protocols with strict citation output
+
+---
+
 ## Skill Categories & Tags
 
 ### By Category
@@ -272,6 +289,7 @@ Skills indexing focused, practical how-tos for common Bioconductor data analysis
 | **meta** | adr-author, check-bioconductor-skills, create-skill, document-skill, validate-skill | Repository and workflow infrastructure |
 | **r-packages** | analyze-r-package, bioc-pkg-finder, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
 | **bioconductor-how-tos** | bioc-howto | Bioconductor data analysis practical guides |
+| **protocols** | bioc-protocol-runner | Execute citable workflows from federated repositories |
 
 ### By Tag
 
@@ -297,6 +315,9 @@ Skills indexing focused, practical how-tos for common Bioconductor data analysis
 | **changelog** | update-r-news | Changelog and release note generation |
 | **news** | update-r-news | R package NEWS file management |
 | **data-analysis** | bioc-howto | Practical guides for analyzing omics data |
+| **workflow** | bioc-protocol-runner | Orchestrating multi-step execution |
+| **protocol** | bioc-protocol-runner | Following specific scientific methods |
+| **citation** | bioc-protocol-runner | Preserving provenance and citing literature |
 
 ---
 
