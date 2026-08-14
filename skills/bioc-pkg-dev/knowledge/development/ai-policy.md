@@ -30,4 +30,4 @@ Covers: Chapter 19 - AI and third-party code policy
   boilerplate may fall outside it, but when in doubt, disclose.
 
 Source: [AI policy and third-party code](https://contributions.bioconductor.org/ai-policy-third-party.html)
-Fetched 2026-07-23 from contributions.bioconductor.org (Bioconductor devel guide).
+Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).

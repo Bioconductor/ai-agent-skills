@@ -43,4 +43,4 @@ self-contained data packages.
   submission.
 
 Source: [Non-software packages](https://contributions.bioconductor.org/non-software.html)
-Fetched 2026-07-23 from contributions.bioconductor.org (Bioconductor devel guide).
+Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).

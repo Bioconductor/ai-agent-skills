@@ -40,4 +40,4 @@ Covers: Chapter 18 - Shiny apps in packages
   shinytest2, and check graceful error handling and responsive UI.
 
 Source: [Shiny apps](https://contributions.bioconductor.org/shiny.html)
-Fetched 2026-07-23 from contributions.bioconductor.org (Bioconductor devel guide).
+Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).

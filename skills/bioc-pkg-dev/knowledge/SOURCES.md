@@ -22,9 +22,10 @@ relying on it - it changes twice a year, and an agent that is not given it will 
 Other baseline facts:
 
 - Rendered guide: <https://contributions.bioconductor.org>
-- Summaries fetched: 2026-08-14 (files edited on that date carry that `Fetched` stamp; files
-  untouched since the previous pass still carry 2026-07-23 and are still accurate, because the
-  pkgrevdocs pin has not moved between the two dates)
+- Summaries fetched: 2026-08-14. Every summary now carries that stamp. The earlier 2026-07-23
+  pass is still the origin of most of the prose, but the pkgrevdocs pin was re-verified on
+  2026-08-14 and no mapped chapter had changed between the two dates, so the later date is the
+  one each file can actually back.
 
 Machine-readable endpoints used for drift detection:
 

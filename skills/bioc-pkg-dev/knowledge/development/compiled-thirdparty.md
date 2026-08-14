@@ -32,4 +32,4 @@ Covers: Chapter 17 - Code other than R (compiled and third-party)
   redistributable under, the package license.
 
 Source: [Code other than R](https://contributions.bioconductor.org/other-than-Rcode.html)
-Fetched 2026-07-23 from contributions.bioconductor.org (Bioconductor devel guide).
+Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).

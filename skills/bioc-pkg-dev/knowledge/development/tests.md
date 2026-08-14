@@ -45,4 +45,4 @@ Covers: Chapter 15 - Unit tests
   so they do not slow the nightly builds.
 
 Source: [Unit tests](https://contributions.bioconductor.org/tests.html)
-Fetched 2026-07-23 from contributions.bioconductor.org (Bioconductor devel guide).
+Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).

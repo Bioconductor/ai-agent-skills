@@ -53,4 +53,4 @@ Covers: Chapter 14 - Including data in a package
   heavy data hosted remotely. See the HubPub `CreateAHubPackage` vignette.
 
 Source: [Package data](https://contributions.bioconductor.org/data.html)
-Fetched 2026-07-23 from contributions.bioconductor.org (Bioconductor devel guide).
+Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).

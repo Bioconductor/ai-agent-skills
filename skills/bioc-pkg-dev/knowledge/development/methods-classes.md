@@ -44,4 +44,4 @@ Use existing importers instead of writing custom parsers:
   is inherited automatically (see namespace guidance in metadata-files.md).
 
 Source: [Reusing Bioconductor methods and classes](https://contributions.bioconductor.org/reusebioc.html)
-Fetched 2026-07-23 from contributions.bioconductor.org (Bioconductor devel guide).
+Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).

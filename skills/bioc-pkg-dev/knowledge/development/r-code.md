@@ -68,4 +68,4 @@ Covers: Chapter 16 - R code
 - Parallel operations should default to 1 or 2 cores.
 
 Source: [R code](https://contributions.bioconductor.org/r-code.html)
-Fetched 2026-07-23 from contributions.bioconductor.org (Bioconductor devel guide).
+Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).

@@ -40,4 +40,4 @@ Covers: Chapter 2 - Choosing a package name.
   is time-consuming. Choose carefully up front.
 
 Source: [Package name](https://contributions.bioconductor.org/package-name.html)
-Fetched 2026-07-23 from contributions.bioconductor.org (Bioconductor devel guide).
+Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).

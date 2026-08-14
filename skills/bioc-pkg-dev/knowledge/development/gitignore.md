@@ -37,4 +37,4 @@ Git metadata that should not be present:
 - Do not commit large data files (see data chapter); they belong in a Hub.
 
 Source: [.gitignore](https://contributions.bioconductor.org/gitignore.html)
-Fetched 2026-07-23 from contributions.bioconductor.org (Bioconductor devel guide).
+Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).

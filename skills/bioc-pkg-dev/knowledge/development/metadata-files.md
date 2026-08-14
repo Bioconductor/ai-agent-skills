@@ -130,4 +130,4 @@ Source: [README](https://contributions.bioconductor.org/readme.html),
 [LICENSE](https://contributions.bioconductor.org/license.html),
 [CITATION](https://contributions.bioconductor.org/citation.html),
 [System dependencies](https://contributions.bioconductor.org/sysdep.html)
-Fetched 2026-07-23 from contributions.bioconductor.org (Bioconductor devel guide).
+Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).
