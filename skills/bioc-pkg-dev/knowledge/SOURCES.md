@@ -9,19 +9,19 @@ against the pins below, and re-derive only the knowledge files the changed chapt
 Four upstreams, not one. A change to any of them can silently invalidate the guidance here.
 
 | Upstream | Pin | Verified | Invalidates |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | [Bioconductor/pkgrevdocs](https://github.com/Bioconductor/pkgrevdocs) (`devel`) | `9b078ea2a0ec05274be83cb12ea75473c6d0c808` (committed 2026-07-20) | 2026-08-14 | all of `knowledge/` |
 | [Bioconductor/Contributions](https://github.com/Bioconductor/Contributions) `issue_template.md` | `d2631e3da63092937a96d476c6f7fb915a168069` (committed 2021-07-12) | 2026-08-14 | the pre-submission gate wording in [../SKILL.md](../SKILL.md) |
 | [Bioconductor/BiocCheck](https://github.com/Bioconductor/BiocCheck) | release 1.48.1, devel 1.49.30 | 2026-08-14 | what "BiocCheck clean" means |
 | [lcolladotor/biocthis](https://github.com/lcolladotor/biocthis) | release 1.22.0, devel 1.23.0 | 2026-08-14 | the scaffolding guidance in [../SKILL.md](../SKILL.md) |
 
 Bioconductor cycle at the last refresh: Bioconductor release 3.23, devel 3.24, both on R 4.6.0
-(source: https://bioconductor.org/config.yaml). Check that triple against config.yaml before
+(source: <https://bioconductor.org/config.yaml>). Check that triple against config.yaml before
 relying on it - it changes twice a year, and an agent that is not given it will invent one.
 
 Other baseline facts:
 
-- Rendered guide: https://contributions.bioconductor.org
+- Rendered guide: <https://contributions.bioconductor.org>
 - Summaries fetched: 2026-08-14 (files edited on that date carry that `Fetched` stamp; files
   untouched since the previous pass still carry 2026-07-23 and are still accurate, because the
   pkgrevdocs pin has not moved between the two dates)
@@ -48,7 +48,7 @@ Rendered pages live at `https://contributions.bioconductor.org/<slug>.html`. Cha
 `.Rmd` names come from `_bookdown.yml`; slugs come from each chapter's `{#id}` anchor.
 
 | .Rmd | Slug | Ch | Knowledge file |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `index.Rmd` | `index` | - | not summarized (welcome page, no rules) |
 | `package-submission.Rmd` | `submission-overview` | - | [01-submissions.md](01-submissions.md) |
 | `package-submission.Rmd` | `bioconductor-package-submissions` | 1 | [01-submissions.md](01-submissions.md) |

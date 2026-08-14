@@ -4,11 +4,13 @@ Covers: Chapter 3 - General guidelines, and Chapter 4 - Important Bioconductor
 package development features.
 
 ## Development environment
+
 - Develop against the devel version of Bioconductor and use devel Bioconductor
   packages.
 - Use a recent R-devel matching the current Bioconductor devel branch.
 
 ## Pre-submission gate (build and check)
+
 - Must pass `R CMD build` and `R CMD check` with NO errors and NO warnings on
   recent R-devel.
 - Must pass `BiocCheck::BiocCheckGitClone()` with no errors/warnings.
@@ -16,6 +18,7 @@ package development features.
 - All ERRORs, WARNINGs, and NOTEs must be addressed or explicitly justified.
 
 ## Numeric thresholds (note the modality - only one of these is a "must")
+
 - Individual files (software packages): **<= 5 MB** each. Upstream: "individual files must be
   <= 5MB".
 - Source package produced by `R CMD build`: **< 10 MB**. Upstream: "should occupy less than
@@ -30,6 +33,7 @@ Treat the three "should" items as strong expectations: the build system enforces
 and a reviewer will ask. But do not tell a submitter they are blocked from submitting by them.
 
 ## File hygiene
+
 - Do not include filenames that differ only in case (cross-platform safety).
 - Exclude unnecessary files: `.DS_Store`, `.project`, `.git`, cache files, logs,
   `*.Rproj`, `*.so`.
@@ -40,6 +44,7 @@ and a reviewer will ask. But do not tell a submitter they are blocked from submi
   through the `R_CHECK_ENVIRON` environment variable.
 
 ## biocViews (required feature)
+
 - The DESCRIPTION file MUST contain a `biocViews:` field (case-sensitive,
   lowercase 'b').
 - Choose terms from only ONE category: Software, Annotation Data, Experiment Data,
@@ -51,6 +56,7 @@ and a reviewer will ask. But do not tell a submitter they are blocked from submi
   single category.
 
 ## Vignettes (required feature)
+
 - Every submitted package must have at least one Rmd (preferred) or Rnw vignette.
 - Render with `BiocStyle::html_document`.
 - Vignettes must contain evaluated (non-trivial, runnable) R code.
@@ -58,6 +64,7 @@ and a reviewer will ask. But do not tell a submitter they are blocked from submi
   relevant, compare against existing similar packages.
 
 ## Reuse existing infrastructure
+
 - Reuse established Bioconductor classes and methods where appropriate (see the
   Common Bioconductor Methods and Classes guidance / methods-classes.md).
 

@@ -3,6 +3,7 @@
 Covers: Chapter 5 - Common Bioconductor methods and classes.
 
 ## Core principles
+
 - Interoperability is required: packages are generally NOT accepted unless they
   demonstrate interoperability, typically by reusing existing Bioconductor classes
   and methods where appropriate.
@@ -14,8 +15,9 @@ Covers: Chapter 5 - Common Bioconductor methods and classes.
   or Bioconductor Slack for community feedback.
 
 ## Classes to reuse (by data type)
+
 | Data type | Recommended class / package |
-|-----------|-----------------------------|
+| ----------- | ----------------------------- |
 | Count matrices, microarray data | `SummarizedExperiment::SummarizedExperiment()` |
 | Genomic coordinates | `GenomicRanges::GRanges()` |
 | Multi-sample genomic coordinates | `GenomicRanges::GRangesList()` |
@@ -27,7 +29,9 @@ Covers: Chapter 5 - Common Bioconductor methods and classes.
 | Mass spectrometry | `Spectra::Spectra()` |
 
 ## Import / parsing methods to reuse
+
 Use existing importers instead of writing custom parsers:
+
 - Genomic file formats (BED, GFF, etc.): `rtracklayer`
 - VCF: `VariantAnnotation`
 - BAM / sequencing alignments: `Rsamtools`, `GenomicAlignments`
@@ -35,6 +39,7 @@ Use existing importers instead of writing custom parsers:
 - Mass spectrometry data: `Spectra`
 
 ## When importing Bioconductor classes
+
 - Import the full class package (via `import()`) so that full class functionality
   is inherited automatically (see namespace guidance in metadata-files.md).
 

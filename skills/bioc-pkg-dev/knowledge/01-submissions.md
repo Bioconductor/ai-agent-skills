@@ -1,4 +1,4 @@
-# Covers: Chapter 1 - Bioconductor package submission overview, eligibility, package types, and submission mechanics.
+# Covers: Chapter 1 - Bioconductor package submission overview, eligibility, package types, and submission mechanics
 
 ## Eligibility
 
@@ -33,7 +33,7 @@ this is a good thing to raise in the submission issue rather than discover durin
   add the experiment data package to the SAME issue as its software package.
 - Annotation: databases mapping identifiers to information; updated every 6
   months. Prefer AnnotationHub when possible. Do NOT use the tracker - instead
-  email packages@bioconductor.org.
+  email <packages@bioconductor.org>.
 - Workflow: demonstrate a multi-package bioinformatics workflow. No man/, R/, or
   data/ directories required. Follow the non-software development section.
 
@@ -57,7 +57,7 @@ this is a good thing to raise in the submission issue rather than discover durin
 - The Single Package Builder webhook auto-builds the package on submission (and
   on each subsequent push); the build must PASS on all platforms before review
   proceeds.
-- Annotation packages: email packages@bioconductor.org instead of opening an
+- Annotation packages: email <packages@bioconductor.org> instead of opening an
   issue on the tracker.
 
 ## Maintainer obligations (ongoing)
@@ -93,7 +93,7 @@ this is a good thing to raise in the submission issue rather than discover durin
 
 ## Getting help
 
-- General maintainer help: maintainer@bioconductor.org and the bioc-devel list.
+- General maintainer help: <maintainer@bioconductor.org> and the bioc-devel list.
 - Topics: S4 class design, implementation guidance, code structure,
   documentation review.
 

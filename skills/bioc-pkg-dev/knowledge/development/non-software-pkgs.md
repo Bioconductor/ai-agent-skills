@@ -7,11 +7,13 @@ experiment data packages. Hub-based distribution is preferred over
 self-contained data packages.
 
 ## Annotation packages
+
 - Link identifiers (gene names, probe IDs) to related information
   (chromosomal location, Gene Ontology categories, mappings).
 - Must include proper documentation for the data provided.
 
 ## Experiment data packages
+
 - Contain curated datasets from an experiment, course, or publication,
   typically a single dataset.
 - Require documentation of the data (source, creation, use).
@@ -19,6 +21,7 @@ self-contained data packages.
   the Hub approach.
 
 ## Hub packages (AnnotationHub / ExperimentHub)
+
 - Lightweight: data is stored externally (AWS S3, Azure Data Lakes, Ensembl,
   other public sites) and fetched on demand.
 - Must minimally contain: resource metadata, man pages describing the
@@ -26,6 +29,7 @@ self-contained data packages.
 - Follow the `CreateAHubPackage` vignette in the HubPub package.
 
 ## biocViews
+
 - Annotation packages must include `AnnotationData` (and appropriate child
   terms) in the DESCRIPTION `biocViews:` field.
 - Experiment data packages must include `ExperimentData` (and child terms).
@@ -33,6 +37,7 @@ self-contained data packages.
   package is assigned to.
 
 ## Submission
+
 - Submit through the GitHub package submission tracker.
 - Indicate the package type (annotation, experiment data, workflow) at
   submission.

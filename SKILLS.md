@@ -196,25 +196,6 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 ---
 
-### bioc-pkg-finder
-
-**Purpose**: Find the R / Bioconductor packages best suited to a task or workflow
-
-**When to use**:
-- When the user asks "what package should I use for X" or "is there a Bioconductor package that does Y"
-- Assembling an analysis workflow and needing to pick tools
-
-**Invocation**:
-- "What package should I use for differential expression?"
-- "Is there a Bioconductor package that does single-cell clustering?"
-- "Which package is standard for variant annotation?"
-
-**Output**: Recommended package(s) with biocViews term or CRAN Task View source, install path, and the key gotcha for the recommended tool
-
-**Related skills**: analyze-r-package, create-package-instructions
-
----
-
 ### bioc-pkg-dev
 
 **Purpose**: Guide an R package or a set of analysis scripts through Bioconductor submission: the pre-submission gate, the Contributions tracker, and post-acceptance maintenance
@@ -237,6 +218,25 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 **Output**: A two-tier gap report separating hard blockers from likely reviewer requests, ending in a submittable-or-not verdict; or a targeted answer citing the canonical guide chapter
 
 **Related skills**: analyze-r-package, security-audit-r-package, improve-code-coverage, update-r-news
+
+---
+
+### bioc-pkg-finder
+
+**Purpose**: Find the R / Bioconductor packages best suited to a task or workflow
+
+**When to use**:
+- When the user asks "what package should I use for X" or "is there a Bioconductor package that does Y"
+- Assembling an analysis workflow and needing to pick tools
+
+**Invocation**:
+- "What package should I use for differential expression?"
+- "Is there a Bioconductor package that does single-cell clustering?"
+- "Which package is standard for variant annotation?"
+
+**Output**: Recommended package(s) with biocViews term or CRAN Task View source, install path, and the key gotcha for the recommended tool
+
+**Related skills**: analyze-r-package, create-package-instructions
 
 ---
 
@@ -313,7 +313,7 @@ Skills for discovering and executing citable analysis workflows from federated c
 | Category | Skills | Purpose |
 |----------|--------|---------|
 | **meta** | adr-author, check-bioconductor-skills, create-skill, document-skill, validate-skill | Repository and workflow infrastructure |
-| **r-packages** | analyze-r-package, bioc-pkg-finder, bioc-pkg-dev, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
+| **r-packages** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
 | **bioconductor-how-tos** | bioc-howto | Bioconductor data analysis practical guides |
 | **protocols** | bioc-protocol-runner | Execute citable workflows from federated repositories |
 
@@ -333,7 +333,7 @@ Skills for discovering and executing citable analysis workflows from federated c
 | **analysis** | analyze-r-package, bioc-pkg-finder | Understanding code and architecture |
 | **security** | security-audit-r-package | Security audits and vulnerability detection |
 | **audit** | security-audit-r-package | Comprehensive code auditing |
-| **bioconductor** | analyze-r-package, bioc-pkg-finder, bioc-pkg-dev, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
+| **bioconductor** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
 | **submission** | bioc-pkg-dev | Preparing and submitting a package to Bioconductor |
 | **bioccheck** | bioc-pkg-dev | The BiocCheck pre-submission gate |
 | **biocviews** | bioc-pkg-dev | biocViews terms and package classification |
