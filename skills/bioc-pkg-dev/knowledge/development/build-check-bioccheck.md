@@ -62,4 +62,4 @@ BiocCheck can also be run on the built tarball. During development,
 - Once build, check, and BiocCheck are clean, the package is ready to submit.
 
 Source: [Build, check and BiocCheck](https://contributions.bioconductor.org/build-check-bioccheck.html) and [Conclusion](https://contributions.bioconductor.org/conclusion.html)
-Fetched 2026-07-23 from contributions.bioconductor.org (Bioconductor devel guide).
+Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).

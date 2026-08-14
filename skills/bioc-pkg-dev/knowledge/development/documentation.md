@@ -50,4 +50,4 @@ Covers: Chapter 13 - Documentation (man pages and vignettes).
 - References to the methods used and to related packages.
 
 Source: [Documentation](https://contributions.bioconductor.org/docs.html)
-Fetched 2026-07-23 from contributions.bioconductor.org (Bioconductor devel guide).
+Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).
