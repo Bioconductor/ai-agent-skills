@@ -55,7 +55,7 @@ Rendered pages live at `https://contributions.bioconductor.org/<slug>.html`. Cha
 | `devguide-introduction.Rmd` | `develop-overview` | - | not summarized (part overview, no rules) |
 | `package-name.Rmd` | `package-name` | 2 | [development/package-name.md](development/package-name.md) |
 | `general-package-development.Rmd` | `general` | 3 | [development/general-dev.md](development/general-dev.md) |
-| `important-bioc-features.Rmd` | `important-bioc-pkg-development-features` | 4 | [development/general-dev.md](development/general-dev.md) |
+| `important-bioc-features.Rmd` | `important-bioconductor-package-development-features` | 4 | [development/general-dev.md](development/general-dev.md) |
 | `bioc-classes-methods.Rmd` | `reusebioc` | 5 | [development/methods-classes.md](development/methods-classes.md) |
 | `readme-file.Rmd` | `readme` | 6 | [development/metadata-files.md](development/metadata-files.md) |
 | `description-file.Rmd` | `description` | 7 | [development/metadata-files.md](development/metadata-files.md) |

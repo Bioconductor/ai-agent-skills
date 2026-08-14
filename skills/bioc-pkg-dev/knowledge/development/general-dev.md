@@ -69,5 +69,5 @@ and a reviewer will ask. But do not tell a submitter they are blocked from submi
   Common Bioconductor Methods and Classes guidance / methods-classes.md).
 
 Source: [General package development](https://contributions.bioconductor.org/general.html) and
-[Important Bioconductor package development features](https://contributions.bioconductor.org/important-bioc-pkg-development-features.html)
+[Important Bioconductor package development features](https://contributions.bioconductor.org/important-bioconductor-package-development-features.html)
 Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).

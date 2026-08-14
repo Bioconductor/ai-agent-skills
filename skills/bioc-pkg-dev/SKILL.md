@@ -55,7 +55,7 @@ BiocManager::install(c(
 
 Use these tools rather than reimplementing them. `BiocCheck` is the authoritative validator and
 `biocthis` writes Bioconductor-shaped files; reusing existing infrastructure is itself a review
-criterion (see [Reusing methods and classes](https://contributions.bioconductor.org/important-bioc-pkg-development-features.html)).
+criterion (see [Reusing methods and classes](https://contributions.bioconductor.org/important-bioconductor-package-development-features.html)).
 
 ## Process
 
