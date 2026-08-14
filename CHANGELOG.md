@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **bioc-pkg-dev** (v1.0.0) - Guides an R package or a set of analysis scripts through
+  Bioconductor submission: the pre-submission gate, the Contributions tracker, and post-acceptance
+  maintenance.
+  - Reports gate items in two tiers, separating what upstream states as requirements from what it
+    states as recommendations, so a recommendation is not reported as a blocker.
+  - Ships 21 task-oriented `knowledge/` summaries of the official guide, each linking back to its
+    canonical chapter, loaded per topic rather than on every invocation.
+  - Drives `BiocCheck` and `biocthis` rather than reimplementing validation or templates.
+- SKILLS.md and USAGE.md entries for the new skill.
+
 ## [3.0.0] - 2026-07-07
 
 ### Added
