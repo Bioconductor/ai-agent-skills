@@ -38,7 +38,10 @@ BiocCheck can also be run on the built tarball. During development,
 
 ## What BiocCheck enforces (selection)
 - Bioconductor coding style, dependency and NAMESPACE correctness.
-- Presence of a vignette, runnable examples, and unit tests.
+- Presence of a vignette, runnable examples, and unit tests. The example check
+  is quantitative and is an ERROR below 80% - see the Examples section of
+  [documentation.md](documentation.md) for the exact rule and for why
+  `\dontrun` makes it worse rather than better.
 - Correct DESCRIPTION fields including valid `biocViews`.
 - No forbidden files tracked in git (see gitignore chapter).
 - Function length, line length, and other style thresholds.

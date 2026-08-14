@@ -88,7 +88,13 @@ Tier 1, stated as requirements:
 - `R CMD check` and `BiocCheck` pass with no ERROR and no WARNING on current R-devel. The
   tracker's own wording is "a minimum requirement for package acceptance". It also says "Passing
   these checks does not result in automatic acceptance" - a human review follows.
-- Individual files are 5 MB or smaller. Upstream states this one as "must".
+- At least 80% of man pages documenting exported objects have a runnable example. Below that,
+  BiocCheck raises an ERROR, not a warning. An example wrapped entirely in `\dontrun` or
+  `\donttest` counts as no example at all, because BiocCheck comments both out before parsing.
+- Individual files are 5 MB or smaller. Upstream states this one as "must", and states it for
+  **software** packages. Experiment data and annotation packages are governed by
+  [knowledge/development/non-software-pkgs.md](knowledge/development/non-software-pkgs.md)
+  instead; do not report a data file in one of those as a size blocker.
 - `biocViews` present; a vignette and man pages present; maintainer email valid and belonging to
   the person submitting; not on CRAN, since "a package can only be submitted to one or the
   other"; hosted on the GitHub default branch.
@@ -117,7 +123,10 @@ ExperimentData, Workflow) do not count on their own. Pick specific terms from th
 ### 5. Write the documentation and the tests
 
 A vignette that shows the actual analysis, not a stub, plus man pages with runnable examples:
-[knowledge/development/documentation.md](knowledge/development/documentation.md). Unit tests:
+[knowledge/development/documentation.md](knowledge/development/documentation.md). Count the
+examples rather than eyeballing them - the 80% threshold in step 3 is an ERROR, and a package can
+look well documented while failing it, since pages whose only example sits inside `\dontrun` score
+as zero. Unit tests:
 [knowledge/development/tests.md](knowledge/development/tests.md). Large data belongs in
 ExperimentHub or AnnotationHub rather than in the package:
 [knowledge/development/data.md](knowledge/development/data.md).

@@ -14,6 +14,15 @@ Covers: Chapter 13 - Documentation (man pages and vignettes).
 
 ## Examples (runnable)
 - All man pages should have runnable examples.
+- The enforced threshold is 80%: BiocCheck counts man pages that document an
+  exported object, and raises an **ERROR** - "At least 80% of man pages
+  documenting exported objects must have runnable examples" - when fewer than
+  80% of them have one. Verified in `checkExportsAreDocumented()`, BiocCheck
+  devel, 2026-08-14.
+- A page whose examples sit entirely inside `\dontrun` or `\donttest` counts as
+  having **no** example: BiocCheck runs `tools::Rd2ex(commentDontrun = TRUE,
+  commentDonttest = TRUE)` and then parses what is left. Wrapping an example to
+  silence a check therefore moves the package toward the ERROR, not away from it.
 - `\donttest` and `\dontrun` are generally not allowed except with proper
   justification.
 - If wrapping is unavoidable, prefer `\donttest` over `\dontrun`.
