@@ -54,38 +54,36 @@ Finds and executes citable, versioned analysis protocols from federated communit
 1. For each protocol in the execution chain (dependencies first, then the main protocol):
    - Fetch the markdown content using the `protocol_url` specified in the index.
    - Parse the `## References` section and the `citations` YAML frontmatter field to extract DOIs and PMIDs (Level 2 Citations).
-2. **CRITICAL**: Before executing any code, emit the full Method Provenance block to the user.
+2. **Important**: Before executing any code, emit the full Method Provenance block to the user using the following format, adapted for each protocol in the chain:
 
-#### Method Provenance Citation Format
-You MUST output this block exactly as follows, adapting for each protocol in the chain:
+   ```markdown
+   ## Method Provenance
 
-```markdown
-## Method Provenance
+   ### Protocol Citation (Level 1)
+   Following: [Author] "Name of Protocol"
+   Repository: [Repository Name], protocol: [Protocol Name] v[Version]
+   Repository DOI: [repository_doi if present]
+   Protocol DOI: [protocol_doi if present]
+   Trust tier: [trust_tier]
+   License: [license]
 
-### Protocol Citation (Level 1)
-Following: [Author] "Name of Protocol"
-Repository: [Repository Name], protocol: [Protocol Name] v[Version]
-Repository DOI: [repository_doi if present]
-Protocol DOI: [protocol_doi if present]
-Trust tier: [trust_tier]
-License: [license]
+   ### Primary Literature to Cite (Level 2)
+   This protocol implements methods from:
+   - [List of DOIs and PMIDs from the `citations` field and `## References` section]
+   ```
 
-### Primary Literature to Cite (Level 2)
-This protocol implements methods from:
-- [List of DOIs and PMIDs from the `citations` field and `## References` section]
-```
-*Note: If `protocol_doi` is present, cite it. If only `repository_doi` is present, ensure it is clearly displayed alongside the specific protocol name and version so the user knows which part of the repository was used.*
+   *Note: If `protocol_doi` is present, cite it. If only `repository_doi` is present, ensure it is clearly displayed alongside the specific protocol name and version so the user knows which part of the repository was used.*
 
 ### 6. Execute Protocol
 
-1. Read the fetched `protocol.md` content and follow the steps in order.
+1. Follow the steps in the fetched protocol content in order.
 2. Adapt the provided code to the user's specific environment, file paths, parameters, and organisms as necessary.
 3. If a step cannot be followed exactly as written, or requires a different package version than specified, note this departure inline.
 
 ### 7. Record Departures
 
 1. After execution completes, emit a final "Departures from protocol" section.
-2. List any deviations you made (e.g., using a different parameter value, skipping a step, or substituting a package). This is a normal part of adapting a protocol; recording it is what matters for provenance.
+2. List any deviations made during execution (e.g., using a different parameter value, skipping a step, or substituting a package). This is a normal part of adapting a protocol; recording it is what matters for provenance.
 
 ## Output Format
 
@@ -93,6 +91,16 @@ This protocol implements methods from:
 2. Code and execution logs from running the steps.
 3. The "Departures from protocol" summary.
 4. The standard Bioconductor skill execution citation (from `AGENTS.md`).
+
+## Examples
+
+**User**: "Search for a metagenomics taxonomy protocol and run it"
+
+**Skill produces**:
+- A short list of matching protocols with version, status, trust tier, and description
+- A request for the user to confirm which protocol to run
+- A method provenance block before any execution begins
+- A departures summary after the protocol finishes
 
 ## Notes
 
