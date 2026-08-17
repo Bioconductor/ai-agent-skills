@@ -236,6 +236,7 @@ def main():
     gh_token = os.environ.get("GITHUB_TOKEN")
     pr_number = os.environ.get("GH_PR_NUMBER")
     repo_name = os.environ.get("GH_REPO")
+    fallback_gemini_client = None
     
     # 1. Pre-flight Checks
     can_comment = True
@@ -268,6 +269,8 @@ def main():
             api_key=gh_token,
             base_url="https://models.inference.ai.azure.com"
         )
+        if gemini_key:
+            fallback_gemini_client = genai.Client(api_key=gemini_key)
     else:
         print(f"ERROR: Unknown LLM_PROVIDER '{llm_provider}'. Must be 'gemini' or 'github-models'.")
         sys.exit(1)
@@ -297,6 +300,30 @@ def main():
         try:
             status, report = validate_skill_with_llm(client, llm_provider, skill_path, skill_content, standard_docs)
         except Exception as e:
+            if llm_provider == "github-models" and fallback_gemini_client is not None:
+                print(f"Primary github-models call failed for {skill_name}: {e}")
+                print(f"Retrying {skill_name} with gemini fallback...")
+                try:
+                    status, report = validate_skill_with_llm(
+                        fallback_gemini_client,
+                        "gemini",
+                        skill_path,
+                        skill_content,
+                        standard_docs
+                    )
+                    report = (
+                        "> [!NOTE]\n"
+                        "> github-models failed for this skill and evaluation was retried with gemini.\n\n"
+                        + report
+                    )
+                except Exception as fallback_error:
+                    e = f"github-models error: {e}; gemini fallback error: {fallback_error}"
+                else:
+                    if status == "FAIL":
+                        any_failures = True
+                    emoji = "✅" if status == "PASS" else "❌"
+                    skill_reports += f"<details open>\n<summary>{emoji} <b>{skill_name}</b>: {status}</summary>\n\n{report}\n\n</details>\n\n"
+                    continue
             # Catch API errors / timeouts — mark skill as skipped and continue
             # so that already-evaluated skills' reports are not discarded.
             print(f"API Error during LLM call for {skill_name}: {e}")
