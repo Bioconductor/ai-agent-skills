@@ -6,8 +6,7 @@ permalink: /
 ---
 # bioconductor AI Agent Skills
 
-This is a repository of "Skills" intended to make AI coding agents (Claude Code, GitHub Copilot, Antigravity, Mistral, Aider, etc etc) perform more effectively and in alignment with community standards and best practices for Bioconductor users and developers. 
-[Contributions](CONTRIBUTING.md) are made by PR and validated for adherence to repository structure by a [quantitative](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/validate-skills.yml) and a [qualitative](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/qualitative-review.yml) GitHub Action.
+[Contributions](CONTRIBUTING.md) are made by PR and checked for structural correctness by automated [structural validation](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/validate-skills.yml); PRs also receive automated GitHub Copilot review feedback on skill quality.
 
 ## What are AI Agent Skills?
 

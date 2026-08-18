@@ -54,19 +54,19 @@ Flag as advisory comments (not blocking):
 
 ## CI Results
 
-This repository runs two automated checks on every pull request that modifies
-`SKILL.md` files. Your review is requested only after both have completed
-successfully. When reviewing:
+This repository runs automated structural checks (`Validate Skills`) on every
+pull request that modifies `SKILL.md` files. Your review is requested after
+these checks have completed successfully. When reviewing:
 
-- **Reference the CI outcomes.** If `Validate Skills` or `Qualitative Skill
-  Review` posted comments on this PR, read them and incorporate their findings
-  into your review. Do not repeat findings already surfaced by CI.
-- **If CI caught a violation**, treat it as confirmed — do not second-guess a
-  structural failure. You may add context or suggest a fix, but mark the issue
-  as already identified.
-- **If CI passed**, you can focus your review on issues CI does not cover:
-  clarity of prose, correctness of examples, adherence to the workflow-over-
-  code-snippets principle, and overall usefulness of the skill.
+- **Reference the CI outcomes.** If `Validate Skills` posted comments or errors on
+  this PR, read them and incorporate their findings into your review. Do not repeat
+  findings already surfaced by CI.
+- **If CI caught a structural violation**, treat it as confirmed — do not second-guess
+  a structural failure. You may add context or suggest a fix, but mark the issue as
+  already identified.
+- **If CI passed**, focus your review on qualitative standards: clarity of prose,
+  adherence to agent neutrality, workflow-over-code-snippets principle, and overall
+  usefulness of the skill.
 
 ---
 
