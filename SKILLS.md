@@ -196,6 +196,28 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 ---
 
+### build-check-bioccheck
+
+**Purpose**: Run and interpret R CMD build, R CMD check, and both BiocCheck entry points against a Bioconductor package, separating real defects from environment gaps and known false positives
+
+**Location**: `skills/build-check-bioccheck/SKILL.md`
+
+**When to use**:
+- Checking whether a package passes the Bioconductor validation gate
+- Interpreting a BiocCheck ERROR, WARNING or NOTE
+- Distinguishing a real package defect from a missing build tool, an account-level setting, or a known false positive
+
+**Invocation**:
+- "Run BiocCheck on this package"
+- "Does this package pass the Bioconductor checks?"
+- "Why is BiocCheck reporting this error?"
+
+**Output**: Per-step results with a pass/blocked verdict, findings classified as defect / environment / account action / false positive
+
+**Related skills**: bioc-pkg-dev, analyze-r-package, improve-code-coverage
+
+---
+
 ### bioc-pkg-dev
 
 **Purpose**: Guide an R package or a set of analysis scripts through Bioconductor submission: the pre-submission gate, the Contributions tracker, and post-acceptance maintenance

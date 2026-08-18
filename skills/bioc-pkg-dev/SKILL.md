@@ -133,8 +133,13 @@ ExperimentHub or AnnotationHub rather than in the package:
 
 ### 6. Run the gate
 
-Both entry points, on current R-devel. They check different things - the first inspects the git
-clone, the second the package:
+Invoke the **`build-check-bioccheck`** skill for this step. It runs the four commands in the
+right order, on the right artifact each time, and classifies what comes back - separating real
+defects from environment gaps, account-level actions, and known false positives such as
+`checkSingleColon` flagging a range expression over a local named like a CRAN package.
+
+Both entry points are required, on current R-devel. They check different things - the first
+inspects the git clone, the second the built package:
 
 ```r
 BiocCheck::BiocCheckGitClone()
@@ -208,6 +213,11 @@ rather than bolted on.
 **User**: "Why does `R CMD build` fail right after I scaffolded the package?"
 
 **Skill produces**: the `inst/CITATION` diagnosis in Notes below, plus the fix.
+
+## Integration
+
+- **Uses**: `build-check-bioccheck` (the gate step), `update-r-news` (writing NEWS)
+- **Works with**: `analyze-r-package`, `security-audit-r-package`, `improve-code-coverage`
 
 ## Notes
 
