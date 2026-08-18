@@ -8,7 +8,7 @@ under this directory are reference; this file is the process. Follow it top to b
 Most submitters are not starting from an empty directory. Two different starting points, and the
 first thing to do is work out which one you are at - the advice diverges immediately.
 
-**A package already** (there is a `DESCRIPTION`): skip to the numbered list below. Do not scaffold
+**A package already exists** (there is a `DESCRIPTION`): skip to the numbered list below. Do not scaffold
 from scratch; you would overwrite metadata you already have.
 
 **Scripts, not a package** (no `DESCRIPTION` - analysis code, a bag of `.R` files, a repo of
