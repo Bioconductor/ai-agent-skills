@@ -49,7 +49,7 @@ this is a good thing to raise in the submission issue rather than discover durin
 - Package name should not conflict (case-insensitive) with any current or past
   Bioconductor or CRAN package. The contributor grants Bioconductor rights to
   the package name (CRAN-style naming/ownership policy applies).
-- Open a NEW issue on the tracker at github.com/Bioconductor/Contributions with
+- Open a NEW issue on the tracker at github.com/Bioconductor/BiocContributions with
   the package name as the issue title; link the GitHub repo in the issue and
   follow the tracker README.md guidelines.
 - The submitter MUST be listed as the package maintainer in DESCRIPTION

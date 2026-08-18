@@ -160,7 +160,7 @@ provably cosmetic.
 ### 8. Submit
 
 Host on the GitHub default branch, then open an issue whose title is the package name at the
-[Contributions tracker](https://github.com/Bioconductor/Contributions/issues/new). Annotation
+[BiocContributions tracker](https://github.com/Bioconductor/BiocContributions/issues/new). Annotation
 packages go by email to <packages@bioconductor.org> instead. The Single Package Builder must then
 pass on all platforms. Eligibility and package types:
 [knowledge/01-submissions.md](knowledge/01-submissions.md).

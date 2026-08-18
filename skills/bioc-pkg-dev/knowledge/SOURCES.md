@@ -11,7 +11,7 @@ Four upstreams, not one. A change to any of them can silently invalidate the gui
 | Upstream | Pin | Verified | Invalidates |
 | --- | --- | --- | --- |
 | [Bioconductor/pkgrevdocs](https://github.com/Bioconductor/pkgrevdocs) (`devel`) | `9b078ea2a0ec05274be83cb12ea75473c6d0c808` (committed 2026-07-20) | 2026-08-14 | all of `knowledge/` |
-| [Bioconductor/Contributions](https://github.com/Bioconductor/Contributions) `issue_template.md` | `d2631e3da63092937a96d476c6f7fb915a168069` (committed 2021-07-12) | 2026-08-14 | the pre-submission gate wording in [../SKILL.md](../SKILL.md) |
+| [Bioconductor/BiocContributions](https://github.com/Bioconductor/BiocContributions) `.github/ISSUE_TEMPLATE/ISSUE_TEMPLATE.md` | blob `a9e7b0e39fbf` (repo `devel` at `2e040ee3`, 2026-07-22) | 2026-08-18 | the pre-submission gate wording in [../SKILL.md](../SKILL.md) |
 | [Bioconductor/BiocCheck](https://github.com/Bioconductor/BiocCheck) | release 1.48.1, devel 1.49.30 | 2026-08-14 | what "BiocCheck clean" means |
 | [lcolladotor/biocthis](https://github.com/lcolladotor/biocthis) | release 1.22.0, devel 1.23.0 | 2026-08-14 | the scaffolding guidance in [../SKILL.md](../SKILL.md) |
 

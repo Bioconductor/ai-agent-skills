@@ -121,7 +121,7 @@ except the two timing items, which need a real build; see [../SKILL.md](../SKILL
 
 ## Phase 3 - Submit to the tracker
 
-- Open a new issue at <https://github.com/Bioconductor/Contributions/issues/new>
+- Open a new issue at <https://github.com/Bioconductor/BiocContributions/issues/new>
 - Issue TITLE = the package name. Body = link to your GitHub repo; confirm you have read the
   guidelines and understand the review process.
 - Annotation packages are the exception: email <packages@bioconductor.org> instead.

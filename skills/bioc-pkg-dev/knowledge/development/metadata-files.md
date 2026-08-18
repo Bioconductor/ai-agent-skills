@@ -92,6 +92,9 @@ Other fields:
   CHANGES" with bullet points.
 - Bioconductor compiles NEWS files into semi-annual release announcements.
 - Validate formatting with `utils::news(package = "<package_name>")`.
+- To write or update the NEWS file itself, use the **`update-r-news`** skill
+  (`skills/update-r-news/SKILL.md`) rather than hand-editing: it already encodes
+  the heading format and section conventions described above.
 
 ## LICENSE (Chapter 10)
 
