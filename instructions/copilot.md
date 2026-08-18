@@ -66,14 +66,14 @@ Create .github/instructions for this package
 This repository disables Copilot's automatic PR review and instead gates the
 review request on CI completion via
 `.github/workflows/copilot-review.yml`. This avoids Copilot posting before
-the `Validate Skills` (~12 s) and `Qualitative Skill Review` (~30 s) checks
-have finished, which would mean Copilot never sees their results.
+the `Validate Skills` (~12 s) structural gatekeeper check has finished,
+ensuring Copilot always sees fresh CI results.
 
 ### How it works
 
 1. A PR is opened or updated.
-2. Both CI workflows run in parallel (~45–60 s end-to-end including runner spin-up).
-3. Once **both** pass, `copilot-review.yml` fires and requests a review from
+2. The `Validate Skills` workflow executes fast deterministic checks (~12 s).
+3. Once `Validate Skills` passes, `copilot-review.yml` fires and requests a review from
    `copilot-pull-request-reviewer`.
 4. Copilot reviews the PR with full access to CI comments already posted.
 

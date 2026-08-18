@@ -1,13 +1,12 @@
 name: Request Copilot Review
 
 # Fires after any workflow_run completes on a pull_request event.
-# We check inside the job that BOTH required CI workflows have passed
+# We check inside the job that the required CI workflow (Validate Skills) has passed
 # before requesting the Copilot review, so Copilot always sees fresh results.
 on:
   workflow_run:
     workflows:
       - "Validate Skills"
-      - "Qualitative Skill Review"
     types:
       - completed
 
@@ -37,7 +36,7 @@ jobs:
               per_page: 50,
             });
 
-            const required = ["Validate Skills", "Qualitative Skill Review"];
+            const required = ["Validate Skills"];
             const statuses = {};
 
             for (const run of runs.data.workflow_runs) {
