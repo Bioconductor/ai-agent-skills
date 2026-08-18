@@ -16,8 +16,8 @@ We will implement a **Federated Protocol Repository** architecture.
 2. **Federation via Indexing**: Domain experts will publish protocols in their own GitHub repositories (e.g., `waldronlab/ai-agent-protocols`). These repositories will generate a machine-readable index (`PROTOCOLS.yaml`).
 3. **Discovery**: The `bioc-protocol-runner` skill will be responsible for querying these indexes, fetching `registry.yaml` from registered repositories, and matching user requests to available protocols.
 4. **Citation Mandate**: The runner skill is strictly mandated to emit a standard **Method Provenance** block before executing any protocol. This block must compose citations at two levels:
-   - **Level 1**: The protocol itself (Author, Protocol Name, Version, Date, and Protocol/Repository DOI).
-   - **Level 2**: Primary literature referenced by the protocol (DOIs/PMIDs).
+   - **Level 1**: The protocol itself (Author, Protocol Name, Version, Date, and Protocol/Repository/Publication DOI).
+   - **Level 2**: Primary literature referenced by the protocol (DOIs/PMIDs). For atomic protocols, this is derived from the machine-readable `citation` frontmatter field (not markdown text). For composite protocols, this is the aggregation of Level 2 citations from all constituent atomic protocols.
 
 ## Alternatives Considered
 

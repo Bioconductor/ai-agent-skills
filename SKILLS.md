@@ -271,12 +271,13 @@ Skills for discovering and executing citable analysis workflows from federated c
 
 **Purpose**: Search, retrieve, evaluate trust, and execute citable workflows from federated protocol repositories
 **Location**: `skills/bioc-protocol-runner/SKILL.md`
-**Invocation**: 
+**Invocation**:
 - "Run the 16S quality control protocol"
 - "Search for a metagenomics taxonomy protocol and run it"
-**When to use**: 
+**When to use**:
 - Following a specific scientific method or pipeline
 - Needing to compose multiple protocols with strict citation output
+**Output**: Method provenance citation block, execution logs, departures summary, and skill citation
 
 ---
 
