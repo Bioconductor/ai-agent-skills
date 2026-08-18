@@ -2,11 +2,10 @@
 """
 llm_validate_skills.py — LLM qualitative review of bioconductor/ai-agent-skills.
 
-This script uses a configured LLM provider (GitHub Models or Gemini) to perform
-a subjective review of modified SKILL.md files in a pull request. It checks for
-compliance with standard repository guidelines
-(e.g., agent neutrality, workflow structure) that cannot be caught by deterministic
-static checks.
+This script uses GitHub Models (via an OpenAI-compatible API) to perform a
+subjective review of modified SKILL.md files in a pull request. It checks for
+compliance with standard repository guidelines (e.g., agent neutrality, workflow
+structure) that cannot be caught by deterministic static checks.
 
 Usage (in GitHub Actions):
   python scripts/llm_validate_skills.py
@@ -18,15 +17,12 @@ import sys
 import subprocess
 from pathlib import Path
 
-
 # Try importing the pinned dependencies
 try:
-    from google import genai
-    from google.genai import types
     import openai
     from github import Github, Auth
 except ImportError:
-    print("ERROR: Required dependencies missing. Ensure google-genai, openai, and PyGithub are installed.")
+    print("ERROR: Required dependencies missing. Ensure openai and PyGithub are installed.")
     sys.exit(1)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -63,10 +59,20 @@ def get_modified_skill_files(gh_token=None, repo_name=None, pr_number=None):
     base_ref = os.environ.get("BASE_REF", "devel")
     
     # Safely probe origin diff without hard-failing
-    result = subprocess.run(["git", "diff", "--name-only", f"origin/{base_ref}...HEAD"], capture_output=True, text=True, cwd=REPO_ROOT)
+    result = subprocess.run(
+        ["git", "diff", "--name-only", f"origin/{base_ref}...HEAD"],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT
+    )
     if result.returncode != 0:
         print(f"Warning: 'git diff origin/{base_ref}...HEAD' failed. Trying local branch diff.", file=sys.stderr)
-        result = subprocess.run(["git", "diff", "--name-only", f"{base_ref}...HEAD"], capture_output=True, text=True, cwd=REPO_ROOT)
+        result = subprocess.run(
+            ["git", "diff", "--name-only", f"{base_ref}...HEAD"],
+            capture_output=True,
+            text=True,
+            cwd=REPO_ROOT
+        )
         if result.returncode != 0:
             print("ERROR: Could not determine modified files via git diff.", file=sys.stderr)
             sys.exit(1)
@@ -126,7 +132,80 @@ def get_standard_docs():
             
     return docs
 
-def validate_skill_with_llm(client, provider, skill_path, skill_content, standard_docs):
+def get_available_models(client, base_url=None):
+    """
+    Query and return a list of available model identifiers from GitHub Models.
+    Logs discovered models for debugging and visibility.
+    """
+    models = []
+    endpoint_str = f" ({base_url})" if base_url else ""
+    print(f"Querying available models from GitHub Models{endpoint_str}...")
+    try:
+        response = client.models.list()
+        items = getattr(response, "data", response)
+        models = [m.id for m in items]
+        if models:
+            print(f"Discovered {len(models)} available model(s):")
+            for m in sorted(models):
+                print(f"  - {m}")
+        else:
+            print("No models returned by GitHub Models endpoint.")
+    except Exception as e:
+        print(f"Warning: Could not query available models from GitHub Models: {e}")
+        
+    return models
+
+def resolve_model(requested_model, available_models):
+    """
+    Resolve the best matching model ID from the available models list,
+    accounting for publisher prefixes or falling back to preferred alternatives.
+    """
+    if not available_models:
+        print(f"No model list available. Using requested model: '{requested_model}'.")
+        return requested_model
+
+    # 1. Exact match
+    if requested_model in available_models:
+        print(f"Selected model: '{requested_model}' (exact match).")
+        return requested_model
+
+    # 2. Match with or without publisher prefix (e.g. 'openai/gpt-4o' vs 'gpt-4o')
+    for m in available_models:
+        base_m = m.split("/")[-1]
+        base_req = requested_model.split("/")[-1]
+        if base_m.lower() == base_req.lower():
+            print(f"Resolved model '{requested_model}' to available model: '{m}'.")
+            return m
+
+    # 3. Fallback candidates
+    candidates = [
+        "gpt-4o",
+        "openai/gpt-4o",
+        "gpt-4o-mini",
+        "openai/gpt-4o-mini",
+        "gpt-4-turbo",
+        "openai/gpt-4o",
+        "Meta-Llama-3.3-70B-Instruct",
+        "meta/llama-3.3-70b-instruct",
+        "Mistral-large-2407",
+        "mistralai/Mistral-large-2407",
+    ]
+
+    for candidate in candidates:
+        if candidate in available_models:
+            print(f"Warning: Requested model '{requested_model}' not found in catalog. Falling back to preferred candidate: '{candidate}'.")
+            return candidate
+        for m in available_models:
+            if m.split("/")[-1].lower() == candidate.split("/")[-1].lower():
+                print(f"Warning: Requested model '{requested_model}' not found in catalog. Falling back to preferred candidate: '{m}'.")
+                return m
+
+    # 4. Fallback to first available model
+    first_model = available_models[0]
+    print(f"Warning: Requested model '{requested_model}' and preferred candidates not found. Using first available model: '{first_model}'.")
+    return first_model
+
+def validate_skill_with_llm(client, model_name, skill_path, skill_content, standard_docs):
     """Run the LLM against the skill content and standard docs."""
     skill_name = skill_path.parent.name
     display_path = skill_path
@@ -166,61 +245,32 @@ File path: {display_path}
 5. You MUST return your response as a valid JSON object matching the required schema.
 """
     
-    print(f"  Calling {provider} API for {skill_name}...")
-    
+    print(f"  Calling GitHub Models API (model: {model_name}) for {skill_name}...")
     try:
-        if provider == "gemini":
-            response = client.models.generate_content(
-                model="gemini-2.5-flash",
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    temperature=0.1,
-                    response_mime_type="application/json",
-                    response_schema={
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.1,
+            response_format={
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "validation_report",
+                    "schema": {
                         "type": "object",
                         "required": ["status", "report_markdown"],
                         "properties": {
-                            "status": {
-                                "type": "string",
-                                "enum": ["PASS", "FAIL"]
-                            },
-                            "report_markdown": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                ),
-            )
-            result = json.loads(response.text)
-        elif provider == "github-models":
-            model_name = os.environ.get("GH_MODELS_MODEL", "gpt-4o")
-            response = client.chat.completions.create(
-                model=model_name,
-                messages=[
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=0.1,
-                response_format={
-                    "type": "json_schema",
-                    "json_schema": {
-                        "name": "validation_report",
-                        "schema": {
-                            "type": "object",
-                            "required": ["status", "report_markdown"],
-                            "properties": {
-                                "status": { "type": "string", "enum": ["PASS", "FAIL"] },
-                                "report_markdown": { "type": "string" }
-                            },
-                            "additionalProperties": False
+                            "status": { "type": "string", "enum": ["PASS", "FAIL"] },
+                            "report_markdown": { "type": "string" }
                         },
-                        "strict": True
-                    }
+                        "additionalProperties": False
+                    },
+                    "strict": True
                 }
-            )
-            result = json.loads(response.choices[0].message.content)
-        else:
-            raise ValueError(f"Unknown provider: {provider}")
-            
+            }
+        )
+        result = json.loads(response.choices[0].message.content)
         return result.get("status", "FAIL"), result.get("report_markdown", "Failed to extract report.")
     except Exception as e:
         print(f"Error calling LLM or parsing JSON: {e}")
@@ -231,8 +281,6 @@ File path: {display_path}
 # ──────────────────────────────────────────────────────────────────────────────
 
 def main():
-    llm_provider = os.environ.get("LLM_PROVIDER", "github-models").lower()
-    gemini_key = os.environ.get("GEMINI_API_KEY")
     gh_token = os.environ.get("GITHUB_TOKEN")
     pr_number = os.environ.get("GH_PR_NUMBER")
     repo_name = os.environ.get("GH_REPO")
@@ -249,28 +297,22 @@ def main():
             print("Error: GH_PR_NUMBER must be an integer.")
             can_comment = False
 
-    if llm_provider == "gemini":
-        if not gemini_key:
-            msg = "### 🤖 LLM Qualitative Review Skipped\nThe `GEMINI_API_KEY` secret is not configured in this repository. Please configure it to enable automated qualitative skill review."
-            print(msg)
-            if can_comment:
-                try:
-                    post_or_update_pr_comment(gh_token, repo_name, pr_number, msg)
-                except Exception as e:
-                    print(f"Failed to post PR comment: {e}")
-            sys.exit(0) # Graceful degradation
-        client = genai.Client(api_key=gemini_key)
-    elif llm_provider == "github-models":
-        if not gh_token:
-             print("ERROR: GITHUB_TOKEN is required for github-models but not set. Cannot run LLM.")
-             sys.exit(1)
-        client = openai.OpenAI(
-            api_key=gh_token,
-            base_url="https://models.inference.ai.azure.com"
-        )
-    else:
-        print(f"ERROR: Unknown LLM_PROVIDER '{llm_provider}'. Must be 'gemini' or 'github-models'.")
+    if not gh_token:
+        print("ERROR: GITHUB_TOKEN is required to run LLM validation but is not set.")
         sys.exit(1)
+
+    gh_models_base_url = (
+        os.environ.get("GH_MODELS_ENDPOINT")
+        or os.environ.get("GH_MODELS_BASE_URL")
+        or "https://models.github.ai/inference"
+    )
+    client = openai.OpenAI(
+        api_key=gh_token,
+        base_url=gh_models_base_url
+    )
+    available_models = get_available_models(client, base_url=gh_models_base_url)
+    requested_model = os.environ.get("GH_MODELS_MODEL", "gpt-4o")
+    resolved_model = resolve_model(requested_model, available_models)
 
     # 2. Identify Targets
     modified_skills = get_modified_skill_files(gh_token, repo_name, pr_number)
@@ -295,7 +337,13 @@ def main():
         print(f"Evaluating {skill_name}...")
 
         try:
-            status, report = validate_skill_with_llm(client, llm_provider, skill_path, skill_content, standard_docs)
+            status, report = validate_skill_with_llm(
+                client,
+                resolved_model,
+                skill_path,
+                skill_content,
+                standard_docs
+            )
         except Exception as e:
             # Catch API errors / timeouts — mark skill as skipped and continue
             # so that already-evaluated skills' reports are not discarded.
@@ -304,7 +352,7 @@ def main():
             skill_reports += (
                 f"<details>\n"
                 f"<summary>⏭️ <b>{skill_name}</b>: SKIPPED</summary>\n\n"
-                f"The {llm_provider} API encountered an error during evaluation: `{e}`.\n"
+                f"The GitHub Models API encountered an error during evaluation: `{e}`.\n"
                 f"Human review is required for this skill.\n\n"
                 f"</details>\n\n"
             )
@@ -319,7 +367,7 @@ def main():
     if any_skipped:
         skill_reports += (
             "\n> [!WARNING]\n"
-            f"> One or more skills could not be evaluated due to a {llm_provider} API error. "
+            "> One or more skills could not be evaluated due to a GitHub Models API error. "
             "Human review is required for the skipped skill(s).\n"
         )
 
@@ -359,3 +407,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

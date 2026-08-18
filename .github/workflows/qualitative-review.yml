@@ -30,15 +30,16 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: python -m pip install google-genai==1.47.0 "openai>=1.50.0" PyGithub==2.9.1
+        run: python -m pip install "openai>=1.50.0" PyGithub==2.9.1
 
       - name: Run LLM qualitative validation
         run: python scripts/llm_validate_skills.py
         env:
-          LLM_PROVIDER: 'github-models' # Change to 'gemini' to use Gemini
+          GH_MODELS_ENDPOINT: 'https://models.github.ai/inference/v1'
           GH_MODELS_MODEL: 'gpt-4o'
           BASE_REF: ${{ github.base_ref }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_PR_NUMBER: ${{ github.event.pull_request.number }}
           GH_REPO: ${{ github.repository }}
+
+
