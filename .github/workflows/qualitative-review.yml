@@ -35,7 +35,7 @@ jobs:
       - name: Run LLM qualitative validation
         run: python scripts/llm_validate_skills.py
         env:
-          GH_MODELS_ENDPOINT: 'https://models.github.ai/inference'
+          GH_MODELS_ENDPOINT: 'https://models.github.ai/inference/v1'
           GH_MODELS_MODEL: 'gpt-4o'
           BASE_REF: ${{ github.base_ref }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

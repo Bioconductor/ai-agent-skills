@@ -142,7 +142,8 @@ def get_available_models(client, base_url=None):
     print(f"Querying available models from GitHub Models{endpoint_str}...")
     try:
         response = client.models.list()
-        models = [m.id for m in response]
+        items = getattr(response, "data", response)
+        models = [m.id for m in items]
         if models:
             print(f"Discovered {len(models)} available model(s):")
             for m in sorted(models):
