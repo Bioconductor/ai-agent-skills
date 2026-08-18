@@ -6,7 +6,7 @@ permalink: /
 ---
 # bioconductor AI Agent Skills
 
-[Contributions](CONTRIBUTING.md) are made by PR and validated for adherence to repository standards by automated [structural validation](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/validate-skills.yml) and automated GitHub Copilot PR reviews.
+[Contributions](CONTRIBUTING.md) are made by PR and checked for structural correctness by automated [structural validation](https://github.com/Bioconductor/ai-agent-skills/actions/workflows/validate-skills.yml); PRs also receive automated GitHub Copilot review feedback on skill quality.
 
 ## What are AI Agent Skills?
 
