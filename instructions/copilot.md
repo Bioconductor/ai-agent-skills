@@ -64,7 +64,7 @@ Create .github/instructions for this package
 ## PR Code Review
 
 This repository disables Copilot's automatic PR review and instead gates the
-review request on CI completion via
+review request on `Validate Skills` completion via
 `.github/workflows/copilot-review.yml`. This avoids Copilot posting before
 the `Validate Skills` (~12 s) structural gatekeeper check has finished,
 ensuring Copilot always sees fresh CI results.
