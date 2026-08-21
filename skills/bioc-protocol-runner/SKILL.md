@@ -96,12 +96,21 @@ Finds and executes citable, versioned analysis protocols from federated communit
 1. After execution completes, emit a final "Departures from protocol" section.
 2. List any deviations made during execution (e.g., using a different parameter value, skipping a step, or substituting a package). This is a normal part of adapting a protocol; recording it is what matters for provenance.
 
+### 8. Generate Draft Methods Section
+
+1. Synthesize a publication-ready narrative Methods section describing the exact analysis performed.
+2. Embed the underlying method and tool citations directly into the prose at the appropriate steps using their DOIs (e.g. *(Author et al., Year, DOI: ...)* or direct DOI references).
+3. Explicitly state the protocol used, version, and any departures/custom parameter adaptations applied during execution.
+4. Include a dedicated sub-paragraph citing the AI Agent Protocol framework and repository artifact.
+5. Do not attempt custom bibliography formatting; propagate exact DOIs and PMIDs so users can import them into their citation manager.
+
 ## Output Format
 
 1. The "Method Provenance" block (Level 1 and Level 2 citations).
 2. Code and execution logs from running the steps.
 3. The "Departures from protocol" summary.
-4. The standard Bioconductor skill execution citation (from `AGENTS.md`).
+4. The **"Draft Methods Section"** (publication-ready prose with inline DOI citations and departures).
+5. The standard Bioconductor skill execution citation (from `AGENTS.md`).
 
 ## Examples
 
@@ -111,8 +120,11 @@ Finds and executes citable, versioned analysis protocols from federated communit
 - A short list of matching protocols with version, status, trust tier, and description
 - A request for the user to confirm which protocol to run
 - A method provenance block before any execution begins
+- The executed steps and logs
 - A departures summary after the protocol finishes
+- A drafted narrative Methods section with inline citations for the user's manuscript
 
 ## Notes
 
 - Trust scores and popularity metrics are reserved for a future release, but `trust_tier` from the registry should be displayed if available.
+
