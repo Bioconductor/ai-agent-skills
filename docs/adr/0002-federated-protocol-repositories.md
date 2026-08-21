@@ -15,9 +15,11 @@ We will implement a **Federated Protocol Repository** architecture.
 1. **Separation of Concerns**: The `bioconductor/ai-agent-skills` repository will host a single generic runner skill (`bioc-protocol-runner`). It will not host protocol content.
 2. **Federation via Indexing**: Domain experts will publish protocols in their own GitHub repositories (e.g., `waldronlab/ai-agent-protocols`). These repositories will generate a machine-readable index (`PROTOCOLS.yaml`).
 3. **Discovery**: The `bioc-protocol-runner` skill will be responsible for querying these indexes, fetching `registry.yaml` from registered repositories, and matching user requests to available protocols.
-4. **Citation Mandate**: The runner skill is strictly mandated to emit a standard **Method Provenance** block before executing any protocol. This block must compose citations at two levels:
-   - **Level 1**: The protocol itself (Author, Protocol Name, Version, Date, and Protocol/Repository/Publication DOI).
-   - **Level 2**: Primary literature referenced by the protocol (DOIs/PMIDs). For atomic protocols, this is derived from the machine-readable `citation` frontmatter field (not markdown text). For composite protocols, this is the aggregation of Level 2 citations from all constituent atomic protocols.
+4. **Citation Mandate & Methods Drafting**: The runner skill is strictly mandated to:
+   - Emit a standard **Method Provenance** block before executing any protocol. This block composes citations at two levels:
+     - **Level 1**: The protocol itself (Author, Protocol Name, Version, Date, and Protocol/Repository/Publication DOI).
+     - **Level 2**: Primary literature referenced by the protocol (DOIs/PMIDs). For atomic protocols, this is derived from the machine-readable `citation` frontmatter field. For composite protocols, this is the aggregation of Level 2 citations from all constituent atomic protocols.
+   - Generate a publication-ready **Draft Methods Section** after execution that embeds inline tool/method DOIs, details parameter departures, and includes a dedicated subsection citing the executed protocol artifact.
 
 ## Alternatives Considered
 

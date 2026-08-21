@@ -98,18 +98,20 @@ Finds and executes citable, versioned analysis protocols from federated communit
 
 ### 8. Generate Draft Methods Section
 
-1. Synthesize a publication-ready narrative Methods section describing the exact analysis performed.
-2. Embed the underlying method and tool citations directly into the prose at the appropriate steps using their DOIs (e.g. *(Author et al., Year, DOI: ...)* or direct DOI references).
-3. Explicitly state the protocol used, version, and any departures/custom parameter adaptations applied during execution.
-4. Include a dedicated sub-paragraph citing the AI Agent Protocol framework and repository artifact.
-5. Do not attempt custom bibliography formatting; propagate exact DOIs and PMIDs so users can import them into their citation manager.
+1. **Narrative Synthesis:** Synthesize a publication-ready narrative Methods section describing the exact analysis steps performed.
+   - If the protocol contains a `## Methods Template` section, use its text as the baseline phrasing structure and fill in actual runtime parameters and sample identifiers. Otherwise, construct clear academic prose.
+2. **Inline Method & Tool Attribution (Level 2):** Embed underlying methodology and software citations directly into the narrative prose at the relevant steps using their DOIs/PMIDs (e.g., *"...using MetaPhlAn 4.2 (DOI: 10.1038/s41587-023-01688-w)"*).
+3. **Departures & Parameters:** Seamlessly incorporate any runtime parameter adaptations or deviations recorded in Step 7 into the text.
+4. **AI Agent Protocols Attribution Subsection (Level 1):** Include a dedicated separate paragraph/subsection naming and citing the executed protocol artifact, repository, version, and protocol/repository DOI:
+   > *"Computational analysis was automated using the AI Agent Protocol `[Protocol Name]` (v`[Version]`, DOI: `[protocol_doi or repository_doi]`) executed via Bioconductor's `bioc-protocol-runner`."*
+5. **No Style-Specific Bibliography Formatting:** Do not generate formatted bibliographies in arbitrary styles (APA, MLA, BibTeX, etc.); propagate exact DOIs and PMIDs so users can seamlessly import them into their reference manager of choice.
 
 ## Output Format
 
-1. The "Method Provenance" block (Level 1 and Level 2 citations).
+1. The "Method Provenance" block (Level 1 and Level 2 citations emitted pre-execution).
 2. Code and execution logs from running the steps.
 3. The "Departures from protocol" summary.
-4. The **"Draft Methods Section"** (publication-ready prose with inline DOI citations and departures).
+4. The **"Draft Methods Section"** (publication-ready prose with inline DOI citations, runtime parameters, and dedicated AI Agent Protocol attribution subsection).
 5. The standard Bioconductor skill execution citation (from `AGENTS.md`).
 
 ## Examples
