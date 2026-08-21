@@ -196,6 +196,53 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 ---
 
+### build-check-bioccheck
+
+**Purpose**: Run and interpret R CMD build, R CMD check, and both BiocCheck entry points against a Bioconductor package, separating real defects from environment gaps and known false positives
+
+**Location**: `skills/build-check-bioccheck/SKILL.md`
+
+**When to use**:
+- Checking whether a package passes the Bioconductor validation gate
+- Interpreting a BiocCheck ERROR, WARNING or NOTE
+- Distinguishing a real package defect from a missing build tool, an account-level setting, or a known false positive
+
+**Invocation**:
+- "Run BiocCheck on this package"
+- "Does this package pass the Bioconductor checks?"
+- "Why is BiocCheck reporting this error?"
+
+**Output**: Per-step results with a pass/blocked verdict, findings classified as defect / environment / account action / false positive
+
+**Related skills**: bioc-pkg-dev, analyze-r-package, improve-code-coverage
+
+---
+
+### bioc-pkg-dev
+
+**Purpose**: Guide an R package or a set of analysis scripts through Bioconductor submission: the pre-submission gate, the Contributions tracker, and post-acceptance maintenance
+
+**Location**: `skills/bioc-pkg-dev/SKILL.md`
+
+**When to use**:
+- Asking whether a package is ready to submit to Bioconductor, or what a reviewer would flag
+- Preparing a package on GitHub for the Bioconductor Contributions tracker
+- Turning analysis scripts into a submittable package, or moving a package from CRAN to Bioconductor
+- Working on `biocViews`, `BiocCheck`, version numbering, vignettes, or large-data placement
+- Maintaining an accepted package on `git.bioconductor.org`
+
+**Invocation**:
+- "Is this package ready to submit to Bioconductor?"
+- "Get this package ready for Bioconductor"
+- "Turn these analysis scripts into a Bioconductor package"
+- "How do I push to git.bioconductor.org after acceptance?"
+
+**Output**: A two-tier gap report separating hard blockers from likely reviewer requests, ending in a submittable-or-not verdict; or a targeted answer citing the canonical guide chapter
+
+**Related skills**: analyze-r-package, security-audit-r-package, improve-code-coverage, update-r-news
+
+---
+
 ### bioc-pkg-finder
 
 **Purpose**: Find the R / Bioconductor packages best suited to a task or workflow
@@ -288,7 +335,7 @@ Skills for discovering and executing citable analysis workflows from federated c
 | Category | Skills | Purpose |
 |----------|--------|---------|
 | **meta** | adr-author, check-bioconductor-skills, create-skill, document-skill, validate-skill | Repository and workflow infrastructure |
-| **r-packages** | analyze-r-package, bioc-pkg-finder, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
+| **r-packages** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
 | **bioconductor-how-tos** | bioc-howto | Bioconductor data analysis practical guides |
 | **protocols** | bioc-protocol-runner | Execute citable workflows from federated repositories |
 
@@ -308,7 +355,11 @@ Skills for discovering and executing citable analysis workflows from federated c
 | **analysis** | analyze-r-package, bioc-pkg-finder | Understanding code and architecture |
 | **security** | security-audit-r-package | Security audits and vulnerability detection |
 | **audit** | security-audit-r-package | Comprehensive code auditing |
-| **bioconductor** | analyze-r-package, bioc-pkg-finder, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
+| **bioconductor** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
+| **submission** | bioc-pkg-dev | Preparing and submitting a package to Bioconductor |
+| **bioccheck** | bioc-pkg-dev | The BiocCheck pre-submission gate |
+| **biocviews** | bioc-pkg-dev | biocViews terms and package classification |
+| **peer-review** | bioc-pkg-dev | Bioconductor peer review expectations |
 | **code-coverage** | improve-code-coverage | Code coverage analysis |
 | **covr** | improve-code-coverage | Tools wrapping the covr package |
 | **data-access** | analyze-r-package (detects), create-package-instructions | Working with remote data |
@@ -322,6 +373,6 @@ Skills for discovering and executing citable analysis workflows from federated c
 
 ---
 
-**Last Updated**: 2026-07-17
-**Version**: 2.0.2
+**Last Updated**: 2026-08-14
+**Version**: 2.1.0
 **Maintained by**: bioconductor

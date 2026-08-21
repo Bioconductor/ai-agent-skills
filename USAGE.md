@@ -38,6 +38,9 @@ nav_order: 3
 **"I want to work on an R package..."**
 Use `analyze-r-package` to understand it, `create-package-instructions` to generate AI docs, `improve-code-coverage` or `security-audit-r-package` for quality control, and `update-r-news` for release notes.
 
+**"I want to submit a package to Bioconductor..."**
+Use `bioc-pkg-dev` for the pre-submission gate, the Contributions tracker, and post-acceptance maintenance; pair it with `improve-code-coverage` and `security-audit-r-package` for quality control before submitting.
+
 **"I want to create a new skill..."**
 Start with `create-skill` for guided help, then `validate-skill` and `document-skill`.
 
