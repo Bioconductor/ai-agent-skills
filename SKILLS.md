@@ -277,7 +277,7 @@ Skills for discovering and executing citable analysis workflows from federated c
 **When to use**:
 - Following a specific scientific method or pipeline
 - Needing to compose multiple protocols with strict citation output
-**Output**: Method provenance citation block, execution logs, departures summary, and skill citation
+**Output**: Method provenance citation block, execution logs, departures summary, draft Methods section, and skill citation
 
 ---
 

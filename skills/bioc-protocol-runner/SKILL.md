@@ -19,14 +19,14 @@ Finds and executes citable, versioned analysis protocols from federated communit
 
 ## Prerequisites
 
-- Read access to the internet to fetch `registry.yaml` and `PROTOCOLS.yaml` indices from GitHub.
+- Network access to fetch `registry.yaml` and `PROTOCOLS.yaml` indices over HTTPS from the protocol registry and protocol repositories (e.g., from a git hosting service such as GitHub).
 
 ## Process
 
 ### 1. Discover Available Protocols
 
 1. Read `registry.yaml` from the `waldronlab/ai-agent-protocols` repository (or whatever repository the user specified, defaulting to `https://raw.githubusercontent.com/waldronlab/ai-agent-protocols/main/registry.yaml`).
-2. For each registered entry in that file, fetch its `PROTOCOLS.yaml` index using its `index_url`. Note that registered repositories serve this `PROTOCOLS.yaml` index containing fields: `type` (`atomic` | `composite`), `citation`, `publication_doi`, `protocol_doi`, `repository_doi`, `upstream_repositories`, `database_urls`, and `protocols_used`.
+2. For each registered entry in that file, fetch its `PROTOCOLS.yaml` index using its `index_url`. Note that registered repositories serve `PROTOCOLS.yaml` entries with the fields this skill relies on (e.g., `name`, `description`, `version`, `status`, `trust_tier`, `type` (`atomic` | `composite`), `citation`, `publication_doi`, `protocol_doi`, `repository_doi`, `license`, `protocol_url`, `upstream_repositories`, `database_urls`, `protocols_used`).
 3. Merge all protocol entries from all fetched indices into a single available protocol list.
 
 ### 2. Match Protocol to Request
