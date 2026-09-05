@@ -6,3 +6,5 @@ We use a format based on Michael Nygard's [Documenting Architecture Decisions](h
 ## Index
 
 - [0001 - Centralized Agent Skill Citation Enforcement](0001-skill-citation-enforcement.md)
+- [0002 - Federated Protocol Repositories](0002-federated-protocol-repositories.md)
+- [0003 - Mirror upstream Bioconductor policy rather than fork it](0003-mirror-upstream-bioconductor-policy.md)
