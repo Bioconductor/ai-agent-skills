@@ -312,15 +312,13 @@ Skills indexing focused, practical how-tos for common Bioconductor data analysis
 
 ## Protocols
 
-The `bioc-protocol-runner` skill has moved to
-[`waldronlab/agent-protocol-standard`](https://github.com/waldronlab/agent-protocol-standard), where
-it is now `protocol-runner`. Everything it does — trust ranking, protocol status handling, and the
-Method Provenance block — is defined by the protocol standard rather than by Bioconductor, so it
-versions with that standard. See the amendment to [ADR 0002](docs/adr/0002-federated-protocol-repositories.md).
-
-Install it from
-[`skills/protocol-runner`](https://github.com/waldronlab/agent-protocol-standard/tree/main/skills/protocol-runner)
-there.
+Protocol execution lives in
+[`waldronlab/agent-protocol-standard`](https://github.com/waldronlab/agent-protocol-standard), not
+here. Its [`protocol-runner`](https://github.com/waldronlab/agent-protocol-standard/tree/main/skills/protocol-runner)
+skill discovers protocols across the federation, ranks them by trust and status, and emits a Method
+Provenance block before executing anything — semantics that belong to the protocol standard rather
+than to Bioconductor, so the skill versions with it. See the amendment to
+[ADR 0002](docs/adr/0002-federated-protocol-repositories.md).
 
 ---
 
