@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+- **bioc-protocol-runner** - Moved to
+  [`waldronlab/agent-protocol-standard`](https://github.com/waldronlab/agent-protocol-standard) and
+  renamed `protocol-runner`. Its behaviour — trust ranking, protocol status handling, the
+  `PROTOCOLS.yaml` fields it reads, and the Method Provenance block — is defined by
+  `PROTOCOL_STANDARD.md` rather than by Bioconductor, so it now versions with that standard. Anyone
+  who installed it should repoint at `agent-protocol-standard/skills/protocol-runner`. Amends
+  ADR 0002 §1.
+
 ### Added
 - **bioc-pkg-dev** (v1.0.0) - Guides an R package or a set of analysis scripts through
   Bioconductor submission: the pre-submission gate, the Contributions tracker, and post-acceptance

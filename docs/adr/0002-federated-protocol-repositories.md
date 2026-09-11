@@ -1,8 +1,17 @@
 # 0002. Federated Protocol Repositories
 
-- **Status:** Accepted
+- **Status:** Accepted; decision §1 amended 2026-09-11
 - **Date:** 2026-08-08
 - **Deciders:** Levi (User), AI Agent
+
+> **Amendment (2026-09-11):** decision §1 below places the runner skill in this repository. It has
+> since moved to [`waldronlab/agent-protocol-standard`](https://github.com/waldronlab/agent-protocol-standard)
+> as `protocol-runner`, because everything it does — trust ranking, protocol status handling, the
+> `PROTOCOLS.yaml` fields it reads, the Method Provenance block — is defined by
+> `PROTOCOL_STANDARD.md` rather than by Bioconductor, and a runner that lags its standard fails
+> silently rather than loudly. The rest of this ADR stands unchanged: the federation architecture,
+> indexing and discovery, and the citation mandate. Full reasoning in
+> [ADR 0007 there](https://github.com/waldronlab/agent-protocol-standard/blob/main/docs/adr/0007-host-the-runner-with-the-standard.md).
 
 ## Context and Problem Statement
 
