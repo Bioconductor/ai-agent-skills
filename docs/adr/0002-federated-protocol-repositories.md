@@ -7,9 +7,10 @@
 > **Amendment (2026-09-11):** decision §1 below places the runner skill in this repository. It has
 > since moved to [`waldronlab/agent-protocol-standard`](https://github.com/waldronlab/agent-protocol-standard)
 > as `protocol-runner`, because everything it does — trust ranking, protocol status handling, the
-> `PROTOCOLS.yaml` fields it reads, the Method Provenance block — is defined by
-> `PROTOCOL_STANDARD.md` rather than by Bioconductor, and a runner that lags its standard fails
-> silently rather than loudly. The rest of this ADR stands unchanged: the federation architecture,
+> `PROTOCOLS.yaml` fields it reads, the Method Provenance block mandated in §4 below — is
+> federation-wide semantics expressed in the vocabulary of `PROTOCOL_STANDARD.md`, and none of it is
+> Bioconductor's to define. A runner that lags its standard also fails silently rather than loudly. Wherever this ADR names `bioc-protocol-runner` — §1 and §3 — read
+> `protocol-runner` in that repository. The rest stands unchanged: the federation architecture,
 > indexing and discovery, and the citation mandate. Full reasoning in
 > [ADR 0007 there](https://github.com/waldronlab/agent-protocol-standard/blob/main/docs/adr/0007-host-the-runner-with-the-standard.md).
 

@@ -365,6 +365,6 @@ there.
 
 ---
 
-**Last Updated**: 2026-08-14
+**Last Updated**: 2026-09-11
 **Version**: 2.1.0
 **Maintained by**: bioconductor
