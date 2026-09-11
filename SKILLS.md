@@ -312,19 +312,13 @@ Skills indexing focused, practical how-tos for common Bioconductor data analysis
 
 ## Protocols
 
-Skills for discovering and executing citable analysis workflows from federated community repositories.
-
-### bioc-protocol-runner
-
-**Purpose**: Search, retrieve, evaluate trust, and execute citable workflows from federated protocol repositories
-**Location**: `skills/bioc-protocol-runner/SKILL.md`
-**Invocation**:
-- "Run the 16S quality control protocol"
-- "Search for a metagenomics taxonomy protocol and run it"
-**When to use**:
-- Following a specific scientific method or pipeline
-- Needing to compose multiple protocols with strict citation output
-**Output**: Method provenance citation block, execution logs, departures summary, draft Methods section, and skill citation
+Protocol execution lives in
+[`waldronlab/agent-protocol-standard`](https://github.com/waldronlab/agent-protocol-standard), not
+here. Its [`protocol-runner`](https://github.com/waldronlab/agent-protocol-standard/tree/main/skills/protocol-runner)
+skill discovers protocols across the federation, ranks them by trust and status, and emits a Method
+Provenance block before executing anything — semantics that belong to the protocol standard rather
+than to Bioconductor, so the skill versions with it. See the amendment to
+[ADR 0002](docs/adr/0002-federated-protocol-repositories.md).
 
 ---
 
@@ -337,7 +331,6 @@ Skills for discovering and executing citable analysis workflows from federated c
 | **meta** | adr-author, check-bioconductor-skills, create-skill, document-skill, validate-skill | Repository and workflow infrastructure |
 | **r-packages** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
 | **bioconductor-how-tos** | bioc-howto | Bioconductor data analysis practical guides |
-| **protocols** | bioc-protocol-runner | Execute citable workflows from federated repositories |
 
 ### By Tag
 
@@ -367,12 +360,9 @@ Skills for discovering and executing citable analysis workflows from federated c
 | **changelog** | update-r-news | Changelog and release note generation |
 | **news** | update-r-news | R package NEWS file management |
 | **data-analysis** | bioc-howto | Practical guides for analyzing omics data |
-| **workflow** | bioc-protocol-runner | Orchestrating multi-step execution |
-| **protocol** | bioc-protocol-runner | Following specific scientific methods |
-| **citation** | bioc-protocol-runner | Preserving provenance and citing literature |
 
 ---
 
-**Last Updated**: 2026-08-14
+**Last Updated**: 2026-09-11
 **Version**: 2.1.0
 **Maintained by**: bioconductor
