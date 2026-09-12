@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **adr-author** (v1.0.0 → v1.1.0) - Adds scoping guidance and corrects two points of Nygard
+  attribution.
+  - **New "Scoping an ADR" section.** The skill said when an ADR is warranted but nothing about how
+    many. The test given is supersession granularity: an ADR's value is that it can be pointed at
+    and reversed on its own, so bundling couples the futures of the decisions bundled. Includes the
+    observation that an over-broad draft is usually not N ADRs but two decisions that never
+    warranted a record, plus where those belong instead.
+  - **Supersession corrected.** The skill said never to rewrite an accepted ADR. Nygard says the
+    opposite about the status and the forward reference: "if a decision is reversed, we will keep
+    the old one around, but mark it as superseded", "with a reference to its replacement". Editing
+    the old record to point at its replacement is the mechanism. What must not be rewritten is the
+    Context, Decision, or Consequences.
+  - **Partial correction.** `deprecated` and `superseded` both retire a whole record, and the
+    format offers nothing for "still in force except for one claim" — a case that arises as soon as
+    ADRs start correcting each other in detail. Documents the banner plus `Amends:` convention.
+  - **Attribution.** `Alternatives considered` was labelled part of the Nygard format. Nygard's
+    four sections are Title, Context, Decision, Status, Consequences. The section is kept, now
+    named as the later addition it is.
+
 ### Removed
 - **bioc-protocol-runner** - Moved to
   [`waldronlab/agent-protocol-standard`](https://github.com/waldronlab/agent-protocol-standard) and
