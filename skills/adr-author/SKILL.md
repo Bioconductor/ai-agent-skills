@@ -26,7 +26,7 @@ Invoke this skill when you want to create a new Architecture Decision Record.
 ## Conventions
 
 - **Filename:** `NNNN-kebab-title.md`, zero-padded sequential number. The next number should be the highest existing number plus 1 (e.g., check `ls docs/adr/`).
-- **Format:** Sections must include `Context` → `Decision` → `Alternatives considered` → `Consequences`, preceded by a metadata block. Nygard's original four sections are Title, Context, Decision, Status and Consequences; `Alternatives considered` is a later and near-universal addition, kept here because it is the part future readers actually reread.
+- **Format:** Sections must include `Context` → `Decision` → `Alternatives considered` → `Consequences`, preceded by a metadata block. Nygard's original elements are Title, Context, Decision, Status and Consequences; `Alternatives considered` is a later and near-universal addition, kept here because it is the part future readers actually reread.
   ```markdown
   # NNNN. <Title in sentence case>
 
@@ -38,7 +38,14 @@ Invoke this skill when you want to create a new Architecture Decision Record.
 
   What *is* expected to change on the old record is its status and its forward reference — Nygard's own words are "if a decision is reversed, we will keep the old one around, but mark it as superseded", "with a reference to its replacement". So editing an accepted ADR to point at its replacement is the mechanism, not an exception to it. A short banner under the metadata block naming what changed, and leaving the original prose untouched below it, is preferred to a bare status line: a reader who lands on the old record mid-search needs to know what is still in force before reading on.
 
-- **Partial correction:** `deprecated` and `superseded` both retire a whole record, and the format offers nothing for "still in force except for one claim". When a later ADR corrects part of an earlier one, do not mark the earlier one superseded — that would be false. Add a banner naming the correction and what survives it (`> **Corrected by [ADR-0010](...) (date).** The claim below that X is wrong ... The rename this ADR records is unaffected.`), and give the new ADR an `Amends:` line saying which part it touches.
+- **Partial correction:** `deprecated` and `superseded` both retire a whole record, so neither is true when a later ADR changes part of an earlier one that otherwise stands. Do not mark such a record superseded. Instead, name the amended part in its Status line and add a banner directly under the metadata block saying what changed and what still stands:
+
+  ```markdown
+  - **Status:** Accepted; decision §1 amended YYYY-MM-DD
+
+  > **Amendment (YYYY-MM-DD):** decision §1 below places X in this repository. It has since moved to
+  > Y, because <reason>. The rest stands unchanged: <what survives>.
+  ```
 - **Index:** Add a line to the index file, e.g., `docs/adr/README.md`.
 
 ## When an ADR is Warranted
@@ -54,7 +61,7 @@ The "warranted" test above decides *whether* to write a record. This decides *ho
 
 Before bundling, ask of each decision in the draft:
 
-1. **Could it be reversed on its own?** If yes, it needs its own record.
+1. **Could it be reversed on its own?** If yes, and it passes the warranted test above on its own, it needs its own record. A reversible choice that was never architectural does not become one by being separable.
 2. **Would someone search for it by name?** If the decision is not findable from the ADR's title, it is in the wrong ADR. A decision about what a status value means does not belong in a record titled for validation rules.
 3. **Does it share a context with the others, or just a sitting?** Decisions made in the same afternoon are not thereby one decision. A shared triggering incident is cohesion; a shared calendar slot is not.
 

@@ -8,8 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- **adr-author** (v1.0.0 → v1.1.0) - Adds scoping guidance and corrects two points of Nygard
-  attribution.
+- **adr-author** (v1.0.0 → v1.1.0) - Adds scoping guidance, corrects the supersession rule, and
+  corrects one point of Nygard attribution.
   - **New "Scoping an ADR" section.** The skill said when an ADR is warranted but nothing about how
     many. The test given is supersession granularity: an ADR's value is that it can be pointed at
     and reversed on its own, so bundling couples the futures of the decisions bundled. Includes the
@@ -22,10 +22,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     Context, Decision, or Consequences.
   - **Partial correction.** `deprecated` and `superseded` both retire a whole record, and the
     format offers nothing for "still in force except for one claim" — a case that arises as soon as
-    ADRs start correcting each other in detail. Documents the banner plus `Amends:` convention.
+    ADRs start correcting each other in detail. Documents the convention this repository already
+    uses in `docs/adr/0002-federated-protocol-repositories.md`: name the amended part in the Status
+    line, and explain it in a banner under the metadata block.
   - **Attribution.** `Alternatives considered` was labelled part of the Nygard format. Nygard's
-    four sections are Title, Context, Decision, Status, Consequences. The section is kept, now
-    named as the later addition it is.
+    elements are Title, Context, Decision, Status, Consequences. The section is kept, now named as
+    the later addition it is.
 
 ### Removed
 - **bioc-protocol-runner** - Moved to
