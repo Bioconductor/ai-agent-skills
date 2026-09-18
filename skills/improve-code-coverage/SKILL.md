@@ -39,7 +39,7 @@ Invoke this skill when you want to increase your package's test coverage or eval
 ### 2. Audit Existing Tests for Tautological and Vacuous Assertions
 Detect the package's testing framework (`testthat`, `tinytest`, or `RUnit`). Before assuming that covered lines are reliably tested, audit existing test files in their corresponding directories (`tests/testthat/`, `inst/tinytest/`, or `inst/unitTests/`) for anti-patterns that produce "pseudo-coverage" (high line coverage without verifying actual functionality):
 - **Implementation-mirroring**: Computing `expected` values by re-implementing or copy-pasting the function's own mathematical formulas or algorithm logic inside the test body.
-- **Vacuous assertions**: Assertions that cannot meaningfully fail or only verify that code ran without checking output correctness (e.g., sole assertions like `expect_no_error()` or `expect_true(!is.null(x))`). Note that class-only checks (e.g., `expect_s4_class()` or `tinytest::expect_inherits()`) are context-dependent; they can be valid contract tests for remote data or external API interfaces, but are vacuous when testing local transformations and computations whose primary contract is data accuracy, dimensions, or slot contents.
+- **Vacuous assertions**: Assertions that cannot meaningfully fail or only verify execution (e.g., sole checks like `expect_no_error()`, `!is.null(x)`). Note: class-only checks (`expect_s4_class()`) are valid for external/remote data contracts, but vacuous for functions whose contract is data accuracy or slot contents.
 - **Over-mocked circularity**: Tests where mocks or stubs return hardcoded data and the test simply asserts that the function returned the mocked output.
 - Flag any identified pseudo-coverage tests and recommend refactoring them with independent ground-truth checks using the package's existing testing framework.
 
@@ -59,10 +59,7 @@ For the uncovered or pseudo-covered lines, analyze the function's logic and clas
 ### 5. Propose and Write Tests
 - Draft new test code blocks matching the package's native testing framework (`testthat`, `tinytest`, or `RUnit`) targeting the identified gaps and refactoring any tautological tests.
 - Explicitly label which of the four categories (Normal Use, Edge Cases, Error Handling, Correctness) each test addresses.
-- **Enforce anti-tautology rules in new tests**:
-  - Never generate `expected` outputs by re-executing the function's internal logic inside the test.
-  - Establish independent ground truth: hand-calculated values, established benchmark datasets, verified outputs from standard base R / Bioconductor reference functions, or known mathematical invariants.
-  - Test the actual contents, dimensions, and S4 object validities rather than just object existence or non-error status (unless testing an external contract).
+- **Enforce anti-tautology rules**: Never compute `expected` by re-running the function's internal logic in the test. Use independent ground truth (benchmarks, hand-calculated values, reference outputs, or mathematical invariants), and verify actual contents/dimensions rather than mere object existence.
 
 ### 6. Review and Iterate
 - Present the suggested tests and test refactors to the user.
