@@ -174,7 +174,7 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 - "Audit my existing tests for tautological or vacuous test cases."
 - "Improve code coverage, focusing on edge cases and correctness."
 
-**Output**: A chat summary breaking down coverage by test category and audit findings, and code blocks containing `testthat` cases.
+**Output**: A chat summary breaking down coverage by test category and audit findings, and code blocks containing framework-native test cases.
 
 **Related skills**: analyze-r-package, security-audit-r-package
 
