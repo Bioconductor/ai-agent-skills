@@ -23,9 +23,9 @@ Invoke this skill when you want to increase your package's test coverage or eval
 ## Prerequisites
 
 - An R package structure with an `R/` directory and an established testing framework setup:
-  - `testthat`: tests located in `tests/testthat/`
-  - `tinytest`: tests located in `inst/tinytest/`
-  - `RUnit`: tests located in `inst/unitTests/`
+  - `testthat`: tests located in `tests/testthat/` (runner `tests/testthat.R`)
+  - `tinytest`: tests located in `inst/tinytest/` (runner `tests/tinytest.R`)
+  - `RUnit`: tests located in `inst/unitTests/` (runner `tests/runTests.R`)
 - R packages `covr` and the package's declared testing framework installed.
 - (Optional but recommended) `src/` directory if the package uses compiled code.
 
@@ -39,7 +39,7 @@ Invoke this skill when you want to increase your package's test coverage or eval
 ### 2. Audit Existing Tests for Tautological and Vacuous Assertions
 Detect the package's testing framework (`testthat`, `tinytest`, or `RUnit`). Before assuming that covered lines are reliably tested, audit existing test files in their corresponding directories (`tests/testthat/`, `inst/tinytest/`, or `inst/unitTests/`) for anti-patterns that produce "pseudo-coverage" (high line coverage without verifying actual functionality):
 - **Implementation-mirroring**: Computing `expected` values by re-implementing or copy-pasting the function's own mathematical formulas or algorithm logic inside the test body.
-- **Vacuous assertions**: Assertions that cannot meaningfully fail or only verify execution (e.g., sole checks like `expect_no_error()`, `!is.null(x)`). Note: class-only checks (`expect_s4_class()`) are valid for external/remote data contracts, but vacuous for functions whose contract is data accuracy or slot contents.
+- **Vacuous assertions**: Assertions that cannot meaningfully fail or only verify execution when the contract requires observable output (e.g., sole checks like `expect_no_error()`, `!is.null(x)` without result assertions). Note: class-only checks (`expect_s4_class()`) are valid for external/remote contracts, but vacuous when the contract is data accuracy or slot contents.
 - **Over-mocked circularity**: Tests where mocks return hardcoded data and the test merely asserts that the function returned that mocked output without verifying argument delegation or transformation logic.
 - Flag any identified pseudo-coverage tests and recommend refactoring them with independent ground-truth checks using the package's existing testing framework.
 
