@@ -40,7 +40,7 @@ Invoke this skill when you want to increase your package's test coverage or eval
 Detect the package's testing framework (`testthat`, `tinytest`, or `RUnit`). Before assuming that covered lines are reliably tested, audit existing test files in their corresponding directories (`tests/testthat/`, `inst/tinytest/`, or `inst/unitTests/`) for anti-patterns that produce "pseudo-coverage" (high line coverage without verifying actual functionality):
 - **Implementation-mirroring**: Computing `expected` values by re-implementing or copy-pasting the function's own mathematical formulas or algorithm logic inside the test body.
 - **Vacuous assertions**: Assertions that cannot meaningfully fail or only verify execution (e.g., sole checks like `expect_no_error()`, `!is.null(x)`). Note: class-only checks (`expect_s4_class()`) are valid for external/remote data contracts, but vacuous for functions whose contract is data accuracy or slot contents.
-- **Over-mocked circularity**: Tests where mocks or stubs return hardcoded data and the test simply asserts that the function returned the mocked output.
+- **Over-mocked circularity**: Tests where mocks return hardcoded data and the test merely asserts that the function returned that mocked output without verifying argument delegation or transformation logic.
 - Flag any identified pseudo-coverage tests and recommend refactoring them with independent ground-truth checks using the package's existing testing framework.
 
 ### 3. Summarize and Identify Gaps
@@ -91,7 +91,7 @@ For the uncovered or pseudo-covered lines, analyze the function's logic and clas
 **Agent**:
 1. Identifies gaps specifically within `R/stats.R`.
 2. Drafts Correctness of Results tests comparing the output of the functions to known expected statistical outputs (without replicating the internal algorithm in the test).
-3. Suggests inserting these tests into the package test suite (e.g., `tests/testthat/test-stats.R`).
+3. Suggests inserting these tests into the package test suite matching its framework (e.g., in `tests/testthat/`, `inst/tinytest/`, or `inst/unitTests/`).
 
 ## Notes
 
