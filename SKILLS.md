@@ -164,16 +164,17 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 ### improve-code-coverage
 
-**Purpose**: Analyze R package code coverage using covr, classify testing gaps, and proactively write test cases.
+**Purpose**: Analyze R package code coverage using covr, audit existing tests for tautological assertions, classify testing gaps, and proactively write test cases to improve coverage and result correctness.
 
 **When to use**:
-- Evaluating testing rigor, identifying gaps, and proactively writing test cases
+- Evaluating testing rigor, auditing for vacuous or tautological tests, identifying gaps, and proactively writing test cases
 
 **Invocation**:
 - "Check my code coverage and help me write missing tests."
+- "Audit my existing tests for tautological or vacuous test cases."
 - "Improve code coverage, focusing on edge cases and correctness."
 
-**Output**: A chat summary breaking down coverage by test category, and code blocks containing `testthat` cases.
+**Output**: A chat summary breaking down coverage by test category and audit findings, and code blocks containing framework-native test cases.
 
 **Related skills**: analyze-r-package, security-audit-r-package
 
