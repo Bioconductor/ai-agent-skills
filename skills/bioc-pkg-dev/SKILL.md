@@ -1,7 +1,7 @@
 ---
 name: bioc-pkg-dev
 description: "Guide an R package or a set of analysis scripts through Bioconductor submission: the pre-submission gate, the Contributions tracker, and post-acceptance maintenance"
-version: 1.0.0
+version: 1.1.0
 category: r-packages
 author: bioconductor
 tags: [r-packages, bioconductor, submission, bioccheck, biocviews, peer-review]
@@ -164,6 +164,24 @@ provably cosmetic.
 
 ### 8. Submit
 
+Three things before opening the issue; the human reviewer, helped by an agent that asks the same
+questions this repository publishes, will look for all three:
+
+- **Review the package against the reviewer's rubric.** Invoke `bioc-pkg-review`. It walks the
+  package with the questions in [../bioc-pkg-review/knowledge/rubric.md](../bioc-pkg-review/knowledge/rubric.md)
+  and fills the Package Review Checklist. Fix its `must` findings; expect its `should` findings
+  to come back as reviewer requests if you leave them.
+- **State overlap and dependence.** Name every package yours overlaps with or builds on, found
+  with `bioc-pkg-finder` and never from memory, and say in the vignette introduction how yours
+  differs and how it fits a Bioconductor workflow. A reviewer who has to discover an overlapping
+  package on their own will ask why you did not.
+- **State provenance.** Put a short statement in the tracker issue body, under a heading such as
+  "Provenance and AI assistance": what was written by hand, what was generated with an AI tool
+  (which), what was copied or vendored from where and under which license, per
+  [knowledge/development/ai-policy.md](knowledge/development/ai-policy.md). "None" is a valid
+  statement. The reviewer's tool reads the issue and stops flagging undisclosed assistance when
+  the statement is there.
+
 Host on the GitHub default branch, then open an issue whose title is the package name at the
 [BiocContributions tracker](https://github.com/Bioconductor/BiocContributions/issues/new). Annotation
 packages go by email to <packages@bioconductor.org> instead. The Single Package Builder must then
@@ -216,7 +234,8 @@ rather than bolted on.
 
 ## Integration
 
-- **Uses**: `build-check-bioccheck` (the gate step), `update-r-news` (writing NEWS)
+- **Uses**: `build-check-bioccheck` (the gate step), `bioc-pkg-review` (the reviewer's rubric,
+  before submitting), `bioc-pkg-finder` (naming packages), `update-r-news` (writing NEWS)
 - **Works with**: `analyze-r-package`, `security-audit-r-package`, `improve-code-coverage`
 
 ## Notes

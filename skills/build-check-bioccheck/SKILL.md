@@ -1,7 +1,7 @@
 ---
 name: build-check-bioccheck
 description: Run and interpret R CMD build, R CMD check, and both BiocCheck entry points against a Bioconductor package, separating real defects from environment gaps and known false positives
-version: 1.0.0
+version: 1.1.0
 category: r-packages
 tags: [r-packages, bioconductor, validation, quality-control, bioccheck, submission]
 author: bioconductor
@@ -72,7 +72,15 @@ Run in this order. Each step consumes the previous step's artifact.
    BiocCheck::BiocCheck("<package>_<version>.tar.gz", `new-package` = TRUE)
    ```
 
-5. **Classify every finding** before reporting (see below). Do not hand back raw tool output.
+5. **Save the raw outputs** in one directory under the names other tools read:
+   `check_results.txt` (the `R CMD check` log), `bioccheck_results.txt` (the `BiocCheck` console
+   output, including its `* Checking ...` lines and the final totals), and, if you measure
+   coverage, `coverage.json` and `coverage_summary.txt` from `covr`. The `bioc-pkg-review` skill
+   fills the build rows of the rubric and the BiocCheck bullets of the Package Review Checklist
+   from these files, check by check, and Bioconductor's reviewer tool accepts the same files with
+   `--artifacts`.
+
+6. **Classify every finding** before reporting (see below). Do not hand back raw tool output.
 
 ## Interpreting the results
 

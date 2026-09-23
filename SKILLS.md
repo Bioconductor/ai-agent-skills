@@ -240,7 +240,7 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 **Output**: A two-tier gap report separating hard blockers from likely reviewer requests, ending in a submittable-or-not verdict; or a targeted answer citing the canonical guide chapter
 
-**Related skills**: analyze-r-package, security-audit-r-package, improve-code-coverage, update-r-news
+**Related skills**: analyze-r-package, security-audit-r-package, improve-code-coverage, update-r-news, bioc-pkg-review
 
 ---
 
@@ -260,6 +260,26 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 **Output**: Recommended package(s) with biocViews term or CRAN Task View source, install path, and the key gotcha for the recommended tool
 
 **Related skills**: analyze-r-package, create-package-instructions
+
+---
+
+### bioc-pkg-review
+
+**Purpose**: Review your own R package against the rubric and checklist Bioconductor's agent-assisted reviewer uses, before you submit
+
+**When to use**:
+- Before opening a BiocContributions tracker issue, after the gate (`build-check-bioccheck`) passes
+- When a reviewer's feedback arrives and you want to check the rest of the package the same way
+- When you want the Package Review Checklist filled for a package
+
+**Invocation**:
+- "Review my package for Bioconductor submission"
+- "What will the Bioconductor reviewer say about this package?"
+- "Fill the Package Review Checklist for this package"
+
+**Output**: Numbered findings with rubric id, severity, evidence and a suggested fix; what the human reviewer will weigh (overlap, provenance); the Package Review Checklist filled Y / N / N/A / ?; Blockers, likely reviewer requests, verdict
+
+**Related skills**: bioc-pkg-dev, build-check-bioccheck, bioc-pkg-finder
 
 ---
 
@@ -330,7 +350,7 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 | Category | Skills | Purpose |
 |----------|--------|---------|
 | **meta** | adr-author, check-bioconductor-skills, create-skill, document-skill, validate-skill | Repository and workflow infrastructure |
-| **r-packages** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
+| **r-packages** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
 | **bioconductor-how-tos** | bioc-howto | Bioconductor data analysis practical guides |
 
 ### By Tag
@@ -349,11 +369,13 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 | **analysis** | analyze-r-package, bioc-pkg-finder | Understanding code and architecture |
 | **security** | security-audit-r-package | Security audits and vulnerability detection |
 | **audit** | security-audit-r-package | Comprehensive code auditing |
-| **bioconductor** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
-| **submission** | bioc-pkg-dev | Preparing and submitting a package to Bioconductor |
+| **bioconductor** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
+| **submission** | bioc-pkg-dev, bioc-pkg-review | Preparing and submitting a package to Bioconductor |
 | **bioccheck** | bioc-pkg-dev | The BiocCheck pre-submission gate |
 | **biocviews** | bioc-pkg-dev | biocViews terms and package classification |
-| **peer-review** | bioc-pkg-dev | Bioconductor peer review expectations |
+| **peer-review** | bioc-pkg-dev, bioc-pkg-review | Bioconductor peer review expectations |
+| **checklist** | bioc-pkg-review | The Package Review Checklist, filled from a self-review |
+| **self-review** | bioc-pkg-review | Reviewing your own package with the reviewer's rubric |
 | **code-coverage** | improve-code-coverage | Code coverage analysis |
 | **covr** | improve-code-coverage | Tools wrapping the covr package |
 | **data-access** | analyze-r-package (detects), create-package-instructions | Working with remote data |
