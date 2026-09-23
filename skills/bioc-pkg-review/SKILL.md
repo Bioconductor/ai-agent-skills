@@ -10,16 +10,17 @@ tags: [r-packages, bioconductor, submission, peer-review, checklist, self-review
 # bioc-pkg-review
 
 Bioconductor package submissions are reviewed by a human reviewer helped by an LLM-based tool
-(Bioconductor/BiocPkgReviewer). That tool asks a fixed set of questions, the rubric in
+(Bioconductor/BiocPkgReviewer, a private repository of the review team). That tool asks a fixed set of questions, the rubric in
 [knowledge/rubric.md](knowledge/rubric.md), and fills the reviewers'
 [Package Review Checklist](https://contributions.bioconductor.org/docs/package-review-checklist.md).
 This skill runs the same questions over your package and fills the same checklist, so you see
 what the reviewer will see before anyone else does. A clean self-review usually means a short
 second round.
 
-Ownership: the rubric is generated from BiocPkgReviewer's prompts and published here as a copy
-(the header of `rubric.md` carries its hash and date). Do not edit it here; if a question is wrong,
-that is an issue for BiocPkgReviewer. The guideline chapters the questions cite are the authority,
+Ownership: the rubric is generated from BiocPkgReviewer's prompts and published here as a copy;
+this copy is the public artifact, and the header of `rubric.md` carries its hash and export date
+so anyone can see how current it is. Do not edit it here; if a question is wrong, report it on
+this repository and the review team will carry it to BiocPkgReviewer. The guideline chapters the questions cite are the authority,
 and they are the same `bioc-pkg-dev` knowledge base the reviewer reads.
 
 ## Usage
