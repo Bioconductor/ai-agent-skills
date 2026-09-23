@@ -28,8 +28,10 @@ the files live on Bioconductor's storage and are fetched on demand.
   reviewer cannot check the metadata against the data.
 - Licenses and terms of use of the underlying data are stated per resource when they differ from
   the package license.
-- The package is submitted through the same GitHub tracker as software packages; its type is
-  ExperimentData or AnnotationData and its `biocViews` come from that one category.
+- Experiment data packages are submitted through the same GitHub tracker as software packages;
+  annotation packages are sent by email to <packages@bioconductor.org> instead (see
+  [../01-submissions.md](../01-submissions.md)). `BiocType` is `ExperimentData` or `Annotation`,
+  and `biocViews` come from the matching single category (`ExperimentData` or `AnnotationData`).
 
 ## What reviewers ask about most
 

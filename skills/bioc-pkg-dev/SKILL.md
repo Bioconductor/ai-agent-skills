@@ -175,8 +175,9 @@ questions this repository publishes, will look for all three:
   with `bioc-pkg-finder` and never from memory, and say in the vignette introduction how yours
   differs and how it fits a Bioconductor workflow. A reviewer who has to discover an overlapping
   package on their own will ask why you did not.
-- **State provenance.** Put a short statement in the tracker issue body, under a heading such as
-  "Provenance and AI assistance": what was written by hand, what was generated with an AI tool
+- **State provenance.** Put a short statement in the tracker issue body (for an annotation
+  package, in the submission email instead), under a heading such as "Provenance and AI
+  assistance": what was written by hand, what was generated with an AI tool
   (which), what was copied or vendored from where and under which license, per
   [knowledge/development/ai-policy.md](knowledge/development/ai-policy.md). "None" is a valid
   statement. The reviewer's tool reads the issue and stops flagging undisclosed assistance when

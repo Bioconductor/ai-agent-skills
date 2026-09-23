@@ -2,7 +2,7 @@
 
 Generated from the prompt tables of Bioconductor/BiocPkgReviewer on 2026-09-23; rubric sha256 `29c48ccbf2bb`. Do not edit here: the questions are owned there (its ADR 0004 and ADR 0014), this file is a published copy so submitters can review their own package against the same questions before submitting.
 
-Each question cites chapters of the Bioconductor guide through the `bioc-pkg-dev` knowledge base; the guide is the authority, the rubric is a reading of it. Severity: `must` blocks acceptance, `should` is expected practice, `consider` is a suggestion. Rows marked *reviewer* are what the human reviewer weighs (scope, overlap, novelty, AI-assistance indicators); a submitter can prepare for them but not tick them off.
+Each question cites chapters of the Bioconductor guide through the `bioc-pkg-dev` knowledge base; the guide is the authority, the rubric is a reading of it. Severity: `must` blocks acceptance, `should` is expected practice, `consider` is a suggestion; the row's severity is the default for a typical instance, and a question that names a threshold (for example coverage below 20%) states the severity that applies past it. Rows marked *reviewer* are what the human reviewer weighs (scope, overlap, novelty, AI-assistance indicators); a submitter can prepare for them but not tick them off.
 
 ## p0_triage
 

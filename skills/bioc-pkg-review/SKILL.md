@@ -43,9 +43,12 @@ and they are the same `bioc-pkg-dev` knowledge base the reviewer reads.
 
 ## Process
 
-1. **Run the gate first.** Invoke `build-check-bioccheck` and keep its outputs under the file
-   names above. Those files answer every question the tools already answer; do not re-derive
-   what BiocCheck reports, and never mark a BiocCheck item from memory.
+1. **Start from the gate's outputs.** If `bioc-pkg-dev` step 6 (or a build system) has already
+   produced `check_results.txt`, `bioccheck_results.txt` and the coverage files, use those; do
+   not rerun the gate. If they are absent, either invoke `build-check-bioccheck` now, which runs
+   `R CMD check` and `BiocCheck` on your own package on your own machine by your choice, or
+   proceed without them and mark the build rows and the BiocCheck bullets `?`. The review itself
+   only reads. Never mark a BiocCheck item from memory.
 
 2. **Read the rubric.** [knowledge/rubric.md](knowledge/rubric.md) lists the questions by pass
    with severity and audience, and the guideline files each pass reads in
@@ -81,10 +84,16 @@ and they are the same `bioc-pkg-dev` knowledge base the reviewer reads.
    - `Y`: the row that assesses it raised nothing, or the BiocCheck / R CMD check output for that
      item is clean;
    - `N`: a finding applies (give its number), or BiocCheck flagged it;
-   - `N/A`: the bullet's condition is absent from the package (no `src/`, no Shiny app, no
-     downloads, no vignettes directory, ...) or the checklist marks it optional;
-   - `?`: not assessed: it needs a human (check time, memory), the outputs were missing, or the
-     bullet is new since the rubric was mapped.
+   - `N/A`: the bullet is conditional and its condition is absent from the package (no `src/`,
+     no Shiny app, no downloads, no README, ...) or the checklist marks it optional. A missing
+     vignette is not such a case: "Contains a Vignette" is then `N` and a `must` finding
+     (VIG-01), and only the bullets about the vignette's contents become `N/A`;
+   - `?`: not assessed: it needs a human (check time, memory), the outputs were missing, or no
+     rubric row and no tool output answers the bullet.
+   Bullets that BiocCheck answers (`Version`, `LazyData`, `Remotes`, package and file sizes, the
+   coding-practice items) are read from the `* Checking ...` blocks of `bioccheck_results.txt`:
+   `Y` when the block has no NOTE, WARNING or ERROR, `N` when it does; `?` when there is no
+   output. Never mark them from a rubric row that does not cover them.
    Keep the checklist's own wording and order, so a reviewer recognises it. Some bullets bundle
    several checks (biocViews present, valid, relevant, one category): mark `N` if any part fails
    and say which part in the finding it points to.

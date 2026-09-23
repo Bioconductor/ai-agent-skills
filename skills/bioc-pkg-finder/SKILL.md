@@ -154,9 +154,10 @@ tangential methodology the question didn't touch (no replicate lecture on a
 ## Checking a submission for overlap
 
 The same index answers a different question when the user is submitting a package: is there an
-existing package that does this? Given a `DESCRIPTION`, take its `biocViews`, the nouns of its
-`Title` and `Description`, and its class names, and filter `biocPkgList()` (and the CRAN Task
-View that fits) by those terms. Report every hit with its maintainer and one line on what it
+existing package that does this? Given a package root (or only its `DESCRIPTION`), take the
+`biocViews`, the nouns of the `Title` and `Description`, and, when the source is available, the
+exported class and function names from `NAMESPACE` and `R/`, and filter `biocPkgList()` (and the
+CRAN Task View that fits) by those terms. Report every hit with its maintainer and one line on what it
 does, and say plainly "not in the index" for any name that does not resolve. The output is the
 overlap statement `bioc-pkg-dev` step 8 asks for: the packages named, and a sentence per package
 on how the submission differs or builds on it. Do not soften a near-duplicate; the reviewer's
