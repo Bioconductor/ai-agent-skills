@@ -14,6 +14,7 @@ Four upstreams, not one. A change to any of them can silently invalidate the gui
 | [Bioconductor/BiocContributions](https://github.com/Bioconductor/BiocContributions) `.github/ISSUE_TEMPLATE/ISSUE_TEMPLATE.md` | blob `a9e7b0e39fbf` (repo `devel` at `2e040ee3`, 2026-07-22) | 2026-08-18 | the pre-submission gate wording in [../SKILL.md](../SKILL.md) |
 | [Bioconductor/BiocCheck](https://github.com/Bioconductor/BiocCheck) | release 1.48.1, devel 1.49.30 | 2026-08-14 | what "BiocCheck clean" means |
 | [lcolladotor/biocthis](https://github.com/lcolladotor/biocthis) | release 1.22.0, devel 1.23.0 | 2026-08-14 | the scaffolding guidance in [../SKILL.md](../SKILL.md) |
+| Bioconductor/BiocPkgReviewer (the agent-assisted reviewer; **private**, so this row cannot be verified by fetching: its maintainers refresh it by running `rubric.py --export`, and the exported files carry the hash and date for everyone else) | rubric sha256 `29c48ccbf2bb` (exported 2026-09-23) | 2026-09-23 | `../../bioc-pkg-review/knowledge/rubric.{yaml,md}` (regenerate with its `rubric.py --export`), the review-derived notes in `../../bioc-pkg-review/SKILL.md`, and the sentence in [../SKILL.md](../SKILL.md) step 8 about how its triage pass reads the provenance statement |
 
 Bioconductor cycle at the last refresh: Bioconductor release 3.23, devel 3.24, both on R 4.6.0
 (source: <https://bioconductor.org/config.yaml>). Check that triple against config.yaml before
@@ -66,13 +67,13 @@ Rendered pages live at `https://contributions.bioconductor.org/<slug>.html`. Cha
 | `citation-file.Rmd` | `citation` | 11 | [development/metadata-files.md](development/metadata-files.md) |
 | `install-file.Rmd` | `sysdep` | 12 | [development/metadata-files.md](development/metadata-files.md) |
 | `documentation.Rmd` | `docs` | 13 | [development/documentation.md](development/documentation.md) |
-| `package-data.Rmd` | `data` | 14 | [development/data.md](development/data.md) |
+| `package-data.Rmd` | `data` | 14 | [development/data.md](development/data.md), [development/hub-data-packages.md](development/hub-data-packages.md) |
 | `unit-tests.Rmd` | `tests` | 15 | [development/tests.md](development/tests.md) |
 | `r-code.Rmd` | `r-code` | 16 | [development/r-code.md](development/r-code.md) |
 | `fortran-C-python.Rmd` | `other-than-Rcode` | 17 | [development/compiled-thirdparty.md](development/compiled-thirdparty.md) |
 | `shiny-apps.Rmd` | `shiny` | 18 | [development/shiny.md](development/shiny.md) |
 | `ai-policy-third-party.Rmd` | `ai-policy-third-party` | 19 | [development/ai-policy.md](development/ai-policy.md) |
-| `non-software-packages.Rmd` | `non-software` | 20 | [development/non-software-pkgs.md](development/non-software-pkgs.md) |
+| `non-software-packages.Rmd` | `non-software` | 20 | [development/non-software-pkgs.md](development/non-software-pkgs.md), [development/hub-data-packages.md](development/hub-data-packages.md) |
 | `gitignore-file.Rmd` | `gitignore` | 21 | [development/gitignore.md](development/gitignore.md) |
 | `build-check-bioccheck.Rmd` | `build-check-bioccheck` | 22 | [development/build-check-bioccheck.md](development/build-check-bioccheck.md) |
 | `devguide-conclusion.Rmd` | `conclusion` | 23 | [development/build-check-bioccheck.md](development/build-check-bioccheck.md) |

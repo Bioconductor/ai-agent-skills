@@ -1,7 +1,7 @@
 ---
 name: bioc-pkg-finder
 description: Find the R / Bioconductor packages best suited to a task or workflow
-version: 1.1.0
+version: 1.2.0
 category: r-packages
 tags: [r-packages, bioconductor, package-discovery, biocViews]
 author: bioconductor
@@ -150,6 +150,18 @@ but stay a package-finder, not a coding cookbook. Examples that recur:
 Only surface a gotcha that bears on the *recommended tool*. Don't inject
 tangential methodology the question didn't touch (no replicate lecture on a
 "how do I find packages" question).
+
+## Checking a submission for overlap
+
+The same index answers a different question when the user is submitting a package: is there an
+existing package that does this? Given a package root (or only its `DESCRIPTION`), take the
+`biocViews`, the nouns of the `Title` and `Description`, and, when the source is available, the
+exported class and function names from `NAMESPACE` and `R/`, and filter `biocPkgList()` (and the
+CRAN Task View that fits) by those terms. Report every hit with its maintainer and one line on what it
+does, and say plainly "not in the index" for any name that does not resolve. The output is the
+overlap statement `bioc-pkg-dev` step 8 asks for: the packages named, and a sentence per package
+on how the submission differs or builds on it. Do not soften a near-duplicate; the reviewer's
+tool runs the same check against the same index and will name the package anyway.
 
 ## Examples
 

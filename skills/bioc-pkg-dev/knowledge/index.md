@@ -26,6 +26,7 @@ Authoring a package:
 - Shiny apps: [development/shiny.md](development/shiny.md) (ch 18)
 - AI policy + third-party code: [development/ai-policy.md](development/ai-policy.md) (ch 19)
 - Non-software packages (ExperimentData/Annotation/Workflow): [development/non-software-pkgs.md](development/non-software-pkgs.md) (ch 20)
+- [development/hub-data-packages.md](development/hub-data-packages.md): the Hub route for experiment data and annotation packages: `metadata.csv`, `make-data.R`, `make-metadata.R`, upload before review.
 - .gitignore: [development/gitignore.md](development/gitignore.md) (ch 21)
 - Build / Check / BiocCheck (the gate): [development/build-check-bioccheck.md](development/build-check-bioccheck.md) (ch 22-23)
 
