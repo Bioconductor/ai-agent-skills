@@ -154,6 +154,14 @@ the filled checklist with finding numbers on the `N` bullets.
 
 ## Notes
 
+Patterns from the reviewer's runs on data packages (from BiocPkgReviewer, not from the guide;
+they change as reviews accumulate):
+
+- Provenance that `inst/scripts/make-data.R` does not actually document (a script that only
+  converts a CSV to RDS says nothing about where the CSV came from).
+- Accessor code that picks a Hub record by position or fuzzy title instead of by a stable id.
+- Data the vignette calls "curated" or "validated" with no description of how.
+
 - The reviewer's tool never runs the package's code, and neither should this review: it reads.
   Build and check output comes from `build-check-bioccheck`, which the submitter runs on their
   own package deliberately.

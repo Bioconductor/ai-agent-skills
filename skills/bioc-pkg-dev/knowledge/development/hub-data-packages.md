@@ -33,14 +33,8 @@ the files live on Bioconductor's storage and are fetched on demand.
   [../01-submissions.md](../01-submissions.md)). `BiocType` is `ExperimentData` or `Annotation`,
   and `biocViews` come from the matching single category (`ExperimentData` or `AnnotationData`).
 
-## What reviewers ask about most
-
-- Provenance that `make-data.R` does not actually document (a script that only converts a CSV to
-  RDS says nothing about where the CSV came from).
-- Accessor code that picks a Hub record by position or fuzzy title instead of by a stable id.
-- Data the vignette claims are "curated" or "validated" with no description of how.
-
 Source: [Package data](https://contributions.bioconductor.org/data.html),
 [Non-software packages](https://contributions.bioconductor.org/non-software-packages.html) (the
-"Hub packages" section), and the HubPub vignette `CreateAHubPackage`. Fetched 2026-09-23 from
-contributions.bioconductor.org (Bioconductor devel guide).
+"Hub packages" section), and the HubPub vignette `CreateAHubPackage`. Derived 2026-09-23 from
+[data.md](data.md) and [non-software-pkgs.md](non-software-pkgs.md) (chapters fetched 2026-08-14,
+pkgrevdocs pin in [../SOURCES.md](../SOURCES.md)) and the HubPub vignette; refresh it with them.

@@ -180,8 +180,9 @@ questions this repository publishes, will look for all three:
   assistance": what was written by hand, what was generated with an AI tool
   (which), what was copied or vendored from where and under which license, per
   [knowledge/development/ai-policy.md](knowledge/development/ai-policy.md). "None" is a valid
-  statement. The reviewer's tool reads the issue and stops flagging undisclosed assistance when
-  the statement is there.
+  statement. The reviewer's tool (Bioconductor/BiocPkgReviewer, pinned in
+  [knowledge/SOURCES.md](knowledge/SOURCES.md)) reads the issue and stops flagging undisclosed
+  assistance when the statement is there.
 
 Host on the GitHub default branch, then open an issue whose title is the package name at the
 [BiocContributions tracker](https://github.com/Bioconductor/BiocContributions/issues/new). Annotation
