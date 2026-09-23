@@ -265,7 +265,7 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 ### bioc-pkg-review
 
-**Purpose**: Review your own R package against the rubric and checklist Bioconductor's agent-assisted reviewer uses, before you submit
+**Purpose**: Review your own R package against the rubric and checklist Bioconductor's agent-assisted reviewer uses, before you submit, so the human review has less to say
 
 **When to use**:
 - Before opening a BiocContributions tracker issue, after the gate (`build-check-bioccheck`) passes
