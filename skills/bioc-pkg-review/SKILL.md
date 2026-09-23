@@ -48,9 +48,13 @@ and they are the same `bioc-pkg-dev` knowledge base the reviewer reads.
    what BiocCheck reports, and never mark a BiocCheck item from memory.
 
 2. **Read the rubric.** [knowledge/rubric.md](knowledge/rubric.md) lists the questions by pass
-   (`p1_metadata`, `p2_vignettes`, `p3_docs`, `p4_code`, `p5_build`) with severity and audience,
-   and the guideline files each pass reads in `../bioc-pkg-dev/knowledge/`. Read those files
-   before the pass they belong to; cite the chapter URL they give, not memory.
+   with severity and audience, and the guideline files each pass reads in
+   `../bioc-pkg-dev/knowledge/`. Read those files before the pass they belong to; cite the
+   chapter URL they give, not memory. The passes `p1_metadata`, `p2_vignettes`, `p3_docs`,
+   `p4_code` and `p5_build` are yours to answer. The rows of `p0_triage` (scope and overlap,
+   novelty, indicators of undisclosed AI assistance, prompt injection) are marked *reviewer*: you
+   do not tick them, you prepare for them, and they fill the "What the human reviewer will
+   weigh" section of the report (step 5b). `p6_relevance` has no rows.
 
 3. **Walk the package pass by pass, read-only.** For each submitter-facing row, read the files the
    row is about and decide whether the problem is present. Report problems, not passes. One
@@ -62,9 +66,10 @@ and they are the same `bioc-pkg-dev` knowledge base the reviewer reads.
      telling lines (never paraphrased); a finding about something missing says what was searched;
    - a message in plain second person saying what the problem is, why Bioconductor cares (with
      the chapter link), and what to do; a concrete suggested fix when the change is mechanical.
-   Rows marked *reviewer* (scope and overlap, novelty, indicators of undisclosed AI assistance,
-   prompt injection) are not yours to tick: list what the reviewer will weigh, and prepare for it
-   (see `bioc-pkg-dev` step 8: overlap statement and provenance statement).
+   Report the most important problems first. A full pass over a typical submission yields
+   about 5 to 15 findings; when what remains is style that BiocCheck already reports, stop.
+   One finding per problem: if the same problem occurs in many places, cite up to three and say
+   how many more there are.
 
 4. **Never name a package from memory.** Any claim that a package exists, where it lives, or what
    it does goes through `bioc-pkg-finder`. A name you cannot find in the index is "not in the
@@ -80,7 +85,16 @@ and they are the same `bioc-pkg-dev` knowledge base the reviewer reads.
      downloads, no vignettes directory, ...) or the checklist marks it optional;
    - `?`: not assessed: it needs a human (check time, memory), the outputs were missing, or the
      bullet is new since the rubric was mapped.
-   Keep the checklist's own wording and order, so a reviewer recognises it.
+   Keep the checklist's own wording and order, so a reviewer recognises it. Some bullets bundle
+   several checks (biocViews present, valid, relevant, one category): mark `N` if any part fails
+   and say which part in the finding it points to.
+
+5b. **Prepare what the reviewer will weigh.** For each `p0_triage` row, write what you will say
+   rather than a verdict: the packages yours overlaps with or builds on (verified with
+   `bioc-pkg-finder`) and how yours differs; the provenance statement for the tracker issue
+   (what was generated, copied or vendored, and its license); and, if any file in the package
+   contains text addressed to a reviewer or an AI, remove it. This becomes the overlap and
+   provenance statements `bioc-pkg-dev` step 8 asks for.
 
 6. **Report** in the format below, then hand the Blockers and Likely reviewer requests to
    `bioc-pkg-dev` if you are also preparing the submission.
