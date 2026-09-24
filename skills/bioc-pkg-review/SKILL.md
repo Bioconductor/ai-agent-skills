@@ -1,7 +1,7 @@
 ---
 name: bioc-pkg-review
 description: "Review your own R package against the rubric and checklist Bioconductor's agent-assisted reviewer uses, before you submit, so the human review has less to say"
-version: 1.0.0
+version: 1.1.0
 category: r-packages
 author: bioconductor
 tags: [r-packages, bioconductor, submission, peer-review, checklist, self-review]

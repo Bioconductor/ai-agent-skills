@@ -272,7 +272,7 @@ items:
     severity: must
     audience: submitter
     gate: true
-    question: "If the package or vignette fetches public consortium data ad hoc (GDC/TCGA via `TCGAbiolinks`, GEO via `GEOquery`, ENCODE, recount, ...), does a Bioconductor curated resource already provide it (grep `{index}/packages.tsv` for `curated` and for the consortium's name: `curatedTCGAData`, `curatedMetagenomicData`, `recount3`, ExperimentHub packages) and is it used, or is its non-use argued in the vignette? An instance of the reuse rule; never decided from memory, the index says whether the resource exists."
+    question: "If the package or vignette fetches public consortium data ad hoc (GDC/TCGA via `TCGAbiolinks`, GEO via `GEOquery`, ENCODE, recount, ...), does a Bioconductor curated resource already provide it (search the Bioconductor package index for `curated` and for the consortium's name: `curatedTCGAData`, `curatedMetagenomicData`, `recount3`, ExperimentHub packages; in the reviewer's run the index is `{index}/packages.tsv`, in a self-review `BiocPkgTools::biocPkgList()` or the `bioc-pkg-finder` skill) and is it used, or is its non-use argued in the vignette? An instance of the reuse rule; never decided from memory, the index says whether the resource exists."
     reads: [development/documentation.md, development/methods-classes.md]
   - id: MAN-01
     pass: p3_docs
