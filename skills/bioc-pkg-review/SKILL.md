@@ -1,7 +1,7 @@
 ---
 name: bioc-pkg-review
 description: "Review your own R package against the rubric and checklist Bioconductor's agent-assisted reviewer uses, before you submit, so the human review has less to say"
-version: 1.0.0
+version: 1.1.0
 category: r-packages
 author: bioconductor
 tags: [r-packages, bioconductor, submission, peer-review, checklist, self-review]
@@ -172,3 +172,7 @@ they change as reviews accumulate):
   checklist only.
 - Findings are numbered in your report; the reviewer's report numbers its own. Quote rubric ids
   when replying on the tracker, they are stable.
+- Rows marked *gate* in `rubric.md` (no real data anywhere, no vignette, no tests, out of scope,
+  consortium data fetched ad hoc where a curated Bioconductor resource exists) lead the
+  reviewer's report and fold everything else until they are addressed. Settle them first: a
+  `must` on one of them is the whole first review round.

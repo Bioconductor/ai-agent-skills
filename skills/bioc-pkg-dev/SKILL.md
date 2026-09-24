@@ -1,7 +1,7 @@
 ---
 name: bioc-pkg-dev
 description: "Guide an R package or a set of analysis scripts through Bioconductor submission: the pre-submission gate, the Contributions tracker, and post-acceptance maintenance"
-version: 1.1.0
+version: 1.2.0
 category: r-packages
 author: bioconductor
 tags: [r-packages, bioconductor, submission, bioccheck, biocviews, peer-review]
@@ -130,6 +130,13 @@ as zero. Unit tests:
 [knowledge/development/tests.md](knowledge/development/tests.md). Large data belongs in
 ExperimentHub or AnnotationHub rather than in the package:
 [knowledge/development/data.md](knowledge/development/data.md).
+
+At least one vignette or example must analyse real data; simulated data illustrate an API but
+do not demonstrate a method. If the vignette uses TCGA, GEO or another public consortium's
+data, use the Bioconductor curated resource for it (`curatedTCGAData`, `curatedMetagenomicData`,
+`recount3`, the ExperimentHub packages; find it with `bioc-pkg-finder`) or say in the vignette
+why not. The reviewer's tool treats both (rubric rows VIG-15 and VIG-16) as gate findings: a `must`
+on either leads its report and the other findings wait until it is settled.
 
 ### 6. Run the gate
 
