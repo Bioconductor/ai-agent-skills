@@ -131,6 +131,13 @@ as zero. Unit tests:
 ExperimentHub or AnnotationHub rather than in the package:
 [knowledge/development/data.md](knowledge/development/data.md).
 
+At least one vignette or example must analyse real data; simulated data illustrate an API but
+do not demonstrate a method. If the vignette uses TCGA, GEO or another public consortium's
+data, use the Bioconductor curated resource for it (`curatedTCGAData`, `curatedMetagenomicData`,
+`recount3`, the ExperimentHub packages; find it with `bioc-pkg-finder`) or say in the vignette
+why not. The reviewer's tool asks both questions (rubric rows VIG-15 and VIG-16) before it reads
+anything else.
+
 ### 6. Run the gate
 
 Invoke the **`build-check-bioccheck`** skill for this step. It runs the four commands in the
