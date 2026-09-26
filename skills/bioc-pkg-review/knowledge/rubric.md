@@ -1,6 +1,6 @@
 # The Bioconductor package-review rubric
 
-Generated from the prompt tables of Bioconductor/BiocPkgReviewer (a private repository of the review team) on 2026-09-23; rubric sha256 `1696165bb34a`. This copy is the public artifact: do not edit it here, the questions are owned there (its ADR 0004 and ADR 0014); report a wrong question on bioconductor/ai-agent-skills and the team carries it over. Submitters review their own package against the same questions before submitting.
+Generated from the prompt tables of Bioconductor/BiocPkgReviewer (a private repository of the review team) on 2026-09-26; rubric sha256 `31dc24d597d0`. This copy is the public artifact: do not edit it here, the questions are owned there (its ADR 0004 and ADR 0014); report a wrong question on bioconductor/ai-agent-skills and the team carries it over. Submitters review their own package against the same questions before submitting.
 
 Each question cites chapters of the Bioconductor guide through the `bioc-pkg-dev` knowledge base; the guide is the authority, the rubric is a reading of it. Severity: `must` blocks acceptance, `should` is expected practice, `consider` is a suggestion; the row's severity is the default for a typical instance, and a question that names a threshold (for example coverage below 20%) states the severity that applies past it. Rows marked *reviewer* are what the human reviewer weighs (scope, overlap, novelty, AI-assistance indicators); a submitter can prepare for them but not tick them off. Rows marked *gate* lead the reviewer's report when they fire as `must`, with every other finding folded until they are addressed: no real data, no vignette, no tests, out of scope, a curated Bioconductor resource skipped.
 
@@ -104,12 +104,12 @@ Reads: `appendices.md`, `development/compiled-thirdparty.md`, `development/data.
 | CODE-16 | should | submitter | For Python: are dependencies managed with `basilisk` (preferred) or `reticulate` with a pinned environment, rather than assuming a system Python? |
 | CODE-17 | should | submitter | For Shiny: is app code in `R/`, is the core logic usable without the app, and is that logic tested? |
 | TEST-01 | must (gate) | submitter | Are there unit tests (`testthat`, `tinytest`, or `RUnit`) covering the core exported functionality? Which main exported functions have no test at all? |
-| TEST-02 | should | submitter | Do the tests check returned values, edge cases, and error conditions, or only that code runs without error? Are any tautological (see above)? Do tests depend on network access or skip most of their content? |
+| TEST-02 | should | submitter | Do the tests check returned values, edge cases, and error conditions, or only that code runs without error? Are any tautological (see above)? Do tests depend on network access or skip most of their content? Where a test is skipped or too slow for the 40-minute check budget, say so and name the remedy: a smaller fixture, or `longtests/` with `RunLongTests: TRUE`, rather than a skip that leaves the code untested on the builders. |
 | DATA-01 | should | submitter | Is shipped data small, in the right place and format (`data/` as compressed `.rda`, raw files in `inst/extdata`), and would larger data belong in an ExperimentHub or data package instead? |
 
 ## p5_build
 
-Reads: `development/build-check-bioccheck.md`
+Reads: `development/build-check-bioccheck.md`, `development/tests.md`
 
 | id | severity | audience | question |
 | --- | --- | --- | --- |
@@ -119,4 +119,4 @@ Reads: `development/build-check-bioccheck.md`
 | BLD-04 | should | submitter | What is total test coverage, and which exported functions or files are untested? Below 20% is `must`; 20 to 50% is `should`; 50 to 80% name the gaps; above 80% only mention it in the summary. |
 | BLD-05 | consider | submitter | Which functions have cyclomatic complexity above 10, and for each, what is a concrete way to split it? |
 | BLD-06 | consider | submitter | Does the dependency load report show heavy dependencies (many transitive packages) that could be moved to `Suggests` or dropped? |
-| BLD-07 | should | submitter | Does anything in the logs suggest the check ran in a degraded environment (skipped tests, `skip_on_bioc`, missing system tools, network failures), so results may not reflect the package? |
+| BLD-07 | should | submitter | Does anything in the logs suggest the check ran in a degraded environment (skipped tests, `skip_on_bioc`, missing system tools, network failures), so results may not reflect the package? Where tests are skipped or slow, name the remedy: shrink them if the work is incidental, otherwise move them to `longtests/` with `RunLongTests: TRUE` rather than skipping them on the builders. |
