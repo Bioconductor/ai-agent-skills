@@ -468,7 +468,7 @@ items:
     severity: should
     audience: submitter
     gate: false
-    question: "Do the tests check returned values, edge cases, and error conditions, or only that code runs without error? Are any tautological (see above)? Do tests depend on network access or skip most of their content? Where a test is skipped or too slow for the 40-minute check budget, say so and name the remedy: a smaller fixture, or `longtests/` with `RunLongTests: TRUE`, rather than a skip that leaves the code untested on the builders."
+    question: "Do the tests check returned values, edge cases, and error conditions, or only that code runs without error? Are any tautological (see above)? Do tests depend on network access or skip most of their content? Where a test is skipped or too slow *because of how long it runs*, name the remedy: a smaller fixture, or `longtests/` with `RunLongTests: TRUE` in `.BBSoptions`, rather than a skip that leaves the code untested on the builders. A skip for a platform, a missing system tool or a network dependency is a different thing and long tests do not fix it: ask whether the reason is stated and whether the code is covered some other way."
     reads: [appendices.md, development/compiled-thirdparty.md, development/data.md, development/methods-classes.md, development/r-code.md, development/shiny.md, development/tests.md]
   - id: DATA-01
     pass: p4_code
@@ -524,5 +524,5 @@ items:
     severity: should
     audience: submitter
     gate: false
-    question: "Does anything in the logs suggest the check ran in a degraded environment (skipped tests, `skip_on_bioc`, missing system tools, network failures), so results may not reflect the package? Where tests are skipped or slow, name the remedy: shrink them if the work is incidental, otherwise move them to `longtests/` with `RunLongTests: TRUE` rather than skipping them on the builders."
+    question: "Does anything in the logs suggest the check ran in a degraded environment (skipped tests, `skip_on_bioc`, missing system tools, network failures), so results may not reflect the package? Where the cause is runtime, name the remedy: shrink the tests if the work is incidental, otherwise move them to `longtests/` with `RunLongTests: TRUE` in `.BBSoptions` rather than skipping them on the builders. Missing tools, unsupported platforms and network failures are environment gaps, not something long tests fix: report them as gaps in what the run can tell you."
     reads: [development/build-check-bioccheck.md, development/tests.md]
