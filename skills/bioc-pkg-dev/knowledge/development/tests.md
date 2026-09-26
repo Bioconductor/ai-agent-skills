@@ -41,8 +41,25 @@ Covers: Chapter 15 - Unit tests
 
 ## Long-running tests
 
-- Consult the bioc-devel mailing list before adding tests that run very long,
-  so they do not slow the nightly builds.
+- Tests in `tests/` must finish within 40 minutes as part of `R CMD check`.
+- Tests too slow for that belong in a `longtests/` directory at the top level of
+  the package, alongside `tests/`, with a `.BBSoptions` file at the top level
+  containing `RunLongTests: TRUE`. They are given up to 6 hours.
+- Long tests run weekly (Saturdays) on their own builders, on both devel and
+  release. Their failures do **not** block propagation after a version bump;
+  only the nightly `tests/` results do.
+- `longtests/` is structured like `tests/` and typically runs unit tests, but no
+  framework is mandated.
+- Reach out to the bioc-devel mailing list before adding long tests, so their use
+  is justified and they do not slow the builds.
+- This is the alternative to deleting coverage or skipping it on the Bioconductor
+  builders: skipping (`skip_on_bioc()`, and similar guards) means the nightly
+  builds never exercise that code, so regressions in it go unnoticed.
+- Long tests do not apply to vignettes. A vignette is evaluated during the build,
+  so a chunk that is slow needs a smaller example, precomputed results shipped
+  with the package, or caching -- not `longtests/` and not `eval=FALSE`.
 
-Source: [Unit tests](https://contributions.bioconductor.org/tests.html)
+Source: [Unit tests](https://contributions.bioconductor.org/tests.html) , [Long tests](https://www.bioconductor.org/developers/how-to/LongTests/) , [Advanced build options](https://contributions.bioconductor.org/advanced-build-options.html#long-tests)
 Fetched 2026-08-14 from contributions.bioconductor.org (Bioconductor devel guide).
+"Long-running tests" was verified 2026-09-26 against the Long tests page and tests.html 15.5,
+which links to it; the mechanism is also summarised in Appendix B of `../appendices.md`.

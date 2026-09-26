@@ -468,7 +468,7 @@ items:
     severity: should
     audience: submitter
     gate: false
-    question: "Do the tests check returned values, edge cases, and error conditions, or only that code runs without error? Are any tautological (see above)? Do tests depend on network access or skip most of their content?"
+    question: "Do the tests check returned values, edge cases, and error conditions, or only that code runs without error? Are any tautological (see above)? Do tests depend on network access or skip most of their content? Where a test is skipped or too slow *because of how long it runs*, name the remedy: a smaller fixture, or `longtests/` with `RunLongTests: TRUE` in `.BBSoptions`, rather than a skip that leaves the code untested on the builders. A skip for a platform, a missing system tool or a network dependency is a different thing and long tests do not fix it: ask whether the reason is stated and whether the code is covered some other way."
     reads: [appendices.md, development/compiled-thirdparty.md, development/data.md, development/methods-classes.md, development/r-code.md, development/shiny.md, development/tests.md]
   - id: DATA-01
     pass: p4_code
@@ -483,46 +483,46 @@ items:
     audience: submitter
     gate: false
     question: "Does R CMD check report any ERROR or WARNING? For each, what is the cause in the source and the fix?"
-    reads: [development/build-check-bioccheck.md]
+    reads: [development/build-check-bioccheck.md, development/tests.md]
   - id: BLD-02
     pass: p5_build
     severity: consider
     audience: submitter
     gate: false
     question: "Do R CMD check NOTEs point at real problems (undefined globals, hidden files, unused Imports, non-portable paths) rather than environment noise?"
-    reads: [development/build-check-bioccheck.md]
+    reads: [development/build-check-bioccheck.md, development/tests.md]
   - id: BLD-03
     pass: p5_build
     severity: must
     audience: submitter
     gate: false
     question: "Does BiocCheck report any ERROR? WARNING is `should`, NOTE is `consider`, as above."
-    reads: [development/build-check-bioccheck.md]
+    reads: [development/build-check-bioccheck.md, development/tests.md]
   - id: BLD-04
     pass: p5_build
     severity: should
     audience: submitter
     gate: false
     question: "What is total test coverage, and which exported functions or files are untested? Below 20% is `must`; 20 to 50% is `should`; 50 to 80% name the gaps; above 80% only mention it in the summary."
-    reads: [development/build-check-bioccheck.md]
+    reads: [development/build-check-bioccheck.md, development/tests.md]
   - id: BLD-05
     pass: p5_build
     severity: consider
     audience: submitter
     gate: false
     question: "Which functions have cyclomatic complexity above 10, and for each, what is a concrete way to split it?"
-    reads: [development/build-check-bioccheck.md]
+    reads: [development/build-check-bioccheck.md, development/tests.md]
   - id: BLD-06
     pass: p5_build
     severity: consider
     audience: submitter
     gate: false
     question: "Does the dependency load report show heavy dependencies (many transitive packages) that could be moved to `Suggests` or dropped?"
-    reads: [development/build-check-bioccheck.md]
+    reads: [development/build-check-bioccheck.md, development/tests.md]
   - id: BLD-07
     pass: p5_build
     severity: should
     audience: submitter
     gate: false
-    question: "Does anything in the logs suggest the check ran in a degraded environment (skipped tests, `skip_on_bioc`, missing system tools, network failures), so results may not reflect the package?"
-    reads: [development/build-check-bioccheck.md]
+    question: "Does anything in the logs suggest the check ran in a degraded environment (skipped tests, `skip_on_bioc`, missing system tools, network failures), so results may not reflect the package? Where the cause is runtime, name the remedy: shrink the tests if the work is incidental, otherwise move them to `longtests/` with `RunLongTests: TRUE` in `.BBSoptions` rather than skipping them on the builders. Missing tools, unsupported platforms and network failures are environment gaps, not something long tests fix: report them as gaps in what the run can tell you."
+    reads: [development/build-check-bioccheck.md, development/tests.md]
