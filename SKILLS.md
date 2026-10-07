@@ -283,6 +283,28 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 ---
 
+### migrate-datapkg-to-zenodo
+
+**Purpose**: Convert a legacy Bioconductor experiment data package that ships .rda files in data/ to on-demand download from Zenodo with BiocFileCache caching, keeping data() backward compatible and R CMD check offline
+
+**Location**: `skills/migrate-datapkg-to-zenodo/SKILL.md`
+
+**When to use**:
+- A data package's source tarball is bloated by serialized datasets in `data/`
+- Moving package data to external, citable hosting without an ExperimentHub conversion (Zenodo by default; another host, such as OSF, figshare, or an S3 bucket, if the user specifies one)
+- Replicating the curatedOvarianData / curatedCRCData / curatedBladderData Zenodo refactor on another package
+
+**Invocation**:
+- "Convert this data package to Zenodo and BiocFileCache"
+- "Move the datasets in this package out of data/ and host them on Zenodo"
+- "Refactor this legacy experiment data package so it stops shipping .rda files"
+
+**Output**: A pull request with an exported getter, Zenodo manifest, offline test fixtures, data() stubs, regeneration and integrity-verification scripts, tests, and updated docs, plus a published and verified Zenodo record.
+
+**Related skills**: analyze-r-package, build-check-bioccheck, update-r-news
+
+---
+
 ### update-r-news
 
 **Purpose**: Draft or update an R package NEWS file from git commit history, examining diffs when commit messages are vague
@@ -350,7 +372,7 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 | Category | Skills | Purpose |
 |----------|--------|---------|
 | **meta** | adr-author, check-bioconductor-skills, create-skill, document-skill, validate-skill | Repository and workflow infrastructure |
-| **r-packages** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
+| **r-packages** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, improve-code-coverage, migrate-datapkg-to-zenodo, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
 | **bioconductor-how-tos** | bioc-howto | Bioconductor data analysis practical guides |
 
 ### By Tag
@@ -368,6 +390,7 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 | **automation** | document-skill, update-r-news | Automating repetitive documentation tasks |
 | **analysis** | analyze-r-package, bioc-pkg-finder | Understanding code and architecture |
 | **security** | security-audit-r-package | Security audits and vulnerability detection |
+| **data-hosting** | migrate-datapkg-to-zenodo | Hosting package data externally (Zenodo, BiocFileCache) |
 | **audit** | security-audit-r-package | Comprehensive code auditing |
 | **bioconductor** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
 | **submission** | bioc-pkg-dev, bioc-pkg-review | Preparing and submitting a package to Bioconductor |
