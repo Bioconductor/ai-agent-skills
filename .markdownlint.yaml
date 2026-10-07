@@ -1,8 +1,9 @@
 # markdownlint configuration for ai-agent-skills.
 # Tuned to the repository's established style so that a clean run is the
 # norm and any new finding is worth acting on. Run locally with:
-#   markdownlint '**/*.md'
-# (validate-skill invokes it on individual SKILL.md files.)
+#   markdownlint --dot '**/*.md'
+# (--dot includes dot-directories such as .github, which the glob alone
+# skips; validate-skill invokes markdownlint on individual SKILL.md files.)
 
 default: true
 
