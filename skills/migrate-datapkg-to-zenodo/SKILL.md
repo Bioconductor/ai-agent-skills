@@ -1,7 +1,7 @@
 ---
 name: migrate-datapkg-to-zenodo
 description: Convert a legacy Bioconductor experiment data package that ships .rda files in data/ to on-demand download from Zenodo with BiocFileCache caching, keeping data() backward compatible and R CMD check offline
-version: 1.1.1
+version: 1.1.2
 category: r-packages
 tags: [r-packages, bioconductor, experiment-data, zenodo, biocfilecache, data-hosting, refactoring]
 author: bioconductor
@@ -49,8 +49,12 @@ copies in sync):
   together would defeat per-dataset download.
 - The reference implementations above, for copying `R/getData.R` and
   `inst/scripts/`. Only the package name differs between their copies.
-- Datasets in the references are `ExpressionSet`s, but the pattern is
-  class-agnostic: each `.rda` holds one object whose name matches the file name.
+- Datasets in the references are `ExpressionSet`s. The download, cache,
+  manifest, and stub machinery is class-agnostic (each `.rda` holds one object
+  whose name matches the file name), but two scripts use `ExpressionSet`
+  accessors and must be adapted for other classes: the fixture subsetting in
+  `make-test-data.R` and the component-wise equality checks in the integrity
+  report (`exprs`, `pData`, `fData`).
 
 ## Process
 
@@ -196,8 +200,11 @@ Copy `tests/testthat/test-getData.R` from a reference implementation and adapt:
      their own terms.
    - Related identifier: the package's GitHub URL, relation `isSupplementedBy`,
      resource type software.
-3. Publish, note the record ID, and compare Zenodo's displayed checksums against
-   `upload-manifest.txt`.
+3. While the record is still an unpublished draft, compare the checksums
+   Zenodo displays for each file against `upload-manifest.txt`. A bad upload
+   can still be replaced at this stage; after publication the record is
+   immutable and fixing a file means a new record version. Then publish and
+   note the record ID.
 4. Re-run `Rscript inst/scripts/make-data.R <RECORD_ID>`; this rewrites only the
    manifest with real URLs. Copy `zenodo-manifest.csv` to `inst/extdata/`.
 
