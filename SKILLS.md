@@ -20,7 +20,6 @@ This is the canonical index of all available AI agent skills in the bioconductor
 
 > **Note**: For instructions on how to use these skills, see the [Skills Usage Guide](USAGE.md). All skills are located at `skills/{skill-name}/SKILL.md`.
 
-
 ## Meta Skills
 
 Infrastructure and workflow skills for working with this repository itself.
@@ -41,7 +40,6 @@ Infrastructure and workflow skills for working with this repository itself.
 **Output**: A new ADR file in the target repository's `docs/adr/` directory
 
 ---
-
 
 ### create-skill
 
