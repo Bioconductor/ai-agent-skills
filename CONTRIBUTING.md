@@ -52,7 +52,6 @@ Report bugs or suggest features via [GitHub Issues](https://github.com/bioconduc
 
 Skills must conform strictly to [AGENTS.md § Skill File Format](AGENTS.md#skill-file-format) and [SKILL_STANDARD.md](SKILL_STANDARD.md). Do not duplicate required fields or metadata definitions in your skill files.
 
-
 ## Pull Request Process
 
 We use a combination of automated tools and human review to ensure high-quality skills. **Branch protection rules prevent even collaborators from committing directly to the `devel` branch**, so all changes must go through a pull request.
@@ -64,7 +63,7 @@ When you submit a PR, you will receive automated feedback:
 ### Steps to merge
 1. Create clear PR description explaining what and why.
 2. Reference any related issues.
-3. **Resolve CI errors**: Ensure that the "Validate Skills" workflow passes. 
+3. **Resolve CI errors**: Ensure that the "Validate Skills" workflow passes.
 4. Wait for human review and respond to feedback. Be patient - reviews typically take 2-7 days.
 5. Once approved, maintainers will merge your PR.
 

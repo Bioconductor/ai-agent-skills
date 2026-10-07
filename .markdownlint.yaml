@@ -1,0 +1,62 @@
+# markdownlint configuration for ai-agent-skills.
+# Tuned to the repository's established style so that a clean run is the
+# norm and any new finding is worth acting on. Run locally with:
+#   markdownlint --dot '**/*.md'
+# (--dot includes dot-directories such as .github, which the glob alone
+# skips; validate-skill invokes markdownlint on individual SKILL.md files.)
+
+default: true
+
+# Skill frontmatter descriptions are single lines by design (they drive
+# discovery), and prose is not hard-wrapped at 80 columns in this repo.
+MD013: false
+
+# Historical mix of "-" and "*" bullets across files.
+MD004: false
+
+# Headings, lists, and fences are not consistently surrounded by blank
+# lines in existing content; GitHub and Jekyll render both forms the same.
+# Note: kramdown's "* TOC\n{:toc}" idiom must NOT gain a blank line, so do
+# not auto-fix these rules repo-wide.
+MD022: false
+MD031: false
+MD032: false
+
+# Fenced blocks holding example output or report templates have no
+# meaningful language tag.
+MD040: false
+
+# Bare URLs appear in reference lists and are rendered as links by GitHub.
+MD034: false
+
+# AGENTS.md and the Jekyll pages use <details>/<summary> and similar HTML.
+MD033: false
+
+# Table cell padding style is not standardized.
+MD060: false
+
+# Jekyll pages carry a "title:" in YAML frontmatter AND an H1 in the body;
+# ignore the frontmatter title so this rule checks the body only.
+MD025:
+  front_matter_title: ""
+
+# bioc-pkg-dev knowledge files deliberately open with a "Covers:" scope
+# line rather than a heading (markdownlint-cli applies one config per run,
+# so this cannot be scoped to that directory alone).
+MD041: false
+
+# Repeated section headings (e.g. per-skill "Usage", "Process") are fine
+# as long as they are not siblings.
+MD024:
+  siblings_only: true
+
+# Standalone bold lines ("**Purpose**:", "**Related skills**:") are the
+# established entry format in SKILLS.md.
+MD036: false
+
+# Question marks and colons in headings ("Questions?") are intentional.
+MD026: false
+
+# Ordered lists restart at their true number after prose interruptions
+# (e.g. "5b." followed by "6."); do not force 1/1/1 renumbering.
+MD029: false

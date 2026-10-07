@@ -326,11 +326,11 @@ Use consistent parameter names across functions:
 ✅ Configuration (.Rbuildignore, .gitignore)
 
 ### What NOT to Commit
-❌ Generated files (man/*.Rd if auto-generated, *.tar.gz)
+❌ Generated files (`man/*.Rd` if auto-generated, `*.tar.gz`)
 ❌ User-specific files (.Rproj.user/, .Rhistory)
 ❌ Large data files (use external hosting)
 ❌ Sensitive credentials or API keys
-❌ Build artifacts (*.o, *.so, *.dll)
+❌ Build artifacts (`*.o`, `*.so`, `*.dll`)
 
 ### .gitignore Template
 

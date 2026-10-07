@@ -10,7 +10,7 @@ When AI agents use a Bioconductor skill from this repository, their responses of
 
 ## Decision
 
-We will enforce a standard citation block in all agent responses using a centralized, single-source-of-truth approach. 
+We will enforce a standard citation block in all agent responses using a centralized, single-source-of-truth approach.
 
 Specifically, we decided to:
 1. **Update AGENTS.md**: Add a mandatory requirement for agents to include a standard citation block (`> 🛠️ **Bioconductor Skill Executed**: <name> | **Version**: <version> | **Author**: <author>`).

@@ -20,7 +20,7 @@ The functionality should be sufficiently documented in man pages with runnable e
 
 ## General package development
 
-- [ ] `R CMD build` without errors, warnings and notes. Any not fixed should be justified. 
+- [ ] `R CMD build` without errors, warnings and notes. Any not fixed should be justified.
 - [ ] Package passes `BiocCheck::BiocCheck()` when run on the source directory.
 - [ ] File names. Do not use filenames that differ only in case, as not all file systems are case-sensitive.
 - [ ] Package size. Size of tarball <= 10MB.
@@ -28,7 +28,7 @@ The functionality should be sufficiently documented in man pages with runnable e
 - [ ] Memory requirement below 8GB.
 - [ ] Size of individual files <= 5MB.
 - [ ] Undesirable files. System files like `.DS_Store`, `*.so`, etc. should not be included (see [.gitignore](https://contributions.bioconductor.org/gitignore.html) for a listing)
-- [ ] No renv directory or renv.lock file present. Packages need to work with current version of Bioconductor and packages. 
+- [ ] No renv directory or renv.lock file present. Packages need to work with current version of Bioconductor and packages.
 
 ## Important Bioconductor Features
 
@@ -42,11 +42,10 @@ The functionality should be sufficiently documented in man pages with runnable e
 
 Example: Seurat and data.frames are not Bioconductor classes. Packages certainly
 may keep this interoperability and generality but they should also be able to work
-_directly_ with the equivalent Bioconductor class in this case likely a SummarizedExperiment or
+*directly* with the equivalent Bioconductor class in this case likely a SummarizedExperiment or
 SingleCellExperiment (maybe with a designed wrapper function, e.g). The majority
 of documentation and runnable code should emphasize/demonstrate the interaction
 with Bioconductor objects (it may be in addition to the others capabilities).
-
 
 ## README file
 
@@ -65,7 +64,7 @@ Refer to the [DESCRIPTION](https://contributions.bioconductor.org/description.ht
 - [ ] `Description` field. Longer than three lines.
 - [ ] `Authors@R` field.
 - [ ] `License` field. Bioconductor only accepts Open Source Licenses ideally from: https://www.r-project.org/Licenses/
-- [ ] `LazyData` field. Justify if `LazyData: TRUE` 
+- [ ] `LazyData` field. Justify if `LazyData: TRUE`
 - [ ] `Depends`, `Imports`, `Suggests`, `Enhances` fields. All dependencies must be on CRAN or Bioconductor
 - [ ] `SystemRequirements` field. If applicable should also have INSTALL file.
 - [ ] `biocViews` field.
@@ -118,14 +117,13 @@ If applicable:
 - [ ] Vignette has an *Installation* section.
 - [ ] Vignette has a table of contents.
 - [ ] No disabled code blocks present in vignette. If included, should be minimal and justified.
-- [ ] Vignette shows interaction with Bioconductor objects or how to integrate into analysis 
-- [ ] Ensure any hidden code blocks will not affect end user reproducibility running rendered vignette 
+- [ ] Vignette shows interaction with Bioconductor objects or how to integrate into analysis
+- [ ] Ensure any hidden code blocks will not affect end user reproducibility running rendered vignette
 - [ ] Vignette includes `sessionInfo()`.
 - [ ] The `vignettes/` directory contains only vignette file(s) and necessary static images. Rendered products (html, pdf, etc. should not be included)
 
 N.B. Sweave vignettes, while not wrong, are not encouraged. Rmd or Qmd conversion should be
 strongly recommended.
-
 
 ### Man Pages
 
@@ -171,11 +169,11 @@ strongly recommended.
   - `<-` instead of `=`.
   - `dev.new()` instead of `x11`.
   - `message()`, `warning`, `stop` instead of `cat`. No `paste0` in these methods.
-  - check any download/GET/curl calls. Web data should be trusted site NOT github, dropbox, google drive, etc. see data web section 
+  - check any download/GET/curl calls. Web data should be trusted site NOT github, dropbox, google drive, etc. see data web section
   - check any uses of system2 for dangerous calls (rm, unlink, etc)
   - check any install calls that they are not evaluated.
   - no writing to home directory or any user directory without user knowledge. `tempfile()` as default
-  - ensure no user setting overwrites (config, set, options, etc) that are not returned to original settings 
+  - ensure no user setting overwrites (config, set, options, etc) that are not returned to original settings
   - remove unused/commented code. Comments should be explanatory only
 - [ ] Re-use of classes and functionality (if appropriate).
 - [ ] Functional programming: no code repetition.
@@ -214,10 +212,8 @@ strongly recommended.
 
 N.B.  See https://contributions.bioconductor.org/shiny.html
 
-
 ## Unacceptable files
 
 - [ ] No *unacceptable* files present. (see [.gitignore](https://contributions.bioconductor.org/gitignore.html) for a listing)
-
 
 ## Additional Comments or Concerns:
