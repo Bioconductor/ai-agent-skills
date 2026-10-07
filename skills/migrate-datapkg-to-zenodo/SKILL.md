@@ -1,7 +1,7 @@
 ---
 name: migrate-datapkg-to-zenodo
 description: Convert a legacy Bioconductor experiment data package that ships .rda files in data/ to on-demand download from Zenodo with BiocFileCache caching, keeping data() backward compatible and R CMD check offline
-version: 1.1.0
+version: 1.1.1
 category: r-packages
 tags: [r-packages, bioconductor, experiment-data, zenodo, biocfilecache, data-hosting, refactoring]
 author: bioconductor
@@ -40,11 +40,13 @@ copies in sync):
 - A checkout of the package with the full `data/*.rda` files present (if they were
   already removed, restore them from git history first).
 - A Zenodo account that can create and publish records (upload itself is manual,
-  through the web UI or Zenodo API). A single Zenodo record holds at most 50 GB;
-  if the compressed datasets exceed that, split them across several records (the
-  manifest already carries one URL per file, so files may live on different
-  records), request a larger quota from Zenodo, or use another host (see "Using
-  a host other than Zenodo" in step 8).
+  through the web UI or Zenodo API). A single Zenodo record holds at most 50 GB
+  and 100 files; if the compressed datasets exceed either limit, split them
+  across several records (the manifest already carries one URL per file, so
+  files may live on different records) or use another host (see "Using a host
+  other than Zenodo" in step 8). Zenodo grants one-off size quota increases on
+  request, but do not count on the 100-file cap moving, and zipping datasets
+  together would defeat per-dataset download.
 - The reference implementations above, for copying `R/getData.R` and
   `inst/scripts/`. Only the package name differs between their copies.
 - Datasets in the references are `ExpressionSet`s, but the pattern is
@@ -186,7 +188,12 @@ Copy `tests/testthat/test-getData.R` from a reference implementation and adapt:
    - Description: states these are the serialized objects for the Bioconductor
      package `<pkg>`, downloaded on demand by the package.
    - Creators: the package authors, with ORCIDs.
-   - License: the same license as the package.
+   - License: the terms the data are actually redistributable under, which is
+     not automatically the package's software license. Verify that
+     redistribution is permitted for every dataset and document each dataset's
+     source; when the package has long shipped the data, the license it was
+     already distributed under is usually correct, but source data can carry
+     their own terms.
    - Related identifier: the package's GitHub URL, relation `isSupplementedBy`,
      resource type software.
 3. Publish, note the record ID, and compare Zenodo's displayed checksums against
@@ -201,9 +208,10 @@ carries over: everything in `R/getData.R` is host-agnostic, because the
 manifest is the only place URLs live. Any host works that serves stable,
 versioned, direct-download HTTPS URLs without authentication: an institutional
 repository, OSF, figshare, Dataverse, or a lab-controlled S3 bucket or web
-server. Avoid hosts that cannot guarantee immutable content at a fixed URL
-(GitHub release assets are acceptable; a plain GitHub repo or a personal
-homepage is not). Adapt the Zenodo-specific pieces:
+server. Avoid hosts that cannot guarantee immutable content at a fixed URL,
+and avoid the hosts Bioconductor review rejects for package data: GitHub
+(including release assets), Dropbox, Google Drive, and personal homepages.
+Adapt the Zenodo-specific pieces:
 
 - `make-data.R`: change the URL template to the new host's download URL scheme.
 - The manifest URL regex in the testthat suite: relax or retarget it.
@@ -241,6 +249,10 @@ the live-download test enabled.
 
 ### 10. Commit and propagate
 
+- Agents follow the commit gates in
+  [AGENTS.md § Agent Responsibilities](../../AGENTS.md#agent-responsibilities):
+  show a draft commit message and obtain explicit approval before each commit,
+  and acknowledge the AI agent with a co-author trailer.
 - Two-commit convention from the references: first "Move datasets to Zenodo with
   BiocFileCache caching" (all code, placeholder URLs), then "Finalize Zenodo
   manifest for record NNNN" after publishing and verification.
@@ -285,10 +297,11 @@ test.
 - Zenodo records are immutable once published. Fixing a bad file means a new
   record version, a new record ID, and re-running `make-data.R <RECORD_ID>`;
   this is a feature (users always get exactly the verified bytes).
-- Zenodo limits a single record to 50 GB total. Check the compressed upload
-  size that `make-data.R` reports before creating the record; above the limit,
-  split files across multiple records, ask Zenodo for a one-off quota increase,
-  or switch hosts (step 8).
+- Zenodo limits a single record to 50 GB total and 100 files. Check the
+  compressed upload size and dataset count that `make-data.R` reports before
+  creating the record; above either limit, split files across multiple records
+  or switch hosts (step 8). Size quotas can be raised by request; the file cap
+  generally cannot, and zipping would defeat per-dataset download.
 - Keep the fixtures small (tens of KB each); they ship in the tarball and exist
   only so examples, tests, the vignette, and `R CMD check` run offline.
 - If the package's git history is itself bloated by the old `.rda` files, that
