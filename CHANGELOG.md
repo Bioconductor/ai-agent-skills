@@ -39,6 +39,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   ADR 0002 §1.
 
 ### Added
+- **profile-r-package** (v1.0.0) - Measures where an R/Bioconductor package spends its
+  `R CMD check` time and peak memory, then reduces both against the 10-minute and 8 GB submission
+  expectations without changing results. `BiocCheck` cannot measure either figure, which
+  `bioc-pkg-dev` notes at step 6 before moving on; this skill performs the build they require.
+  - The measurement workflow is base R throughout - `R CMD check`, `tools::pkgVignettes`,
+    `Rprof`/`summaryRprof`, `tracemem`, `Rprofmem`, `gc` - with GNU `time` as the only external
+    tool, used for the one figure base R cannot reach: the peak memory of a child process.
+    Bioconductor infrastructure is named only as remediation, for packages that already depend
+    on it.
+  - A single annotated run yields the total, the peak memory and the per-step breakdown.
+    `_R_CHECK_TIMINGS_=0` is what produces the per-step `[user/elapsed]` annotations; unset, the
+    threshold is infinite and nothing is annotated at any duration.
+  - Records measurement traps verified on R 4.6.1 against jsonlite 2.0.0, digest 0.6.39 and
+    R6 2.6.1: `--no-build-vignettes` runs vignette code
+    and skips only the re-building of outputs; `checking running R code from vignettes` tangles and
+    sources rather than weaving, so timing a full `buildVignette()` overstates the cost against this
+    budget; `<pkg>-Ex.timings` rows carry a trailing tab that makes the default reader return
+    `elapsed` as `NA`; the check log uses typographic quotes, so a straight-quote pattern matches
+    nothing; GNU `time` reports the largest single process rather than a process tree; and a
+    single-runner test framework reports one line for an entire suite.
+  - Distinguishes peak resident memory from R's heap as reported by `gc()`, which excludes memory
+    held by compiled code and therefore under-reports.
+  - References upstream policy on wrapped examples, long-running tests and slow vignette chunks
+    rather than restating it, per ADR 0003, and surfaces rather than resolves the upstream tension
+    between the 40-minute `tests/` limit and the 10-minute whole-check expectation.
 - **bioc-pkg-dev** (v1.0.0) - Guides an R package or a set of analysis scripts through
   Bioconductor submission: the pre-submission gate, the Contributions tracker, and post-acceptance
   maintenance.
@@ -47,7 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Ships 21 task-oriented `knowledge/` summaries of the official guide, each linking back to its
     canonical chapter, loaded per topic rather than on every invocation.
   - Drives `BiocCheck` and `biocthis` rather than reimplementing validation or templates.
-- SKILLS.md and USAGE.md entries for the new skill.
+- SKILLS.md and USAGE.md entries for `bioc-pkg-dev` and `profile-r-package`.
 
 ## [3.0.0] - 2026-07-07
 

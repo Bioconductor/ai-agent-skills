@@ -281,6 +281,30 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 ---
 
+### profile-r-package
+
+**Purpose**: Measure where an R/Bioconductor package spends its check time and memory, then reduce it against the 10-minute and 8 GB budgets without changing results
+
+**Location**: `skills/profile-r-package/SKILL.md`
+
+**When to use**:
+- `R CMD check` is too slow, or vignettes, examples or tests exhaust memory
+- Confirming before submission that a package is within the Bioconductor time and memory budgets
+- Attributing build cost to a specific vignette chunk, man page example or test file
+- Deciding whether a slow test should be shrunk, moved to `longtests/`, or left alone
+
+**Invocation**:
+- "Why does R CMD check take so long on this package?"
+- "This package runs out of memory when I build the vignettes"
+- "Get this package under the 10 minute check limit"
+- "Profile this package and tell me what to fix"
+
+**Output**: Budget versus measured figures for check time and peak memory, findings ranked by measured cost and classified by cause, the changes made with outputs verified unchanged, and an under/over budget verdict
+
+**Related skills**: build-check-bioccheck, bioc-pkg-dev, bioc-pkg-review, improve-code-coverage
+
+---
+
 ### migrate-datapkg-to-zenodo
 
 **Purpose**: Convert a legacy Bioconductor experiment data package that ships .rda files in data/ to on-demand download from Zenodo with BiocFileCache caching, keeping data() backward compatible and R CMD check offline
@@ -370,7 +394,7 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 | Category | Skills | Purpose |
 |----------|--------|---------|
 | **meta** | adr-author, check-bioconductor-skills, create-skill, document-skill, validate-skill | Repository and workflow infrastructure |
-| **r-packages** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, improve-code-coverage, migrate-datapkg-to-zenodo, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
+| **r-packages** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, improve-code-coverage, migrate-datapkg-to-zenodo, profile-r-package, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
 | **bioconductor-how-tos** | bioc-howto | Bioconductor data analysis practical guides |
 
 ### By Tag
@@ -390,7 +414,7 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 | **security** | security-audit-r-package | Security audits and vulnerability detection |
 | **data-hosting** | migrate-datapkg-to-zenodo | Hosting package data externally (Zenodo, BiocFileCache) |
 | **audit** | security-audit-r-package | Comprehensive code auditing |
-| **bioconductor** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
+| **bioconductor** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, improve-code-coverage, profile-r-package, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
 | **submission** | bioc-pkg-dev, bioc-pkg-review | Preparing and submitting a package to Bioconductor |
 | **bioccheck** | bioc-pkg-dev | The BiocCheck pre-submission gate |
 | **biocviews** | bioc-pkg-dev | biocViews terms and package classification |
@@ -399,6 +423,10 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 | **self-review** | bioc-pkg-review | Reviewing your own package with the reviewer's rubric |
 | **code-coverage** | improve-code-coverage | Code coverage analysis |
 | **covr** | improve-code-coverage | Tools wrapping the covr package |
+| **performance** | profile-r-package | Check time and runtime cost |
+| **memory** | profile-r-package | Peak memory against the 8 GB budget |
+| **profiling** | profile-r-package | Attributing cost with base R Rprof and summaryRprof |
+| **benchmarking** | profile-r-package | Before/after measurement of a change |
 | **data-access** | analyze-r-package (detects), create-package-instructions | Working with remote data |
 | **git** | update-r-news | Git-based workflows |
 | **changelog** | update-r-news | Changelog and release note generation |
@@ -407,6 +435,6 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 
 ---
 
-**Last Updated**: 2026-09-11
-**Version**: 2.1.0
+**Last Updated**: 2026-10-13
+**Version**: 2.2.0
 **Maintained by**: bioconductor

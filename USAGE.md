@@ -44,6 +44,9 @@ Use `migrate-datapkg-to-zenodo` to host them on Zenodo with BiocFileCache cachin
 **"I want to submit a package to Bioconductor..."**
 Use `bioc-pkg-dev` for the pre-submission gate, the Contributions tracker, and post-acceptance maintenance; pair it with `improve-code-coverage` and `security-audit-r-package` for quality control before submitting.
 
+**"My package is too slow or too big to check..."**
+Use `profile-r-package` to measure where the check time and memory go, then reduce them against the 10-minute and 8 GB budgets.
+
 **"I want to create a new skill..."**
 Start with `create-skill` for guided help, then `validate-skill` and `document-skill`.
 
