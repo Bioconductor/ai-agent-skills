@@ -1,10 +1,11 @@
 ---
 name: security-audit-r-package
 description: Perform comprehensive security audit of R/Bioconductor packages
-version: 1.0.0
-category: r-packages
-tags: [security, bioconductor, quality-control, validation, audit]
-author: bioconductor
+metadata:
+  version: 1.0.1
+  category: r-packages
+  author: bioconductor
+  tags: security, bioconductor, quality-control, validation, audit
 ---
 
 # security-audit-r-package

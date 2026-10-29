@@ -18,7 +18,7 @@ nav_order: 2
 
 This is the canonical index of all available AI agent skills in the bioconductor/ai-agent-skills repository. Use this to discover and understand what skills are available and when to use them.
 
-> **Note**: For instructions on how to use these skills, see the [Skills Usage Guide](USAGE.md). All skills are located at `skills/{skill-name}/SKILL.md`.
+> **Note**: For instructions on how to use these skills, see the [Skills Usage Guide](USAGE.md). All skills are located at `skills/{skill-name}/SKILL.md`, and each folder can be uploaded to claude.ai as-is (see [Claude Code Setup](instructions/claude.md#claudeai--skills-api-upload)).
 
 ## Meta Skills
 
@@ -27,6 +27,8 @@ Infrastructure and workflow skills for working with this repository itself.
 ### adr-author
 
 **Purpose**: Write a new Architecture Decision Record following the established Nygard format and conventions.
+
+**Location**: `skills/adr-author/SKILL.md`
 
 **When to use**:
 - Documenting a non-trivial, behavior-affecting decision
@@ -45,6 +47,8 @@ Infrastructure and workflow skills for working with this repository itself.
 
 **Purpose**: Help create a new AI agent skill through collaborative Q&A
 
+**Location**: `skills/create-skill/SKILL.md`
+
 **When to use**:
 - Creating a new skill from scratch or from a manual workflow
 
@@ -62,6 +66,8 @@ Infrastructure and workflow skills for working with this repository itself.
 
 **Purpose**: List and verify installed bioconductor skills
 
+**Location**: `skills/check-bioconductor-skills/SKILL.md`
+
 **When to use**:
 - Verifying skills are correctly installed or discovering available skills
 
@@ -76,6 +82,8 @@ Infrastructure and workflow skills for working with this repository itself.
 ### validate-skill
 
 **Purpose**: Validate that a skill conforms to the ai-agent-skills repository standards
+
+**Location**: `skills/validate-skill/SKILL.md`
 
 **When to use**:
 - Creating new skills, reviewing PRs, or ensuring standards compliance
@@ -93,6 +101,8 @@ Infrastructure and workflow skills for working with this repository itself.
 ### document-skill
 
 **Purpose**: Automate documentation updates to SKILLS.md after creating or modifying a skill
+
+**Location**: `skills/document-skill/SKILL.md`
 
 **When to use**:
 - After creating a new skill or modifying an existing skill to update SKILLS.md
@@ -115,6 +125,8 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 **Purpose**: Analyze R/Bioconductor package structure and characteristics
 
+**Location**: `skills/analyze-r-package/SKILL.md`
+
 **When to use**:
 - Understanding a package's architecture, type, or identifying key functions
 
@@ -129,6 +141,8 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 ### create-package-instructions
 
 **Purpose**: Generate comprehensive .github/instructions files for R/Bioconductor packages
+
+**Location**: `skills/create-package-instructions/SKILL.md`
 
 **When to use**:
 - Creating AI agent instructions for a new R package or standardizing documentation
@@ -147,6 +161,8 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 **Purpose**: Update existing .github/instructions files based on recent package changes
 
+**Location**: `skills/update-package-instructions/SKILL.md`
+
 **When to use**:
 - Refreshing package instructions after major architecture or pattern changes
 
@@ -163,6 +179,8 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 ### improve-code-coverage
 
 **Purpose**: Analyze R package code coverage using covr, audit existing tests for tautological assertions, classify testing gaps, and proactively write test cases to improve coverage and result correctness.
+
+**Location**: `skills/improve-code-coverage/SKILL.md`
 
 **When to use**:
 - Evaluating testing rigor, auditing for vacuous or tautological tests, identifying gaps, and proactively writing test cases
@@ -181,6 +199,8 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 ### security-audit-r-package
 
 **Purpose**: Perform comprehensive security audit of R/Bioconductor packages
+
+**Location**: `skills/security-audit-r-package/SKILL.md`
 
 **When to use**:
 - Auditing packages before CRAN/Bioconductor submission or reviewing for vulnerabilities
@@ -246,6 +266,8 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 **Purpose**: Find the R / Bioconductor packages best suited to a task or workflow
 
+**Location**: `skills/bioc-pkg-finder/SKILL.md`
+
 **When to use**:
 - When the user asks "what package should I use for X" or "is there a Bioconductor package that does Y"
 - Assembling an analysis workflow and needing to pick tools
@@ -264,6 +286,8 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 ### bioc-pkg-review
 
 **Purpose**: Review your own R package against the rubric and checklist Bioconductor's agent-assisted reviewer uses, before you submit, so the human review has less to say
+
+**Location**: `skills/bioc-pkg-review/SKILL.md`
 
 **When to use**:
 - Before opening a BiocContributions tracker issue, after the gate (`build-check-bioccheck`) passes
@@ -338,6 +362,8 @@ Skills indexing focused, practical how-tos for common Bioconductor data analysis
 
 **Purpose**: A consolidated index of Bioconductor how-to skills covering genomics, sequencing, and omics data analysis tasks
 
+**Location**: `skills/bioc-howto/SKILL.md`
+
 **When to use**:
 - Looking for step-by-step instructions for common Bioconductor tasks (e.g., loading BAM files, manipulating GRanges, extracting sequences)
 - Needing examples of standard Bioconductor workflows
@@ -370,7 +396,7 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 | Category | Skills | Purpose |
 |----------|--------|---------|
 | **meta** | adr-author, check-bioconductor-skills, create-skill, document-skill, validate-skill | Repository and workflow infrastructure |
-| **r-packages** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, improve-code-coverage, migrate-datapkg-to-zenodo, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
+| **r-packages** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, build-check-bioccheck, create-package-instructions, improve-code-coverage, migrate-datapkg-to-zenodo, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
 | **bioconductor-how-tos** | bioc-howto | Bioconductor data analysis practical guides |
 
 ### By Tag
@@ -379,8 +405,8 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 |-----|--------|----------|
 | **infrastructure** | create-skill, check-bioconductor-skills, document-skill, validate-skill | Repository and workflow tasks |
 | **testing** | improve-code-coverage | Software testing and coverage |
-| **validation** | security-audit-r-package, validate-skill | Quality control and standards compliance |
-| **quality-control** | security-audit-r-package, validate-skill | Ensuring skill quality |
+| **validation** | build-check-bioccheck, security-audit-r-package, validate-skill | Quality control and standards compliance |
+| **quality-control** | build-check-bioccheck, security-audit-r-package, validate-skill | Ensuring skill quality |
 | **documentation** | adr-author, create-package-instructions, document-skill, update-package-instructions, update-r-news | Generating and maintaining docs |
 | **adr** | adr-author | Architecture Decision Records |
 | **architecture** | adr-author | Architectural decisions |
@@ -390,9 +416,9 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 | **security** | security-audit-r-package | Security audits and vulnerability detection |
 | **data-hosting** | migrate-datapkg-to-zenodo | Hosting package data externally (Zenodo, BiocFileCache) |
 | **audit** | security-audit-r-package | Comprehensive code auditing |
-| **bioconductor** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
-| **submission** | bioc-pkg-dev, bioc-pkg-review | Preparing and submitting a package to Bioconductor |
-| **bioccheck** | bioc-pkg-dev | The BiocCheck pre-submission gate |
+| **bioconductor** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, build-check-bioccheck, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
+| **submission** | bioc-pkg-dev, bioc-pkg-review, build-check-bioccheck | Preparing and submitting a package to Bioconductor |
+| **bioccheck** | bioc-pkg-dev, build-check-bioccheck | The BiocCheck pre-submission gate |
 | **biocviews** | bioc-pkg-dev | biocViews terms and package classification |
 | **peer-review** | bioc-pkg-dev, bioc-pkg-review | Bioconductor peer review expectations |
 | **checklist** | bioc-pkg-review | The Package Review Checklist, filled from a self-review |
@@ -407,6 +433,6 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 
 ---
 
-**Last Updated**: 2026-09-11
-**Version**: 2.1.0
+**Last Updated**: 2026-10-29
+**Version**: 2.2.0
 **Maintained by**: bioconductor

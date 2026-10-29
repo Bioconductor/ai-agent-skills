@@ -1,10 +1,11 @@
 ---
 name: check-bioconductor-skills
 description: Verify that bioconductor/ai-agent-skills are available and help users find the right skill
-version: 1.1.0
-category: meta
-tags: [meta, infrastructure, discovery]
-author: bioconductor
+metadata:
+  version: 1.1.1
+  category: meta
+  author: bioconductor
+  tags: meta, infrastructure, discovery
 ---
 
 # check-bioconductor-skills

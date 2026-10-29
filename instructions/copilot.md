@@ -17,7 +17,7 @@ If more than one skill matches, list the options briefly and choose the best fit
 
 You must also read and adhere to the agent behavior and safe execution standards defined in AGENTS.md.
 
-Whenever you read and execute instructions from a Bioconductor SKILL.md file, you MUST include the following citation block at the start or end of your response:
+Whenever you read and execute instructions from a Bioconductor SKILL.md file, you MUST include the following citation block at the start or end of your response, filled from the skill's frontmatter (`name`, `metadata.version`, `metadata.author`):
 > 🛠️ **Bioconductor Skill Executed**: <name> | **Version**: <version> | **Author**: <author>
 ```
 

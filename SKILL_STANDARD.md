@@ -31,7 +31,7 @@ Skills use semantic versioning (MAJOR.MINOR.PATCH):
 
 ### When Updating Skills
 
-1. Increment version in YAML frontmatter
+1. Increment `metadata.version` in YAML frontmatter
 2. If description changes, run `document-skill` to update SKILLS.md
 3. Document changes in commit message
 4. Consider updating CHANGELOG.md for significant changes
@@ -49,7 +49,8 @@ Use this checklist when creating or updating skills (or run `validate-skill` to 
 
 ### Required Elements
 - [ ] Frontmatter conforms to [AGENTS.md § Minimal Required Fields](AGENTS.md#minimal-required-fields)
-- [ ] `author` field is present in frontmatter (see AGENTS.md § Minimal Required Fields)
+- [ ] `metadata.author` is present in frontmatter (see AGENTS.md § Minimal Required Fields)
+- [ ] No top-level keys other than those AGENTS.md § Minimal Required Fields allows (Claude skill upload rejects them)
 - [ ] No prohibited fields present (see [AGENTS.md § What NOT to Include](AGENTS.md#what-not-to-include))
 - [ ] `name` is unique and kebab-case
 - [ ] Core logic is platform-agnostic (describes WHAT, not HOW)
@@ -84,9 +85,11 @@ Here's a well-formed skill demonstrating the structural elements:
 ---
 name: example-skill
 description: Brief one-line description of the skill's purpose
-version: 1.0.0
-category: meta
-tags: [example, demo]
+metadata:
+  version: 1.0.0
+  category: meta
+  author: bioconductor
+  tags: example, demo
 ---
 
 # example-skill
@@ -141,6 +144,6 @@ Describe the expected result structure.
 
 ---
 
-**Version**: 3.0.0
-**Last Updated**: 2026-07-07
+**Version**: 3.1.0
+**Last Updated**: 2026-10-29
 **Authors**: bioconductor

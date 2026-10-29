@@ -19,6 +19,9 @@ Skills must be platform-agnostic. Flag any of the following:
   - ❌ "use `/analyze`", "ask `@workspace`", "trigger `#skill-name`"
   - ✅ "read the file", "run the command", "check the output"
 - Any YAML frontmatter field named `platforms:` or `triggers:`.
+- Top-level frontmatter fields other than `name`, `description`, `metadata`, `license`,
+  `compatibility` or `allowed-tools` (e.g. a top-level `version:`). They belong under `metadata:`;
+  Claude skill upload rejects them otherwise.
 - Instructions that only work on one specific agent platform (e.g., "In VS Code,
   open the Copilot panel and...").
 
@@ -73,7 +76,7 @@ these checks have completed successfully. When reviewing:
 ## Do Not Flag
 
 - Normal Markdown formatting variation (e.g., use of bold vs. headers).
-- Optional frontmatter fields (`tags`) being absent.
+- Optional frontmatter fields (`metadata.tags`) being absent.
 - Code snippets when they are clearly embedded *within* numbered workflow steps
   as domain-specific guardrails (this is explicitly allowed and encouraged for
   Bioconductor-specific APIs).

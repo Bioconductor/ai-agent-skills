@@ -70,14 +70,21 @@ Every skill MUST include these YAML frontmatter fields:
 
 ```yaml
 ---
-name: skill-name              # Unique identifier (kebab-case, REQUIRED)
-description: Brief purpose    # One-line description driving discovery (REQUIRED)
-version: 1.0.0               # Semantic version (REQUIRED)
-category: meta               # Primary domain: meta, r-packages, etc. (REQUIRED)
-author: bioconductor           # Creator/maintainer (REQUIRED)
-tags: [tag1, tag2]          # Searchable tags (OPTIONAL)
+name: skill-name              # Unique identifier (kebab-case, max 64 chars, REQUIRED)
+description: Brief purpose    # One-line description driving discovery (max 1024 chars, no < or >, REQUIRED)
+metadata:
+  version: 1.0.0              # Semantic version (REQUIRED)
+  category: meta              # Primary domain: meta, r-packages, etc. (REQUIRED)
+  author: bioconductor        # Creator/maintainer (REQUIRED)
+  tags: tag1, tag2            # Searchable tags, comma-separated (OPTIONAL)
 ---
 ```
+
+Only `name`, `description` and `metadata` (plus the optional `license`, `compatibility` and
+`allowed-tools`) may appear at the top level. This is the [Agent Skills](https://agentskills.io/specification)
+layout, and Claude's skill upload (claude.ai and the Skills API) rejects any other top-level key.
+Repository-specific fields therefore live under `metadata:`, whose values must be strings: quote a
+version that YAML would read as a number (e.g. `"1.0"`), and write tags as comma-separated text.
 
 ### What NOT to Include
 
@@ -203,7 +210,7 @@ Compliant agents:
 - [ ] MUST read and follow SKILL.md process documentation
 - [ ] MUST adapt tool usage to agent's available capabilities
 - [ ] MUST produce output as documented in the skill
-- [ ] MUST explicitly cite any Bioconductor skill executed in the response (header or footer), including skill name, version, and author — values taken directly from the skill's YAML frontmatter.
+- [ ] MUST explicitly cite any Bioconductor skill executed in the response (header or footer), including skill name, version, and author — values taken directly from the skill's YAML frontmatter (`name`, `metadata.version`, `metadata.author`).
 - [ ] MUST NOT embed platform-specific requirements in skills
 - [ ] MUST ask the user if the work should be done on a new branch before editing files
 - [ ] MUST NOT commit changes without explicit approval from the user
@@ -303,6 +310,7 @@ See [AGENTS.md](../AGENTS.md) for canonical behavior and [SKILLS.md](../SKILLS.m
 
 ## Version History
 
+- **2.1.0** (2026-10-29) - `version`, `category`, `author` and `tags` move under `metadata:` for Claude skill upload compatibility
 - **2.0.0** (2026-04-03) - Agent behavior standard
 
 ## Maintenance

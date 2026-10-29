@@ -1,10 +1,11 @@
 ---
 name: bioc-pkg-dev
 description: "Guide an R package or a set of analysis scripts through Bioconductor submission: the pre-submission gate, the Contributions tracker, and post-acceptance maintenance"
-version: 1.2.0
-category: r-packages
-author: bioconductor
-tags: [r-packages, bioconductor, submission, bioccheck, biocviews, peer-review]
+metadata:
+  version: 1.2.1
+  category: r-packages
+  author: bioconductor
+  tags: r-packages, bioconductor, submission, bioccheck, biocviews, peer-review
 ---
 
 # bioc-pkg-dev

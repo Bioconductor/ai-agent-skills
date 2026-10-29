@@ -1,10 +1,11 @@
 ---
 name: migrate-datapkg-to-zenodo
 description: Convert a legacy Bioconductor experiment data package that ships .rda files in data/ to on-demand download from Zenodo with BiocFileCache caching, keeping data() backward compatible and R CMD check offline
-version: 1.1.2
-category: r-packages
-tags: [r-packages, bioconductor, experiment-data, zenodo, biocfilecache, data-hosting, refactoring]
-author: bioconductor
+metadata:
+  version: 1.1.3
+  category: r-packages
+  author: bioconductor
+  tags: r-packages, bioconductor, experiment-data, zenodo, biocfilecache, data-hosting, refactoring
 ---
 
 # migrate-datapkg-to-zenodo

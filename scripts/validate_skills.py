@@ -5,8 +5,12 @@ validate_skills.py — Gatekeeper CI check for bioconductor/ai-agent-skills.
 Derived from: skills/validate-skill/SKILL.md (the gold standard for validation rules).
 
 Checks performed:
-  1. Required frontmatter fields present and non-empty (name, description, version, category, author)
-  2. No prohibited frontmatter fields (platforms, triggers)
+  1. Required frontmatter fields present and non-empty (name, description, and
+     metadata.version, metadata.category, metadata.author)
+  2. Only top-level frontmatter fields accepted by Claude skill upload; no
+     prohibited fields (platforms, triggers)
+  2a. name/description meet Claude upload limits (kebab-case name <= 64 chars,
+      description <= 1024 chars with no angle brackets)
   3. Directory name matches the `name` field
   4. Skill name is globally unique (no collisions with other skills)
   5. SKILLS.md is in sync (new/changed descriptions must appear in the index)
@@ -38,8 +42,15 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = REPO_ROOT / "skills"
 SKILLS_MD = REPO_ROOT / "SKILLS.md"
 
-REQUIRED_FIELDS = {"name", "description", "version", "category", "author"}
+REQUIRED_FIELDS = {"name", "description"}
+REQUIRED_METADATA = {"version", "category", "author"}
+# Top-level keys accepted by claude.ai / Skills API upload; everything else
+# belongs under `metadata:` (see AGENTS.md § Minimal Required Fields).
+ALLOWED_FIELDS = {"name", "description", "metadata", "license", "allowed-tools", "compatibility"}
 PROHIBITED_FIELDS = {"platforms", "triggers"}
+NAME_PATTERN = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+MAX_NAME_LENGTH = 64
+MAX_DESCRIPTION_LENGTH = 1024
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Git helpers
@@ -131,6 +142,12 @@ def get_all_skill_names():
 # Individual checks
 # ──────────────────────────────────────────────────────────────────────────────
 
+def get_metadata(fm):
+    """Return the `metadata` mapping, or {} if absent or malformed."""
+    meta = fm.get("metadata")
+    return meta if isinstance(meta, dict) else {}
+
+
 def check_required_fields(fm, skill_path, errors):
     missing = REQUIRED_FIELDS - set(fm.keys())
     for field in sorted(missing):
@@ -139,6 +156,21 @@ def check_required_fields(fm, skill_path, errors):
         if not fm[field]:
             errors.append(f"[{skill_path.parent.name}] EMPTY required frontmatter field: `{field}`")
 
+    if "metadata" in fm and not isinstance(fm["metadata"], dict):
+        errors.append(f"[{skill_path.parent.name}] `metadata` must be a mapping of string keys to string values")
+        return
+    meta = get_metadata(fm)
+    for field in sorted(REQUIRED_METADATA - set(meta.keys())):
+        errors.append(f"[{skill_path.parent.name}] MISSING required frontmatter field: `metadata.{field}`")
+    for key, value in meta.items():
+        if not isinstance(value, str):
+            errors.append(
+                f"[{skill_path.parent.name}] `metadata.{key}` must be a string "
+                f"(got {type(value).__name__}; quote it, or write lists as comma-separated text)"
+            )
+        elif key in REQUIRED_METADATA and not value.strip():
+            errors.append(f"[{skill_path.parent.name}] EMPTY required frontmatter field: `metadata.{key}`")
+
 
 def check_prohibited_fields(fm, skill_path, errors):
     present = PROHIBITED_FIELDS & set(fm.keys())
@@ -146,6 +178,37 @@ def check_prohibited_fields(fm, skill_path, errors):
         errors.append(
             f"[{skill_path.parent.name}] PROHIBITED frontmatter field present: `{field}` "
             f"(skills must be agent-agnostic — see AGENTS.md)"
+        )
+    for field in sorted(set(fm.keys()) - ALLOWED_FIELDS - PROHIBITED_FIELDS):
+        errors.append(
+            f"[{skill_path.parent.name}] UNEXPECTED top-level frontmatter field: `{field}`. "
+            f"Move it under `metadata:` (Claude skill upload rejects other top-level keys — see AGENTS.md)"
+        )
+
+
+def check_upload_limits(fm, skill_path, errors):
+    """Check name/description against the limits enforced by Claude skill upload."""
+    name = fm.get("name", "")
+    if isinstance(name, str) and name:
+        if not NAME_PATTERN.match(name):
+            errors.append(
+                f"[{skill_path.parent.name}] `name: {name}` must be kebab-case "
+                f"(lowercase letters, digits, single hyphens)"
+            )
+        if len(name) > MAX_NAME_LENGTH:
+            errors.append(
+                f"[{skill_path.parent.name}] `name` is {len(name)} characters; maximum is {MAX_NAME_LENGTH}"
+            )
+    description = fm.get("description", "")
+    if not isinstance(description, str):
+        errors.append(f"[{skill_path.parent.name}] `description` must be a string")
+        return
+    if "<" in description or ">" in description:
+        errors.append(f"[{skill_path.parent.name}] `description` cannot contain angle brackets (< or >)")
+    if len(description) > MAX_DESCRIPTION_LENGTH:
+        errors.append(
+            f"[{skill_path.parent.name}] `description` is {len(description)} characters; "
+            f"maximum is {MAX_DESCRIPTION_LENGTH}"
         )
 
 
@@ -255,11 +318,12 @@ def check_version_bumped(fm, skill_path, base_content, errors):
         base_fm, _ = parse_frontmatter(base_content)
     except Exception:
         return
-    old_version = base_fm.get("version", "")
-    new_version = fm.get("version", "")
-    if old_version and old_version == new_version:
+    # Fall back to a top-level `version` for base files predating the move to `metadata:`
+    old_version = get_metadata(base_fm).get("version") or base_fm.get("version", "")
+    new_version = get_metadata(fm).get("version", "")
+    if old_version and str(old_version) == str(new_version):
         errors.append(
-            f"[{skill_path.parent.name}] `version` was not bumped (still `{old_version}`). "
+            f"[{skill_path.parent.name}] `metadata.version` was not bumped (still `{old_version}`). "
             f"Update the version following semver. "
             f"(See SKILL_STANDARD.md § Version Management)"
         )
@@ -294,6 +358,7 @@ def main():
 
         check_required_fields(fm, skill_path, all_errors)
         check_prohibited_fields(fm, skill_path, all_errors)
+        check_upload_limits(fm, skill_path, all_errors)
         check_name_matches_directory(fm, skill_path, all_errors)
         check_name_uniqueness(fm, skill_path, all_names, all_errors)
         check_skills_md_sync(fm, skill_path, base_content, all_errors)

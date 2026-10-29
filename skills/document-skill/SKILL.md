@@ -1,10 +1,11 @@
 ---
 name: document-skill
 description: Automate documentation updates to SKILLS.md after creating or modifying a skill
-version: 1.0.2
-category: meta
-tags: [meta, infrastructure, documentation, automation]
-author: bioconductor
+metadata:
+  version: 1.0.3
+  category: meta
+  author: bioconductor
+  tags: meta, infrastructure, documentation, automation
 ---
 
 # document-skill

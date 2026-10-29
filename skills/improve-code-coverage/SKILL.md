@@ -1,10 +1,11 @@
 ---
 name: improve-code-coverage
 description: Analyze R package code coverage using covr, audit existing tests for tautological assertions, classify testing gaps, and proactively write test cases to improve coverage and result correctness.
-version: 1.1.0
-category: r-packages
-tags: [r-packages, testing, code-coverage, covr, bioconductor]
-author: bioconductor
+metadata:
+  version: 1.1.1
+  category: r-packages
+  author: bioconductor
+  tags: r-packages, testing, code-coverage, covr, bioconductor
 ---
 
 # improve-code-coverage

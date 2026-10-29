@@ -1,10 +1,11 @@
 ---
 name: build-check-bioccheck
 description: Run and interpret R CMD build, R CMD check, and both BiocCheck entry points against a Bioconductor package, separating real defects from environment gaps and known false positives
-version: 1.1.0
-category: r-packages
-tags: [r-packages, bioconductor, validation, quality-control, bioccheck, submission]
-author: bioconductor
+metadata:
+  version: 1.1.1
+  category: r-packages
+  author: bioconductor
+  tags: r-packages, bioconductor, validation, quality-control, bioccheck, submission
 ---
 
 # build-check-bioccheck

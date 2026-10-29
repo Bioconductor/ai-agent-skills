@@ -1,10 +1,11 @@
 ---
 name: bioc-pkg-finder
 description: Find the R / Bioconductor packages best suited to a task or workflow
-version: 1.2.0
-category: r-packages
-tags: [r-packages, bioconductor, package-discovery, biocViews]
-author: bioconductor
+metadata:
+  version: 1.2.1
+  category: r-packages
+  author: bioconductor
+  tags: r-packages, bioconductor, package-discovery, biocViews
 ---
 
 # Finding R / Bioconductor packages

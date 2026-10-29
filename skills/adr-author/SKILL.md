@@ -1,10 +1,11 @@
 ---
 name: adr-author
 description: Write a new Architecture Decision Record following the established Nygard format and conventions.
-version: 1.1.0
-category: meta
-author: bioconductor
-tags: [adr, architecture, documentation, decision]
+metadata:
+  version: 1.1.1
+  category: meta
+  author: bioconductor
+  tags: adr, architecture, documentation, decision
 ---
 
 # Authoring an ADR

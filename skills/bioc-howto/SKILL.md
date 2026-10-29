@@ -1,9 +1,10 @@
 ---
 name: bioc-howto
 description: A consolidated index of Bioconductor how-to skills covering genomics, sequencing, and omics data analysis tasks
-version: 1.0.0
-category: bioconductor-how-tos
-author: bioconductor
+metadata:
+  version: 1.0.1
+  category: bioconductor-how-tos
+  author: bioconductor
 ---
 
 # Bioconductor How-To Skills
