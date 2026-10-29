@@ -1,10 +1,11 @@
 ---
 name: update-package-instructions
 description: Update existing AI instruction documentation when an R/Bioconductor package changes
-version: 1.0.0
-category: r-packages
-tags: [r-packages, documentation, bioconductor]
-author: bioconductor
+metadata:
+  version: 1.0.1
+  category: r-packages
+  author: bioconductor
+  tags: r-packages, documentation, bioconductor
 ---
 
 # update-package-instructions

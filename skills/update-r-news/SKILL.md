@@ -1,10 +1,11 @@
 ---
 name: update-r-news
 description: Draft or update an R package NEWS file from git commit history, examining diffs when commit messages are vague
-version: 1.0.0
-category: r-packages
-tags: [r-packages, documentation, git, changelog, news, bioconductor]
-author: bioconductor
+metadata:
+  version: 1.0.1
+  category: r-packages
+  author: bioconductor
+  tags: r-packages, documentation, git, changelog, news, bioconductor
 ---
 
 # update-r-news

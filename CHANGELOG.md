@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- **Skill frontmatter: `version`, `category`, `author` and `tags` move under `metadata:`**
+  (AGENTS.md 2.0.0 → 2.1.0, all skills patch-bumped). Claude's skill upload (claude.ai and the
+  Skills API) accepts only `name`, `description`, `metadata`, `license`, `compatibility` and
+  `allowed-tools` at the top level, so every skill was rejected on upload. `metadata` values must
+  be strings, so `tags` is now comma-separated text. `scripts/validate_skills.py` enforces the new
+  layout and Claude's name/description limits; the citation rule now reads `metadata.version` and
+  `metadata.author`. `instructions/claude.md` documents uploading a skill folder to claude.ai.
+- **SKILLS.md** (2.1.0 → 2.2.0) - Adds `build-check-bioccheck` to the category and tag tables and
+  gives every entry a `Location` line.
 - **adr-author** (v1.0.0 → v1.1.0) - Adds scoping guidance, corrects the supersession rule, and
   corrects one point of Nygard attribution.
   - **New "Scoping an ADR" section.** The skill said when an ADR is warranted but nothing about how

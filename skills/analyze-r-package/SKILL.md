@@ -1,10 +1,11 @@
 ---
 name: analyze-r-package
 description: Analyze R/Bioconductor package structure to extract key information about its purpose, exports, and characteristics
-version: 1.0.0
-category: r-packages
-tags: [r-packages, analysis, bioconductor, documentation]
-author: bioconductor
+metadata:
+  version: 1.0.1
+  category: r-packages
+  author: bioconductor
+  tags: r-packages, analysis, bioconductor, documentation
 ---
 
 # analyze-r-package

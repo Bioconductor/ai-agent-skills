@@ -1,10 +1,11 @@
 ---
 name: create-package-instructions
 description: Create complete AI instruction documentation for an R/Bioconductor package in .github/instructions/
-version: 1.0.0
-category: r-packages
-tags: [r-packages, documentation, bioconductor]
-author: bioconductor
+metadata:
+  version: 1.0.1
+  category: r-packages
+  author: bioconductor
+  tags: r-packages, documentation, bioconductor
 ---
 
 # create-package-instructions
