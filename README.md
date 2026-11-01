@@ -70,6 +70,9 @@ ai-agent-skills/
 ├── CONTRIBUTING.md                # Contribution guidelines
 ├── CHANGELOG.md                   # Version history and release notes
 │
+├── .claude-plugin/
+│   └── marketplace.json           # Claude plugin marketplace (groups skills into plugins)
+│
 ├── skills/                        # All skills (flat structure)
 │   ├── {skill-name}/              # Each skill in its own directory
 │   │   ├── SKILL.md               # Skill documentation (required)
@@ -78,7 +81,7 @@ ai-agent-skills/
 │
 └── instructions/                  # Platform adapters (thin wrappers)
     ├── README.md                  # Adapter purpose and requirements
-    ├── claude.md                  # Claude Code setup and shortcuts
+    ├── claude.md                  # Claude Code / desktop setup (plugins)
     ├── copilot.md                 # GitHub Copilot setup and shortcuts
     └── antigravity.md             # Google Antigravity setup
 ```

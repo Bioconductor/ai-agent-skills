@@ -15,6 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   be strings, so `tags` is now comma-separated text. `scripts/validate_skills.py` enforces the new
   layout and Claude's name/description limits; the citation rule now reads `metadata.version` and
   `metadata.author`. `instructions/claude.md` documents uploading a skill folder to claude.ai.
+- **Claude plugin marketplace** - New `.claude-plugin/marketplace.json` publishes the skills as two
+  plugins, `bioc-r-packages` (12 skills) and `bioc-skill-authoring` (5 skills), installable in
+  Claude Code and the Claude desktop app from the repository URL (optionally pinned to a branch with
+  `#branch`). Skills are read in place from `skills/`; nothing is copied. `validate_skills.py`
+  checks that every skill is listed in exactly one plugin, and `document-skill` (v1.1.0) adds new
+  skills to the file. `scripts/build_claude_plugins.py` builds one uploadable `.zip` per plugin
+  for the desktop app's Upload plugin dialog. `instructions/claude.md` makes the plugins the
+  recommended install path.
 - **SKILLS.md** (2.1.0 → 2.2.0) - Adds `build-check-bioccheck` to the category and tag tables and
   gives every entry a `Location` line.
 - **adr-author** (v1.0.0 → v1.1.0) - Adds scoping guidance, corrects the supersession rule, and
