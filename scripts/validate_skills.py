@@ -16,6 +16,7 @@ Checks performed:
   5. SKILLS.md is in sync (new/changed descriptions must appear in the index)
   6. Relative links in the skill body resolve to existing files on disk
   7. Version was bumped if the file was modified (not newly created)
+  8. .claude-plugin/marketplace.json lists every skill in exactly one plugin
 
 Usage:
   python scripts/validate_skills.py
@@ -26,6 +27,7 @@ Exit codes:
   1 — one or more checks failed
 """
 
+import json
 import os
 import re
 import subprocess
@@ -41,6 +43,7 @@ except ImportError:
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = REPO_ROOT / "skills"
 SKILLS_MD = REPO_ROOT / "SKILLS.md"
+MARKETPLACE_JSON = REPO_ROOT / ".claude-plugin" / "marketplace.json"
 
 REQUIRED_FIELDS = {"name", "description"}
 REQUIRED_METADATA = {"version", "category", "author"}
@@ -329,21 +332,50 @@ def check_version_bumped(fm, skill_path, base_content, errors):
         )
 
 
+def check_marketplace_sync(errors):
+    """Every skill directory must appear in exactly one plugin of marketplace.json."""
+    if not MARKETPLACE_JSON.exists():
+        return
+    try:
+        marketplace = json.loads(MARKETPLACE_JSON.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as e:
+        errors.append(f"[marketplace] Cannot parse {MARKETPLACE_JSON.relative_to(REPO_ROOT)}: {e}")
+        return
+
+    listed = {}
+    for plugin in marketplace.get("plugins", []):
+        for entry in plugin.get("skills", []):
+            skill_dir = (REPO_ROOT / plugin.get("source", "./") / entry).resolve()
+            if not (skill_dir / "SKILL.md").exists():
+                errors.append(f"[marketplace] Plugin `{plugin.get('name')}` lists `{entry}`, which has no SKILL.md")
+            listed.setdefault(skill_dir, []).append(plugin.get("name"))
+
+    for skill_dir in sorted(d.resolve() for d in SKILLS_DIR.iterdir() if (d / "SKILL.md").exists()):
+        plugins = listed.get(skill_dir, [])
+        if len(plugins) != 1:
+            where = f"plugins {', '.join(f'`{n}`' for n in plugins)}" if plugins else "no plugin"
+            errors.append(
+                f"[{skill_dir.name}] Listed in {where} in "
+                f"{MARKETPLACE_JSON.relative_to(REPO_ROOT)}; add it to exactly one plugin's `skills`"
+            )
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Main
 # ──────────────────────────────────────────────────────────────────────────────
 
 def main():
     modified = get_modified_skill_files()
+    all_errors = []
+    check_marketplace_sync(all_errors)
 
-    if not modified:
+    if not modified and not all_errors:
         print("No SKILL.md files were modified. Nothing to validate.")
         sys.exit(0)
 
     print(f"Validating {len(modified)} modified SKILL.md file(s)...\n")
 
     all_names = get_all_skill_names()
-    all_errors = []
 
     for skill_path in modified:
         print(f"  Checking: {skill_path.relative_to(REPO_ROOT)}")

@@ -18,7 +18,7 @@ nav_order: 2
 
 This is the canonical index of all available AI agent skills in the bioconductor/ai-agent-skills repository. Use this to discover and understand what skills are available and when to use them.
 
-> **Note**: For instructions on how to use these skills, see the [Skills Usage Guide](USAGE.md). All skills are located at `skills/{skill-name}/SKILL.md`, and each folder can be uploaded to claude.ai as-is (see [Claude Code Setup](instructions/claude.md#claudeai--skills-api-upload)).
+> **Note**: For instructions on how to use these skills, see the [Skills Usage Guide](USAGE.md). All skills are located at `skills/{skill-name}/SKILL.md`, and Claude users can install them all as two plugins (see [Claude Setup](instructions/claude.md#plugin-install-recommended)).
 
 ## Meta Skills
 

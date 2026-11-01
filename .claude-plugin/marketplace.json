@@ -1,0 +1,43 @@
+{
+  "name": "bioconductor-skills",
+  "description": "Bioconductor AI agent skills for developing, checking, reviewing and submitting R/Bioconductor packages, and for authoring new skills",
+  "owner": {
+    "name": "Bioconductor",
+    "url": "https://github.com/Bioconductor/ai-agent-skills"
+  },
+  "plugins": [
+    {
+      "name": "bioc-r-packages",
+      "description": "Develop, check, review and submit R/Bioconductor packages",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/analyze-r-package",
+        "./skills/bioc-howto",
+        "./skills/bioc-pkg-dev",
+        "./skills/bioc-pkg-finder",
+        "./skills/bioc-pkg-review",
+        "./skills/build-check-bioccheck",
+        "./skills/create-package-instructions",
+        "./skills/improve-code-coverage",
+        "./skills/migrate-datapkg-to-zenodo",
+        "./skills/security-audit-r-package",
+        "./skills/update-package-instructions",
+        "./skills/update-r-news"
+      ]
+    },
+    {
+      "name": "bioc-skill-authoring",
+      "description": "Create, validate and document skills for the Bioconductor skills repository",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/adr-author",
+        "./skills/check-bioconductor-skills",
+        "./skills/create-skill",
+        "./skills/document-skill",
+        "./skills/validate-skill"
+      ]
+    }
+  ]
+}

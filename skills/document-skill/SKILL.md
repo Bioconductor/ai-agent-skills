@@ -2,7 +2,7 @@
 name: document-skill
 description: Automate documentation updates to SKILLS.md after creating or modifying a skill
 metadata:
-  version: 1.0.3
+  version: 1.1.0
   category: meta
   author: bioconductor
   tags: meta, infrastructure, documentation, automation
@@ -31,12 +31,13 @@ Invoke this skill after creating or modifying a skill file:
    - Check if the skill already exists in SKILLS.md. If so, prompt to replace.
    - Insert the entry alphabetically into the appropriate domain section.
    - Update the "By Category" and "By Tag" tables.
+   - For a new skill, add `./skills/{skill-name}` to the `skills` list of exactly one plugin in `.claude-plugin/marketplace.json` (`bioc-r-packages` for package and analysis skills, `bioc-skill-authoring` for skills about this repository).
    - Ask the user if the skill should be added to the "Finding Skills by Use Case" section in [USAGE.md](../../USAGE.md).
 4. **Confirm and Apply**: Show a summary of changes to SKILLS.md and apply them upon user confirmation.
 
 ## Output Format
 
-This skill produces an updated **SKILLS.md** file. No new files are created.
+This skill produces an updated **SKILLS.md** file and, for a new skill, an updated `.claude-plugin/marketplace.json`. No new files are created.
 
 ## Examples
 

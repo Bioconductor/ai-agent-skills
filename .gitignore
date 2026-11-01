@@ -19,3 +19,6 @@ Thumbs.db
 # Test outputs
 test-output/
 scratch/
+
+# Built plugin archives (scripts/build_claude_plugins.py)
+dist/
