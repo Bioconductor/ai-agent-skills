@@ -6,6 +6,7 @@ on:
     paths:
       - 'skills/**/SKILL.md'
       - 'SKILLS.md'
+      - '.claude-plugin/marketplace.json'
 
 permissions:
   contents: read
