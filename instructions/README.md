@@ -9,7 +9,7 @@ This directory contains setup and usage instructions for specific AI agents. Thi
 
 ## Available Adapters
 
-- **[claude.md](claude.md)** - Claude Code setup and usage
+- **[claude.md](claude.md)** - Claude Code and Claude desktop setup (plugin marketplace)
 - **[copilot.md](copilot.md)** - GitHub Copilot setup and usage
 - **[antigravity.md](antigravity.md)** - Google Antigravity setup and usage
 
