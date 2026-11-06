@@ -1,7 +1,7 @@
 ---
 name: update-r-news
 description: Draft or update an R package NEWS file from git commit history, examining diffs when commit messages are vague
-version: 1.0.0
+version: 1.1.0
 category: r-packages
 tags: [r-packages, documentation, git, changelog, news, bioconductor]
 author: bioconductor
@@ -152,13 +152,24 @@ From the diff, summarise:
 
 If a diff is very large (> 500 changed lines total), summarise by file rather than by line to avoid context overflow.
 
+Generated files can change in layout without changing in meaning. For `NAMESPACE` in particular, a new roxygen2 version may regroup or reorder directives; compare the set of `export()`, `import*()`, and `S3method()` directives before and after rather than the diff lines, and treat a layout-only change as internal.
+
 Combine the diff summary with the original vague commit message to produce an enriched description to use in subsequent steps.
 
 ### 7. Detect Existing NEWS Categories
 
 If the NEWS file already exists, read its content and extract all unique category/section headings currently in use. Examples vary by package — typical headings include `NEW FEATURES`, `BUG FIXES`, `SIGNIFICANT USER-VISIBLE CHANGES`, `DEPRECATED AND DEFUNCT`, `INTERNAL CHANGES`, and others.
 
-Use these detected headings as the allowed category set for the new entries. If no headings can be detected (e.g. the file is new or has no previous entries), present a default set for the user to choose from and allow custom headings.
+Use these detected headings as the allowed category set for the new entries. If no headings can be detected (e.g. the file is new or has no previous entries), present this default set for the user to choose from and allow custom headings:
+
+- `NEW FEATURES`
+- `SIGNIFICANT USER-VISIBLE CHANGES`
+- `BUG FIXES AND MINOR IMPROVEMENTS`
+- `DEPRECATED AND DEFUNCT`
+
+The default set has no separate heading for internal changes; dependency, documentation, CI, and test changes go under `BUG FIXES AND MINOR IMPROVEMENTS`. Only include headings that receive entries.
+
+Also record the style of the existing version headings (e.g. `# pkgname 1.18.0` or `# Changes in version 1.18.0`) and bullet marker (`*` or `-`) so the new block matches them.
 
 ### 8. Categorise All Changes
 
@@ -166,15 +177,17 @@ For each commit (using the enriched description for previously vague commits), a
 
 - Assign based on the content of the message and diff:
   - New exported functions/classes/methods/vignettes → `NEW FEATURES` (or equivalent)
-  - Bug/error/warning fixes, test changes → `BUG FIXES` (or equivalent)
+  - Bug/error/warning fixes, test changes → `BUG FIXES AND MINOR IMPROVEMENTS` (or `BUG FIXES`, or equivalent)
   - Removal of exports, `Deprecated`/`defunct` patterns → `DEPRECATED AND DEFUNCT` (or equivalent)
   - Breaking changes, renamed arguments, changed defaults → `SIGNIFICANT USER-VISIBLE CHANGES` (or equivalent)
-  - Non-exported code, CI, documentation-only, `DESCRIPTION`-only → `INTERNAL CHANGES` (or equivalent)
-- If a commit is ambiguous and cannot be confidently classified, assign it to the most conservative applicable category — typically `INTERNAL CHANGES` or `MISCELLANEOUS` if that heading exists — and always mark it with a `# TODO: verify category` annotation so the user can reclassify it during the preview step
+  - Non-exported code, CI, documentation-only, `DESCRIPTION`-only → `BUG FIXES AND MINOR IMPROVEMENTS` (or `INTERNAL CHANGES` if the NEWS file already uses that heading)
+- If a commit is ambiguous and cannot be confidently classified, assign it to the most conservative applicable category — typically `BUG FIXES AND MINOR IMPROVEMENTS`, or `INTERNAL CHANGES` or `MISCELLANEOUS` if the NEWS file already uses one of those — and always mark it with a `# TODO: verify category` annotation so the user can reclassify it during the preview step
+- Omit commits that only change the `Version:` field in `DESCRIPTION` (manual version bumps and the Bioconductor release-bump commits); the version heading already records them
+- Several commits about the same change (e.g. a fix and its follow-up tests) can be combined into one entry
 
 ### 9. Draft NEWS Entries
 
-Group entries by category under the upcoming release version heading.
+Group entries by category under the upcoming release version heading. Match the version heading style and bullet marker recorded in step 7; the examples below are for files with no previous entries.
 
 Format entries according to the detected NEWS file format:
 
@@ -184,21 +197,21 @@ Format entries according to the detected NEWS file format:
 
 ## NEW FEATURES
 
-- Description of new feature (#abc1234)
+- Description of new feature
 
-## BUG FIXES
+## BUG FIXES AND MINOR IMPROVEMENTS
 
-- Description of fix (#def5678)
+- Description of fix (#45)
 ```
 
 **NEWS** (plain text, Bioconductor-style):
 ```
         Changes in version 1.20.0 (YYYY-MM-DD)
         + NEW FEATURES
-        o Description of new feature (commit abc1234)
+        o Description of new feature
 
-        + BUG FIXES
-        o Description of fix (commit def5678)
+        + BUG FIXES AND MINOR IMPROVEMENTS
+        o Description of fix (#45)
 ```
 
 **NEWS.Rd** (R documentation format):
@@ -206,12 +219,12 @@ Format entries according to the detected NEWS file format:
 \section{Changes in version 1.20.0}{
   \subsection{NEW FEATURES}{
     \itemize{
-      \item Description of new feature (commit abc1234)
+      \item Description of new feature
     }
   }
-  \subsection{BUG FIXES}{
+  \subsection{BUG FIXES AND MINOR IMPROVEMENTS}{
     \itemize{
-      \item Description of fix (commit def5678)
+      \item Description of fix (#45)
     }
   }
 }
@@ -219,7 +232,9 @@ Format entries according to the detected NEWS file format:
 
 Each bullet/item:
 - Is a concise one-liner derived from the commit message (or enriched description for previously vague commits)
-- Ends with a short SHA reference or PR number in parentheses for traceability
+- Is written for package users: say what changed in behaviour, not how the code changed
+- Ends with an issue or PR number in parentheses (e.g. `(#45)`) only when the commit or PR references one
+- Does not include commit SHAs; the version heading tells users which release the change is in, and SHAs are noise for readers of NEWS
 - Uses `# TODO: verify category` (NEWS.md/NEWS) or a comment equivalent to flag uncertain entries
 
 ### 10. Show Preview and Confirm
@@ -294,8 +309,8 @@ Once confirmed:
 1. Finds `NEWS.md`; locates release-bump and subsequent devel-bump commit
 2. Retrieves 8 commits in range: 5 specific, 3 vague
 3. For "API update" (commit `a1b2c3d`): inspects diff, finds `returnSamples()` signature changed — classifies as `SIGNIFICANT USER-VISIBLE CHANGES`
-4. For "fix" (commit `e4f5a6b`): inspects diff, finds test file edit — classifies as `BUG FIXES`
-5. For "wip" (commit `c7d8e9f`): diff shows only internal helper changes — classifies as `INTERNAL CHANGES`
+4. For "fix" (commit `e4f5a6b`): inspects diff, finds test file edit — classifies as `BUG FIXES AND MINOR IMPROVEMENTS`
+5. For "wip" (commit `c7d8e9f`): diff shows only internal helper changes — classifies as `BUG FIXES AND MINOR IMPROVEMENTS`
 6. Drafts preview noting 3 commits were diff-inspected
 7. User confirms; file updated
 
@@ -346,7 +361,8 @@ Once confirmed:
 
 - This skill assumes the Bioconductor convention where the `devel` branch carries odd-numbered minor versions and each release has an even minor version; no git tags are used or required
 - The commit range is derived from the release-bump commit pattern ("bump x.y.z version to even y prior to creation of RELEASE_..."); if that pattern is absent and the version is ≥ 1.0.0, the user must supply a starting commit SHA
-- Category headings are inferred from the existing NEWS file; no new heading names are introduced unless the file is new or the user requests them
+- Category headings, the version heading style, and the bullet marker are inferred from the existing NEWS file; no new heading names are introduced unless the file has no headings yet or the user requests them
+- Entries reference issues and PRs but not commit SHAs
 - Diff inspection is scoped to `R/`, `src/`, `DESCRIPTION`, and `NAMESPACE` to avoid irrelevant noise from documentation or test-only commits
 - The skill does not run R or install packages; it relies entirely on `git` and file reads
 - For large repositories with hundreds of commits, consider narrowing the range manually if the preview is unwieldy

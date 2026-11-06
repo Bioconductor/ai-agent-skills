@@ -8,6 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- **update-r-news** (v1.0.0 → v1.1.0) - Adjusts the NEWS style it drafts, based on use with
+  Bioc.gff.
+  - **No commit SHAs in entries.** The version heading tells users which release a change is in;
+    entries keep issue and PR references such as `(#45)` only. The `NEWS.md` example also used
+    `(#abc1234)`, which is GitHub's issue syntax, not a commit reference.
+  - **Default categories.** When the NEWS file has no headings yet, the default set is `NEW
+    FEATURES`, `SIGNIFICANT USER-VISIBLE CHANGES`, `BUG FIXES AND MINOR IMPROVEMENTS`, and
+    `DEPRECATED AND DEFUNCT`. Internal changes (dependencies, documentation, CI, tests) go under
+    `BUG FIXES AND MINOR IMPROVEMENTS` instead of a separate `INTERNAL CHANGES` heading, unless the
+    file already uses one.
+  - **Match the existing file.** The new block follows the existing version heading style (e.g.
+    `# pkgname 1.18.0`) and bullet marker.
+  - **Omit version bumps** and allow related commits, such as a fix and its tests, to share one
+    entry.
+  - **Layout-only `NAMESPACE` changes.** Compare directives, not diff lines, since a new roxygen2
+    version can regroup imports without changing them.
 - **adr-author** (v1.0.0 → v1.1.0) - Adds scoping guidance, corrects the supersession rule, and
   corrects one point of Nygard attribution.
   - **New "Scoping an ADR" section.** The skill said when an ADR is warranted but nothing about how
