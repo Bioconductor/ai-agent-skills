@@ -24,6 +24,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     entry.
   - **Layout-only `NAMESPACE` changes.** Compare directives, not diff lines, since a new roxygen2
     version can regroup imports without changing them.
+  - **Credit issue and PR authors.** Entries that reference an issue or pull request add the GitHub
+    username of the person who opened it, e.g. `(#1, @username)`, looked up with `gh api`. If the
+    lookup is not possible, the entry keeps the number and is flagged for review.
 - **adr-author** (v1.0.0 → v1.1.0) - Adds scoping guidance, corrects the supersession rule, and
   corrects one point of Nygard attribution.
   - **New "Scoping an ADR" section.** The skill said when an ADR is warranted but nothing about how

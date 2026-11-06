@@ -124,6 +124,15 @@ For each merge commit in the log, attempt to extract the pull request title:
 
 For non-merge commits, use the commit subject line directly.
 
+**Look up issue and PR authors**: For each issue or pull request number referenced in the commit messages, merge commits, or PR titles (e.g. `#1`, `Fixes #12`, `Addresses problem 1 in #1`, `Merge pull request #45`), find the GitHub username of the person who opened it so the NEWS entry can credit them. Determine the repository from the `BugReports` or `URL` field in `DESCRIPTION`, falling back to the `origin` remote, then run:
+```
+gh api repos/<owner>/<repo>/issues/<number> --jq .user.login
+```
+
+The `issues` endpoint returns pull requests as well, so the same call works for both and gives the PR author for a PR.
+
+If `gh` is unavailable, the repository is not on GitHub, or the lookup fails, keep the number without a username and flag the entry for review in step 10.
+
 ### 5. Classify Commits by Message Specificity
 
 For each commit, evaluate its message for vagueness using these criteria — a commit is **vague** if it meets any of the following:
@@ -201,7 +210,7 @@ Format entries according to the detected NEWS file format:
 
 ## BUG FIXES AND MINOR IMPROVEMENTS
 
-- Description of fix (#45)
+- Description of fix (#12, @username)
 ```
 
 **NEWS** (plain text, Bioconductor-style):
@@ -211,7 +220,7 @@ Format entries according to the detected NEWS file format:
         o Description of new feature
 
         + BUG FIXES AND MINOR IMPROVEMENTS
-        o Description of fix (#45)
+        o Description of fix (#12, @username)
 ```
 
 **NEWS.Rd** (R documentation format):
@@ -224,7 +233,7 @@ Format entries according to the detected NEWS file format:
   }
   \subsection{BUG FIXES AND MINOR IMPROVEMENTS}{
     \itemize{
-      \item Description of fix (#45)
+      \item Description of fix (#12, @username)
     }
   }
 }
@@ -233,7 +242,7 @@ Format entries according to the detected NEWS file format:
 Each bullet/item:
 - Is a concise one-liner derived from the commit message (or enriched description for previously vague commits)
 - Is written for package users: say what changed in behaviour, not how the code changed
-- Ends with an issue or PR number in parentheses (e.g. `(#45)`) only when the commit or PR references one
+- Ends with an issue or PR number in parentheses only when the commit or PR references one, followed by the GitHub username of the person who opened that issue or PR, e.g. `(#1, @username)`, to credit the reporter or contributor
 - Does not include commit SHAs; the version heading tells users which release the change is in, and SHAs are noise for readers of NEWS
 - Uses `# TODO: verify category` (NEWS.md/NEWS) or a comment equivalent to flag uncertain entries
 
@@ -243,7 +252,7 @@ Display the complete drafted NEWS block in the chat. Also provide a brief summar
 - Total commits processed
 - Number of commits that needed diff inspection
 - Breakdown of entries by category
-- Any entries flagged for manual review
+- Any entries flagged for manual review, including issues or PRs whose author could not be looked up
 
 Ask for confirmation before writing:
 ```
@@ -355,16 +364,18 @@ Once confirmed:
 1. Locates release-bump and devel-bump commits to establish range
 2. Merge commits parsed; PR titles extracted (e.g. "Add support for TreeSummarizedExperiment input" from PR #45)
 3. PR title used in place of merge commit subject "Merge pull request #45 from feature-branch"
-4. Richer, human-readable entries appear in draft with `(#45)` reference
+4. Looks up the PR author with `gh api repos/<owner>/<repo>/issues/45 --jq .user.login`
+5. Richer, human-readable entries appear in draft with a `(#45, @username)` reference crediting the PR author
 
 ## Notes
 
 - This skill assumes the Bioconductor convention where the `devel` branch carries odd-numbered minor versions and each release has an even minor version; no git tags are used or required
 - The commit range is derived from the release-bump commit pattern ("bump x.y.z version to even y prior to creation of RELEASE_..."); if that pattern is absent and the version is ≥ 1.0.0, the user must supply a starting commit SHA
 - Category headings, the version heading style, and the bullet marker are inferred from the existing NEWS file; no new heading names are introduced unless the file has no headings yet or the user requests them
-- Entries reference issues and PRs but not commit SHAs
+- Entries reference issues and PRs but not commit SHAs; each reference credits the GitHub username of the person who opened the issue or PR
+- Looking up authors uses `gh` and network access; without them, entries keep the number only
 - Diff inspection is scoped to `R/`, `src/`, `DESCRIPTION`, and `NAMESPACE` to avoid irrelevant noise from documentation or test-only commits
-- The skill does not run R or install packages; it relies entirely on `git` and file reads
+- The skill does not run R or install packages; it relies on `git`, file reads, and `gh` for issue and PR authors
 - For large repositories with hundreds of commits, consider narrowing the range manually if the preview is unwieldy
 
 ---
