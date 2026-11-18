@@ -1,7 +1,7 @@
 ---
 name: update-r-news
 description: Draft or update an R package NEWS file from git commit history, examining diffs when commit messages are vague
-version: 1.1.0
+version: 1.1.1
 category: r-packages
 tags: [r-packages, documentation, git, changelog, news, bioconductor]
 author: bioconductor
@@ -48,9 +48,12 @@ Parse `DESCRIPTION` to extract the `Version:` field. In Bioconductor's versionin
 Examples:
 - Current devel `1.19.4` → upcoming release is `1.20.0`
 - Current devel `2.5.7` → upcoming release is `2.6.0`
-- Current devel `0.99.3` → this is a new package submission (version below `1.0.0`)
+- Current devel `0.99.3` → upcoming release is `1.0.0` (new package submission)
+- Current devel `0.0.14` → upcoming release is `1.0.0` (unpublished package)
 
 This derived release version will be the heading for the new NEWS block.
+
+**Unpublished packages (version below `1.0.0`)**: a package that has never been released through Bioconductor always uses `1.0.0` as the upcoming release version, whatever its current pre-release version (`0.99.x`, `0.0.x`, etc.). Bioconductor assigns `1.0.0` to a new package's first release, so all new entries go under a `1.0.0` heading. Do not derive the heading from the pre-release version (e.g. never write `0.100.0` or `0.99.4`), and do not create one heading per pre-release version.
 
 ### 3. Determine Commit Range
 
@@ -97,12 +100,14 @@ git log --oneline <release-bump-sha>..HEAD
 If no release-bump commit is found in the history:
 
 1. Check the current `Version:` field from `DESCRIPTION`.
-2. If the version is below `1.0.0` (e.g. `0.99.3`): treat the entire commit history as the range (i.e. `git log --oneline` from the first commit to `HEAD`) and note that this appears to be a new package submission.
+2. If the version is below `1.0.0` (e.g. `0.99.3`): treat the entire commit history as the range (i.e. `git log --oneline` from the first commit to `HEAD`), note that this appears to be a new package submission, and use `1.0.0` as the upcoming release version (see Step 2).
 3. If the version is `1.0.0` or higher but no release-bump commit is found: **do not guess**. Ask the user to supply a starting commit SHA (see Error Handling).
 
 **Step 3d — Handle an existing NEWS entry for the upcoming release**
 
 If the NEWS file already has a section heading for the upcoming release version, offer to **append** new commits since the last commit already covered rather than regenerating the entire block.
+
+For an unpublished package, the upcoming release version is always `1.0.0`. If the NEWS file has existing headings for pre-release versions (e.g. `0.99.2`, or a heading such as `(development version)`), do not add another one: offer to merge those entries into the `1.0.0` block and remove the pre-release headings.
 
 **Retrieve commits for the determined range**:
 ```
@@ -285,7 +290,7 @@ Once confirmed:
 - **`git` not on PATH**: abort with "git is not available — install git and ensure it is on your PATH"
 - **No commits in range**: report "No new commits since `<starting-commit>` — NEWS is already up to date"
 - **No release-bump commit and version ≥ 1.0.0**: prompt the user to supply a starting commit SHA; do not guess
-- **No release-bump commit and version < 1.0.0**: use full history and note this appears to be a new package submission
+- **No release-bump commit and version < 1.0.0**: use full history, note this appears to be a new package submission, and put the new entries under a `1.0.0` heading
 - **Multiple NEWS files found**: list them and ask user which to update
 - **Diff too large** (> 500 changed lines for a single commit): summarise by file, note the limitation
 
@@ -334,9 +339,10 @@ Once confirmed:
 **Process**:
 1. No NEWS file found; asks user which format to create → user selects `NEWS.md`
 2. No release-bump commit found; version is `0.99.3` (below `1.0.0`) — treat entire commit history as the range
-3. Drafts first-ever NEWS block noting this is a new package submission
-4. Shows preview, user confirms
-5. Creates `NEWS.md` with the new block
+3. Uses `1.0.0` as the heading (Bioconductor's first release version), not `0.99.3` or `0.100.0`
+4. Drafts first-ever NEWS block under `# Changes in version 1.0.0`, noting this is a new package submission
+5. Shows preview, user confirms
+6. Creates `NEWS.md` with the new block
 
 ---
 
@@ -370,6 +376,7 @@ Once confirmed:
 ## Notes
 
 - This skill assumes the Bioconductor convention where the `devel` branch carries odd-numbered minor versions and each release has an even minor version; no git tags are used or required
+- Unpublished packages (version below `1.0.0`) always put new entries under `1.0.0`, the version Bioconductor gives a package's first release
 - The commit range is derived from the release-bump commit pattern ("bump x.y.z version to even y prior to creation of RELEASE_..."); if that pattern is absent and the version is ≥ 1.0.0, the user must supply a starting commit SHA
 - Category headings, the version heading style, and the bullet marker are inferred from the existing NEWS file; no new heading names are introduced unless the file has no headings yet or the user requests them
 - Entries reference issues and PRs but not commit SHAs; each reference credits the GitHub username of the person who opened the issue or PR
