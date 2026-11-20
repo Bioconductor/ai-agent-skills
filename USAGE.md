@@ -36,7 +36,7 @@ nav_order: 3
 ## Finding Skills by Use Case
 
 **"I want to work on an R package..."**
-Use `analyze-r-package` to understand it, `create-package-instructions` to generate AI docs, `improve-code-coverage` or `security-audit-r-package` for quality control, and `update-r-news` for release notes.
+Use `analyze-r-package` to understand it, `create-package-instructions` to generate AI docs, `improve-code-coverage` or `security-audit-r-package` for quality control, `update-r-news` for release notes, and `draft-r-package-pr` to prepare a pull request for review.
 
 **"I want to move a data package's datasets out of the tarball..."**
 Use `migrate-datapkg-to-zenodo` to host them on Zenodo with BiocFileCache caching.

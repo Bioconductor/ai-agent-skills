@@ -281,6 +281,38 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 ---
 
+### draft-r-package-pr
+
+**Purpose**: Draft the title, description, and pre-submission checks for a pull request against an R/Bioconductor package, following tidyverse code review guidance and Bioconductor policy
+
+**Location**: `skills/draft-r-package-pr/SKILL.md`
+
+**When to use**:
+- A branch of an R or Bioconductor package is ready, or nearly ready, for review
+- Writing or improving a PR title and description
+- Checking that a PR is focused, tested, and passes `R CMD check` and BiocCheck before opening it
+
+**Invocation**:
+- "Draft a PR description for this branch"
+- "Help me open a PR against this Bioconductor package"
+- "Is this branch ready for a PR?"
+
+**What happens**:
+- Reads the repository's own CONTRIBUTING file and PR template, which take precedence
+- Flags unrelated changes, mixed refactoring, and restyling that should be split into separate PRs
+- Flags whitespace-only changes, which distract reviewers, for removal from the PR
+- Runs the build, check, and BiocCheck steps a reviewer will expect
+- Offers a NEWS entry for user-facing changes (welcome, not required)
+- Advises against bumping `Version:` in the PR; the maintainer bumps it when pushing to Bioconductor
+- Drafts a title and description, including the AI and third-party code disclosure Bioconductor requires
+- Shows the draft for approval before the PR is opened
+
+**Output**: A pre-PR report and a drafted PR title and description.
+
+**Related skills**: build-check-bioccheck, update-r-news, bioc-pkg-dev
+
+---
+
 ### migrate-datapkg-to-zenodo
 
 **Purpose**: Convert a legacy Bioconductor experiment data package that ships .rda files in data/ to on-demand download from Zenodo with BiocFileCache caching, keeping data() backward compatible and R CMD check offline
@@ -370,7 +402,7 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 | Category | Skills | Purpose |
 |----------|--------|---------|
 | **meta** | adr-author, check-bioconductor-skills, create-skill, document-skill, validate-skill | Repository and workflow infrastructure |
-| **r-packages** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, improve-code-coverage, migrate-datapkg-to-zenodo, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
+| **r-packages** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, draft-r-package-pr, improve-code-coverage, migrate-datapkg-to-zenodo, security-audit-r-package, update-package-instructions, update-r-news | R/Bioconductor package development |
 | **bioconductor-how-tos** | bioc-howto | Bioconductor data analysis practical guides |
 
 ### By Tag
@@ -381,7 +413,7 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 | **testing** | improve-code-coverage | Software testing and coverage |
 | **validation** | security-audit-r-package, validate-skill | Quality control and standards compliance |
 | **quality-control** | security-audit-r-package, validate-skill | Ensuring skill quality |
-| **documentation** | adr-author, create-package-instructions, document-skill, update-package-instructions, update-r-news | Generating and maintaining docs |
+| **documentation** | adr-author, create-package-instructions, document-skill, draft-r-package-pr, update-package-instructions, update-r-news | Generating and maintaining docs |
 | **adr** | adr-author | Architecture Decision Records |
 | **architecture** | adr-author | Architectural decisions |
 | **decision** | adr-author | Documenting decisions |
@@ -390,7 +422,7 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 | **security** | security-audit-r-package | Security audits and vulnerability detection |
 | **data-hosting** | migrate-datapkg-to-zenodo | Hosting package data externally (Zenodo, BiocFileCache) |
 | **audit** | security-audit-r-package | Comprehensive code auditing |
-| **bioconductor** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
+| **bioconductor** | analyze-r-package, bioc-pkg-dev, bioc-pkg-finder, bioc-pkg-review, create-package-instructions, draft-r-package-pr, improve-code-coverage, security-audit-r-package, update-package-instructions, update-r-news | Bioconductor-specific workflows |
 | **submission** | bioc-pkg-dev, bioc-pkg-review | Preparing and submitting a package to Bioconductor |
 | **bioccheck** | bioc-pkg-dev | The BiocCheck pre-submission gate |
 | **biocviews** | bioc-pkg-dev | biocViews terms and package classification |
@@ -400,13 +432,15 @@ than to Bioconductor, so the skill versions with it. See the amendment to
 | **code-coverage** | improve-code-coverage | Code coverage analysis |
 | **covr** | improve-code-coverage | Tools wrapping the covr package |
 | **data-access** | analyze-r-package (detects), create-package-instructions | Working with remote data |
-| **git** | update-r-news | Git-based workflows |
+| **git** | draft-r-package-pr, update-r-news | Git-based workflows |
+| **pull-request** | draft-r-package-pr | Preparing pull requests for review |
+| **code-review** | draft-r-package-pr | Code review practices for authors |
 | **changelog** | update-r-news | Changelog and release note generation |
 | **news** | update-r-news | R package NEWS file management |
 | **data-analysis** | bioc-howto | Practical guides for analyzing omics data |
 
 ---
 
-**Last Updated**: 2026-09-11
+**Last Updated**: 2026-11-20
 **Version**: 2.1.0
 **Maintained by**: bioconductor
