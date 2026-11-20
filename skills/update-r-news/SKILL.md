@@ -1,7 +1,7 @@
 ---
 name: update-r-news
 description: Draft or update an R package NEWS file from git commit history, examining diffs when commit messages are vague
-version: 1.1.1
+version: 1.2.0
 category: r-packages
 tags: [r-packages, documentation, git, changelog, news, bioconductor]
 author: bioconductor
@@ -11,7 +11,7 @@ author: bioconductor
 
 Draft or update an R package NEWS file (`NEWS.md`, `NEWS`, or `NEWS.Rd`) from the git commit history since the last Bioconductor release. When commit messages are too vague to classify, the skill inspects the associated diff to infer what changed. All drafts are shown for review and confirmation before writing to disk.
 
-This skill is designed for Bioconductor packages on the `devel` branch, where the current development version is odd-numbered (e.g. `1.19.x`) and the upcoming release will be even-numbered (e.g. `1.20.0`).
+This skill is designed for Bioconductor packages on the `devel` branch, where the current development version is odd-numbered (e.g. `1.19.x`) and the upcoming release will be even-numbered (e.g. `1.20.0`). CRAN and GitHub-only packages are also supported, but the Bioconductor version and commit-range rules don't apply to them (see Step 2).
 
 ## Usage
 
@@ -41,9 +41,15 @@ If exactly one is found, use it. If multiple exist, ask the user which one to up
 
 Record the detected file path and format for use throughout the remaining steps.
 
-### 2. Read Package Version
+### 2. Read Package Type and Version
 
-Parse `DESCRIPTION` to extract the `Version:` field. In Bioconductor's versioning convention, the `devel` branch carries an **odd** minor version (the `Y` in `X.Y.Z`), while each released version has an **even** `Y`.
+**Package type**: check `DESCRIPTION` for a `biocViews` or `BiocType` field. If either is present, treat the package as a Bioconductor package and follow the rest of this step and Step 3. If neither is present, treat it as a CRAN or GitHub package: Bioconductor's odd/even versioning, the `1.0.0` rule for unpublished packages, and the release-bump commits don't apply. Instead:
+- **Heading**: ask the user which version the entries are for. Offer the next version they plan to release, or a `(development version)` heading (e.g. `# pkgname (development version)`) if the NEWS file already uses one. Don't derive the version from the odd/even rule.
+- **Commit range**: start from the most recent release tag (e.g. `v1.2.3` or `1.2.3`) if the repository has one; otherwise ask the user for a starting commit SHA.
+
+Then continue with Step 4.
+
+**Bioconductor packages**: parse `DESCRIPTION` to extract the `Version:` field. In Bioconductor's versioning convention, the `devel` branch carries an **odd** minor version (the `Y` in `X.Y.Z`), while each released version has an **even** `Y`.
 
 Examples:
 - Current devel `1.19.4` → upcoming release is `1.20.0`
@@ -53,9 +59,11 @@ Examples:
 
 This derived release version will be the heading for the new NEWS block.
 
-**Unpublished packages (version below `1.0.0`)**: a package that has never been released through Bioconductor always uses `1.0.0` as the upcoming release version, whatever its current pre-release version (`0.99.x`, `0.0.x`, etc.). Bioconductor assigns `1.0.0` to a new package's first release, so all new entries go under a `1.0.0` heading. Do not derive the heading from the pre-release version (e.g. never write `0.100.0` or `0.99.4`), and do not create one heading per pre-release version.
+**Unpublished Bioconductor packages (version below `1.0.0`)**: a Bioconductor package that has never been released through Bioconductor always uses `1.0.0` as the upcoming release version, whatever its current pre-release version (`0.99.x`, `0.0.x`, etc.). Bioconductor assigns `1.0.0` to a new package's first release, so all new entries go under a `1.0.0` heading. Do not derive the heading from the pre-release version (e.g. never write `0.100.0` or `0.99.4`), and do not create one heading per pre-release version.
 
 ### 3. Determine Commit Range
+
+This step applies to Bioconductor packages; CRAN and GitHub packages take their range from Step 2.
 
 Bioconductor packages do **not** use git tags for releases. Instead, the commit range is determined by searching the git log for a specific release-bump commit message.
 
@@ -291,6 +299,7 @@ Once confirmed:
 - **No commits in range**: report "No new commits since `<starting-commit>` — NEWS is already up to date"
 - **No release-bump commit and version ≥ 1.0.0**: prompt the user to supply a starting commit SHA; do not guess
 - **No release-bump commit and version < 1.0.0**: use full history, note this appears to be a new package submission, and put the new entries under a `1.0.0` heading
+- **No `biocViews` or `BiocType` in `DESCRIPTION`**: treat the package as CRAN or GitHub; ask for the heading version, and start from the latest release tag or a user-supplied commit SHA (Step 2)
 - **Multiple NEWS files found**: list them and ask user which to update
 - **Diff too large** (> 500 changed lines for a single commit): summarise by file, note the limitation
 
@@ -376,7 +385,8 @@ Once confirmed:
 ## Notes
 
 - This skill assumes the Bioconductor convention where the `devel` branch carries odd-numbered minor versions and each release has an even minor version; no git tags are used or required
-- Unpublished packages (version below `1.0.0`) always put new entries under `1.0.0`, the version Bioconductor gives a package's first release
+- A package is treated as Bioconductor only when `DESCRIPTION` has a `biocViews` or `BiocType` field; otherwise it is treated as a CRAN or GitHub package and the Bioconductor versioning rules are skipped
+- Unpublished Bioconductor packages (version below `1.0.0`) always put new entries under `1.0.0`, the version Bioconductor gives a package's first release
 - The commit range is derived from the release-bump commit pattern ("bump x.y.z version to even y prior to creation of RELEASE_..."); if that pattern is absent and the version is ≥ 1.0.0, the user must supply a starting commit SHA
 - Category headings, the version heading style, and the bullet marker are inferred from the existing NEWS file; no new heading names are introduced unless the file has no headings yet or the user requests them
 - Entries reference issues and PRs but not commit SHAs; each reference credits the GitHub username of the person who opened the issue or PR

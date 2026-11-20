@@ -8,11 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- **update-r-news** (v1.1.0 → v1.1.1) - Specifies the version heading for unpublished packages.
-  A package below version `1.0.0` (e.g. `0.99.3` or `0.0.14`) puts new entries under a `1.0.0`
-  heading, the version Bioconductor gives a first release, instead of a heading derived from the
-  pre-release version. Existing pre-release headings, such as `0.99.2` or `(development version)`,
-  are offered for merging into that block.
+- **update-r-news** (v1.1.0 → v1.2.0) - Specifies the version heading for unpublished packages
+  and handles non-Bioconductor packages.
+  - A Bioconductor package below version `1.0.0` (e.g. `0.99.3` or `0.0.14`) puts new entries
+    under a `1.0.0` heading, the version Bioconductor gives a first release, instead of a heading
+    derived from the pre-release version. Existing pre-release headings, such as `0.99.2` or
+    `(development version)`, are offered for merging into that block.
+  - A package counts as Bioconductor only when `DESCRIPTION` has a `biocViews` or `BiocType`
+    field. Otherwise it is treated as a CRAN or GitHub package: the user picks the heading
+    version, and the commit range starts at the latest release tag or a user-supplied commit.
 - **update-r-news** (v1.0.0 → v1.1.0) - Adjusts the NEWS style it drafts, based on use with
   Bioc.gff.
   - **No commit SHAs in entries.** The version heading tells users which release a change is in;
