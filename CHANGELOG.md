@@ -58,6 +58,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   ADR 0002 §1.
 
 ### Added
+- **draft-r-package-pr** (v1.0.0) - Drafts the title, description, and pre-submission checks for a
+  pull request against an R/Bioconductor package.
+  - Title, description, and scope guidance follows the tidyteam code review principles and the
+    usethis tidyverse contributing template, cited with pinned commits.
+  - Requires the AI and third-party code disclosure from Bioconductor's contributions guide.
+  - Flags whitespace-only changes for removal, since they distract reviewers; new code matches the
+    file's indentation, falling back to Bioconductor's 4-space style.
+  - Advises against version bumps in PRs: Bioconductor's per-push bump is left to the maintainer
+    when pushing to `git.bioconductor.org`.
+  - NEWS entries, drafted with `update-r-news`, are welcome but not required, and follow its
+    heading and credit conventions.
+  - Reads maintainer vs. outside contributor from `Authors@R`, handles hand-written Rd when
+    `DESCRIPTION` has no roxygen2 field, and reuses existing CI results instead of re-running checks.
 - **bioc-pkg-dev** (v1.0.0) - Guides an R package or a set of analysis scripts through
   Bioconductor submission: the pre-submission gate, the Contributions tracker, and post-acceptance
   maintenance.
@@ -66,7 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Ships 21 task-oriented `knowledge/` summaries of the official guide, each linking back to its
     canonical chapter, loaded per topic rather than on every invocation.
   - Drives `BiocCheck` and `biocthis` rather than reimplementing validation or templates.
-- SKILLS.md and USAGE.md entries for the new skill.
+- SKILLS.md and USAGE.md entries for the new skills.
 
 ## [3.0.0] - 2026-07-07
 
