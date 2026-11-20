@@ -66,6 +66,16 @@ A focused PR is one self-contained change. Review the diff for:
   spaces stripped by an editor, re-indented blocks, tabs swapped for spaces, changed line endings, or
   added or removed blank lines. Comparing the diff with and without whitespace (e.g. `git diff -w`)
   shows them. Recommend reverting them; if the user wants the formatting, it goes in a separate PR.
+- **Package maintenance changes.** These are common in R package PRs and are not part of the
+  change itself; recommend dropping them or moving them to a separate maintenance PR:
+  - A `RoxygenNote` or `Config/roxygen2/version` bump in `DESCRIPTION`, and `.Rd` files that change
+    only because a newer roxygen2 regenerated them.
+  - `NAMESPACE` or `Collate` changes beyond what the PR's own code needs. Compare the set of
+    directives or files before and after; a reordering by roxygen2 is noise.
+  - New `Imports`, `Depends`, `Suggests`, or `LinkingTo` entries the PR's code doesn't use. New
+    dependencies the change does need stay, but call them out in the description (step 6).
+  - Committed build or check output: a pkgdown `docs/` site, `*.Rcheck/` directories, built
+    tarballs, or vignette output such as rendered `.html` files.
 - **Indentation in new code.** Follow the indentation the file already uses. Where the package has no
   set style, use Bioconductor's: 4 spaces, no tabs, and lines of at most 80 characters.
 - **Size.** Around 100 changed lines is usually reasonable and 1000 is usually too large, though
@@ -175,6 +185,7 @@ A pre-PR report followed by the drafted PR text:
 ## Pre-PR report
 - Focus: <ok | suggested splits>
 - Whitespace-only changes: <none | files and lines to revert>
+- Maintenance changes: <none | files to drop or move to a separate PR>
 - Tests: <added/updated | missing for ...>
 - Documentation: <roxygen2, regenerated | hand-written Rd, edited | no changes>
 - R CMD check / BiocCheck: <no new issues | new: ...> (<run now | CI run for <commit>>)
