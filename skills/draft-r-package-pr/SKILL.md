@@ -44,8 +44,13 @@ Invoke this skill when a change to an R package is ready, or nearly ready, for r
    these conflict with this skill, the repository's rules win.
 3. Collect the issues the change addresses, from commit messages, the branch name, or the user. Read
    each issue so the description can summarise any long discussion.
-4. Ask the user who the reviewer is and whether the author is a package maintainer or an outside
-   contributor. This decides whether the NEWS entry credits a GitHub username (step 4).
+4. Work out who the PR author is and whether they are a package maintainer or an outside
+   contributor, without asking the user. Take the author's GitHub username from the open PR, or
+   from the fork the branch is pushed to, and their name and email from the branch's commits, then
+   compare them with the `Authors@R` field in `DESCRIPTION`. A person listed with role `"cre"` or
+   `"aut"` is a package author; anyone else is an outside contributor. Ask only if the two can't be
+   matched. The answer decides whether to remind the user about the version bump (step 5); the NEWS
+   entry credits the PR author either way (step 4).
 
 ### 2. Check that the PR is focused
 
@@ -73,11 +78,18 @@ Report anything that should be split and let the user decide. Do not rewrite the
 1. **Tests.** A PR that adds or changes logic should add or update tests for that behaviour. A pure
    refactor should be covered by tests that already exist; if they don't, suggest adding them first
    in a separate PR.
-2. **Documentation.** Regenerate `man/` from roxygen comments and confirm the generated files are
-   committed. Documentation fixes go in the `.R` source, not the `.Rd` file.
-3. **Build and check.** Run `R CMD build`, `R CMD check`, and, for Bioconductor packages, BiocCheck.
-   Use [build-check-bioccheck](../build-check-bioccheck/SKILL.md) to run and interpret these. Report
-   new errors, warnings, and notes against the base branch rather than in absolute terms.
+2. **Documentation.** Check whether the package uses roxygen2: `DESCRIPTION` has a
+   `Config/roxygen2/version` or `RoxygenNote` field. If it does, regenerate `man/` from the roxygen
+   comments, confirm the generated files are committed, and make documentation fixes in the `.R`
+   source, not the `.Rd` file. If it has neither field, the `.Rd` files are written by hand: edit
+   them directly and do not run roxygen2, which would overwrite them.
+3. **Build and check.** Use existing results when they cover the branch: CI runs on the PR or the
+   pushed branch for the current head commit, or a check the user ran on that commit earlier in the
+   session. Otherwise run `R CMD build`, `R CMD check`, and, for Bioconductor packages, BiocCheck,
+   once on the branch; [build-check-bioccheck](../build-check-bioccheck/SKILL.md) covers running
+   and interpreting them. Every PR draft gets at least one check run, existing or new. To tell new
+   problems from old ones, compare with the base branch's latest CI results if it has them; do not
+   run a second full check on the base branch just for the comparison.
 4. **Vignettes.** Confirm they still build if the change touches code they use.
 
 If a check fails and the user still wants to open the PR, open it as a draft (step 7).
@@ -86,14 +98,18 @@ If a check fails and the user still wants to open the PR, open it as a draft (st
 
 A NEWS entry is welcome in a PR but not required. The maintainer can write or edit NEWS when
 preparing a release, so a missing entry is not a reason to hold the PR. Offer to add one when users
-will notice the change; skip it for purely internal changes. The preferred way to draft entries is
-[update-r-news](../update-r-news/SKILL.md). If writing one bullet by hand:
-- Add the entry at the top of the NEWS file, under the development version heading, matching the
-  file's existing heading and bullet style.
+will notice the change; skip it for purely internal changes. Draft entries with
+[update-r-news](../update-r-news/SKILL.md), which sets the conventions; when writing one bullet by
+hand, follow them:
+- Put the entry under the upcoming release version heading (e.g. `1.20.0` when `devel` is at
+  `1.19.4`), as `update-r-news` derives it, matching the file's existing heading and bullet style.
+  Don't add a `(development version)` heading.
 - Write it for users, not developers: put the function name near the start, use the present tense,
   and describe what now happens.
-- Reference the issue number. Credit the GitHub username only when the PR author is not a package
-  author, e.g. `` * `foo()` now accepts `GRanges` input (@contributor, #42). ``
+- Credit the PR author with their GitHub username and the issue or PR number, whether or not they
+  are a package author. Either order is fine, `(#42, @user)` or `(@user, #42)`; follow the order the
+  NEWS file already uses, and use `update-r-news`'s `(#42, @user)` when it has none, e.g.
+  `` * `foo()` now accepts `GRanges` input (#42, @contributor). ``
 - Bioconductor NEWS files must use list elements, not free text.
 
 ### 5. Do not bump the version in the PR
@@ -107,7 +123,9 @@ PR on GitHub, bumps the version, and pushes `devel` upstream. Bumps inside PRs a
 several PRs are open at once, and a PR that sits in review can carry a version that is already
 taken by the time it merges.
 
-If the user is the maintainer, remind them to bump when pushing upstream (step 8), not in the PR.
+If the PR author is a maintainer (step 1), remind them to bump when pushing upstream after the
+merge, not in the PR. Pushing upstream is package maintenance and is covered by
+[bioc-pkg-dev](../bioc-pkg-dev/SKILL.md).
 
 ### 6. Draft the title and description
 
@@ -146,16 +164,8 @@ If describing the PR is hard, it is probably doing too much. Go back to step 2.
    author leave comments on their own PR for tricky lines that need context but don't belong in a
    code comment.
 
-### 8. After merge (maintainers of Bioconductor packages)
-
-If the user maintains the package and the PR has merged on GitHub, the change reaches Bioconductor
-only after it is pushed upstream:
-1. Check out `devel` and fetch and merge from the GitHub remote.
-2. Bump the `z` version in `DESCRIPTION` and commit.
-3. Confirm the package builds and checks cleanly, then push to the Bioconductor remote
-   (`git push upstream devel`).
-
-See [bioc-pkg-dev](../bioc-pkg-dev/SKILL.md) for remote setup and the release/devel branch rules.
+After the PR merges, see [bioc-pkg-dev](../bioc-pkg-dev/SKILL.md) for the version bump and the
+push to Bioconductor.
 
 ## Output Format
 
@@ -166,7 +176,8 @@ A pre-PR report followed by the drafted PR text:
 - Focus: <ok | suggested splits>
 - Whitespace-only changes: <none | files and lines to revert>
 - Tests: <added/updated | missing for ...>
-- R CMD check / BiocCheck: <no new issues | new: ...>
+- Documentation: <roxygen2, regenerated | hand-written Rd, edited | no changes>
+- R CMD check / BiocCheck: <no new issues | new: ...> (<run now | CI run for <commit>>)
 - NEWS: <entry added | offered, not added | not user-facing>
 - Version: <unchanged | bumped in branch, recommend reverting>
 
@@ -189,7 +200,6 @@ Fixes #<N>
 - [x] Tests added or updated
 - [x] `R CMD check` passes with no new warnings or notes
 - [x] BiocCheck passes (Bioconductor packages)
-- [x] `DESCRIPTION` version unchanged
 - [ ] NEWS entry added (optional)
 
 <AI or third-party code disclosure, if applicable>
@@ -204,12 +214,12 @@ Drop sections that don't apply rather than filling them with "N/A".
 **User**: "Draft a PR for my branch that fixes the strand bug in `import_gff()`"
 
 **Skill produces**:
-- Pre-PR report: focused; new test added in `tests/testthat/test-import.R`; no new check notes; NEWS
-  bullet added under the development heading.
+- Pre-PR report: focused; new test added in `tests/testthat/test-import.R`; no new check notes
+  (taken from the branch's CI run); NEWS bullet added under the upcoming release heading.
 - Title: `Keep strand from GFF column 7 in import_gff()`
 - Body: one paragraph on the cause (the strand column was parsed after filtering and set to `*`),
   `Fixes #58`, a before/after reprex showing `strand()` output, and the checklist.
-- NEWS: `` * `import_gff()` now keeps the strand given in column 7 (@contributor, #58). ``
+- NEWS: `` * `import_gff()` now keeps the strand given in column 7 (#58, @contributor). ``
 - `DESCRIPTION` version left unchanged.
 
 ### Example 2: Branch that does too much
@@ -255,7 +265,7 @@ Read on 2026-11-20. Re-check these pins when updating the skill.
   - [AI policy and third-party code](https://contributions.bioconductor.org/ai-policy-third-party.html):
     disclosure in the PR description (step 6).
   - [Git version control](https://contributions.bioconductor.org/git-version-control.html):
-    "Checks and version bumps" and "Pull requests on GitHub" (steps 5 and 8).
+    "Checks and version bumps" and "Pull requests on GitHub" (step 5).
   - [Version numbering](https://contributions.bioconductor.org/versionnum.html): the `x.y.z` scheme
     (step 5).
   - [The NEWS file](https://contributions.bioconductor.org/news.html): locations and the
