@@ -1,0 +1,58 @@
+# Claude Code: @claude mentions and the `claude` label, plus one automatic
+# review per pull request. See https://github.com/waldronlab/.github#claude-code-claudeyml-and-claude-reviewyml
+name: claude
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+  issues:
+    types: [opened, labeled]
+  pull_request:
+    types: [opened, ready_for_review]
+jobs:
+  claude:
+    if: github.event_name != 'pull_request'
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+    uses: waldronlab/.github/.github/workflows/claude.yml@devel
+    secrets: inherit
+  review:
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+    uses: waldronlab/.github/.github/workflows/claude-review.yml@devel
+    secrets: inherit
+    with:
+      review_focus: |
+        This repository holds AI agent skills: markdown instructions that
+        agents read and follow, not code. There are no tests to ask for;
+        scripts/validate_skills.py already checks frontmatter and structure
+        in CI, so don't repeat it. Read AGENTS.md and SKILL_STANDARD.md
+        first and review against them. For each new or changed skill, check:
+        - Instructions an agent could not follow, or would follow to a wrong
+          result: ambiguous or contradictory steps, missing branches,
+          commands that don't do what the step says.
+        - Conflicts with other skills in skills/ on the same topic (e.g.
+          NEWS format, version bumps, check procedures). Read the related
+          skills, and flag duplication of their content where a reference
+          would do.
+        - Factual claims about Bioconductor, R or CRAN policy and tooling
+          that are wrong, out of date, or presented as upstream policy when
+          they are this repository's own convention.
+        - Violations of the AGENTS.md core principles and of "What NOT to
+          Include": platform-specific tool names or invocation syntax, and
+          content that isn't a workflow.
+        - Bookkeeping: the skill's version is bumped for a behaviour change,
+          and CHANGELOG.md, SKILLS.md and USAGE.md agree with the skill's
+          frontmatter and content.
+        - Steps that take costly or outward-facing actions (long builds,
+          pushing, opening PRs, posting) without asking the user first.
