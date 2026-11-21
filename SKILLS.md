@@ -283,7 +283,7 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 
 ### draft-r-package-pr
 
-**Purpose**: Draft the title, description, and pre-submission checks for a pull request against an R/Bioconductor package, following tidyverse code review guidance and Bioconductor policy
+**Purpose**: Check that a pull request against an R/Bioconductor package is focused and ready for review, then draft its title and description, following Bioconductor policy
 
 **Location**: `skills/draft-r-package-pr/SKILL.md`
 
@@ -348,11 +348,11 @@ Skills for analyzing, documenting, and developing R/Bioconductor packages follow
 - Saving time when commit messages alone are insufficient to write clear NEWS entries
 
 **What happens**:
-- Detects the NEWS file format in use (`NEWS.md`, `NEWS`, or `NEWS.Rd`)
+- Detects the NEWS file and its format (`NEWS.md`, `NEWS`, or `NEWS.Rd`) in the package root or `inst/`
 - Derives the upcoming even-numbered release version from the current devel version
 - Finds the most recent Bioconductor devel-version bump commit ("bump x.y.z version to odd y...") and retrieves all commits since then
 - Extracts PR titles from merge commits when available
-- Identifies vague commit messages (≤ 3 words or known filler phrases) and inspects their diffs to infer what changed
+- Inspects the diffs of commits whose messages don't say what changed for users
 - Categorises changes using headings already present in the NEWS file
 - Shows a full preview and asks for confirmation before writing to disk
 

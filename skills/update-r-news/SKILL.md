@@ -1,7 +1,7 @@
 ---
 name: update-r-news
 description: Draft or update an R package NEWS file from git commit history, examining diffs when commit messages are vague
-version: 1.2.0
+version: 1.3.0
 category: r-packages
 tags: [r-packages, documentation, git, changelog, news, bioconductor]
 author: bioconductor
@@ -9,224 +9,115 @@ author: bioconductor
 
 # update-r-news
 
-Draft or update an R package NEWS file (`NEWS.md`, `NEWS`, or `NEWS.Rd`) from the git commit history since the last Bioconductor release. When commit messages are too vague to classify, the skill inspects the associated diff to infer what changed. All drafts are shown for review and confirmation before writing to disk.
-
-This skill is designed for Bioconductor packages on the `devel` branch, where the current development version is odd-numbered (e.g. `1.19.x`) and the upcoming release will be even-numbered (e.g. `1.20.0`). CRAN and GitHub-only packages are also supported, but the Bioconductor version and commit-range rules don't apply to them (see Step 2).
+Draft or update an R package NEWS file (`NEWS.md`, `NEWS`, or `NEWS.Rd`) from the git commit history since the last release. The skill is designed for Bioconductor packages on the `devel` branch; CRAN and GitHub-only packages are supported with different version and commit-range rules (Step 2).
 
 ## Usage
 
-Invoke this skill when you want to draft or update a package NEWS file:
 - "Update the NEWS file from recent commits"
-- "Draft NEWS entries from git history"
-- "Generate a changelog based on git commits"
 - "Add a NEWS entry for the upcoming release"
-- "Update NEWS based on what changed since the last release"
+- "Generate a changelog based on git commits"
 
 ## Prerequisites
 
-- Working directory is an R package root (contains `DESCRIPTION` file)
-- Directory is a git repository with commit history (`git` available on PATH)
-- A NEWS file (`NEWS.md`, `NEWS`, or `NEWS.Rd`) may already exist, but is not required
+- Working directory is an R package root (contains `DESCRIPTION`) in a git repository
+- Optional: the GitHub CLI (`gh`) and network access, to credit issue and PR authors
 
 ## Process
 
-### 1. Detect NEWS File and Format
+### 1. Detect the NEWS File and Format
 
-Check the package root for these files in priority order:
-1. `NEWS.md` (markdown)
-2. `NEWS.Rd` (R documentation format)
-3. `NEWS` (plain text, Bioconductor-style)
+Look for `NEWS.md`, `NEWS`, and `NEWS.Rd` in the package root and in `inst/`. If more than one exists, ask the user which to update. If none exists, ask which format to create (default: `NEWS.md`).
 
-If exactly one is found, use it. If multiple exist, ask the user which one to update. If none exist, ask which format to create (default: `NEWS.md`).
+### 2. Determine the Version Heading
 
-Record the detected file path and format for use throughout the remaining steps.
+**Package type**: the package is a Bioconductor package if `DESCRIPTION` has a `biocViews` or `BiocType` field.
 
-### 2. Read Package Type and Version
-
-**Package type**: check `DESCRIPTION` for a `biocViews` or `BiocType` field. If either is present, treat the package as a Bioconductor package and follow the rest of this step and Step 3. If neither is present, treat it as a CRAN or GitHub package: Bioconductor's odd/even versioning, the `1.0.0` rule for unpublished packages, and the release-bump commits don't apply. Instead:
-- **Heading**: ask the user which version the entries are for. Offer the next version they plan to release, or a `(development version)` heading (e.g. `# pkgname (development version)`) if the NEWS file already uses one. Don't derive the version from the odd/even rule.
-- **Commit range**: start from the most recent release tag (e.g. `v1.2.3` or `1.2.3`) if the repository has one; otherwise ask the user for a starting commit SHA.
+**CRAN or GitHub package** (neither field): Bioconductor's version rules and release-bump commits don't apply.
+- **Heading**: ask the user which version the entries are for. Offer the next version they plan to release, or a `(development version)` heading if the NEWS file already uses one.
+- **Commit range**: start from the most recent release tag (e.g. `v1.2.3`) if there is one; otherwise ask the user for a starting commit.
 
 Then continue with Step 4.
 
-**Bioconductor packages**: parse `DESCRIPTION` to extract the `Version:` field. In Bioconductor's versioning convention, the `devel` branch carries an **odd** minor version (the `Y` in `X.Y.Z`), while each released version has an **even** `Y`.
+**Bioconductor package**: the heading is the upcoming release version, derived from `Version:`. The `devel` branch carries an odd `y` in `x.y.z` and each release an even `y`:
+- devel `1.19.4` → `1.20.0`
+- devel `0.99.3` or `0.0.14` → `1.0.0`
 
-Examples:
-- Current devel `1.19.4` → upcoming release is `1.20.0`
-- Current devel `2.5.7` → upcoming release is `2.6.0`
-- Current devel `0.99.3` → upcoming release is `1.0.0` (new package submission)
-- Current devel `0.0.14` → upcoming release is `1.0.0` (unpublished package)
+Any version below `1.0.0` maps to `1.0.0`, the version Bioconductor assigns to a package's first release. Never derive a heading from the pre-release version (`0.99.4`, `0.100.0`), and do not create one heading per pre-release version.
 
-This derived release version will be the heading for the new NEWS block.
+### 3. Determine the Commit Range (Bioconductor packages)
 
-**Unpublished Bioconductor packages (version below `1.0.0`)**: a Bioconductor package that has never been released through Bioconductor always uses `1.0.0` as the upcoming release version, whatever its current pre-release version (`0.99.x`, `0.0.x`, etc.). Bioconductor assigns `1.0.0` to a new package's first release, so all new entries go under a `1.0.0` heading. Do not derive the heading from the pre-release version (e.g. never write `0.100.0` or `0.99.4`), and do not create one heading per pre-release version.
+Bioconductor does not tag releases. At each release it applies two commits to every package, with these literal messages (the release number varies):
 
-### 3. Determine Commit Range
-
-This step applies to Bioconductor packages; CRAN and GitHub packages take their range from Step 2.
-
-Bioconductor packages do **not** use git tags for releases. Instead, the commit range is determined by searching the git log for a specific release-bump commit message.
-
-**Step 3a — Search for the release-bump commit**
-
-Run:
 ```
-git log --oneline --all
+bump x.y.z version to even y prior to creation of RELEASE_3_18 branch
+bump x.y.z version to odd y following creation of RELEASE_3_18 branch
 ```
 
-Search for a commit whose message matches this exact literal pattern (these commits are applied en masse by Bioconductor and do not include the actual package version number):
-```
-bump x.y.z version to even y prior to creation of RELEASE_
-```
+The most recent "odd y" commit is the start of the range:
 
-For example, for the Bioconductor 3.18 release:
 ```
-a1b2c3d bump x.y.z version to even y prior to creation of RELEASE_3_18 branch
+git log -1 --format=%h --grep="bump x.y.z version to odd y following creation of RELEASE_"
 ```
 
-**Step 3b — Find the devel-version bump commit that follows**
+Use `<sha>..HEAD`. If no such commit exists:
+- Version below `1.0.0`: this is a new package; use the entire history.
+- Version `1.0.0` or higher: do not guess. Ask the user for a starting commit.
 
-Immediately after the release-bump commit, Bioconductor applies a second en-masse commit that increments the `devel` branch back to an odd minor version. Its message matches the literal pattern:
-```
-bump x.y.z version to odd y following creation of RELEASE_
-```
+**Existing entries.** If the NEWS file already has a heading for the upcoming release version, offer to append the commits not yet covered instead of regenerating the block. For a package below `1.0.0` whose NEWS file has pre-release headings (e.g. `0.99.2` or `(development version)`), offer to merge those entries into the `1.0.0` block and remove the pre-release headings.
 
-For example:
-```
-b2c3d4e bump x.y.z version to odd y following creation of RELEASE_3_18 branch
-```
+### 4. Collect Changes and Credit Authors
 
-This second commit (`<devel-bump-sha>`) is the starting point for the commit range. Use `<devel-bump-sha>..HEAD` as the range.
+For a merge commit, use the PR title from the commit body in place of the `Merge pull request #NNN` subject line.
 
-To locate it, find the oldest commit returned by:
-```
-git log --oneline <release-bump-sha>..HEAD
-```
+For each issue or PR number referenced in a commit message or PR title, look up the GitHub username of the person who opened it, so the entry can credit them. Take the repository from `BugReports` or `URL` in `DESCRIPTION`, falling back to the `origin` remote. The `issues` endpoint returns PRs as well:
 
-**Step 3c — Handle new packages (no release-bump commit found)**
-
-If no release-bump commit is found in the history:
-
-1. Check the current `Version:` field from `DESCRIPTION`.
-2. If the version is below `1.0.0` (e.g. `0.99.3`): treat the entire commit history as the range (i.e. `git log --oneline` from the first commit to `HEAD`), note that this appears to be a new package submission, and use `1.0.0` as the upcoming release version (see Step 2).
-3. If the version is `1.0.0` or higher but no release-bump commit is found: **do not guess**. Ask the user to supply a starting commit SHA (see Error Handling).
-
-**Step 3d — Handle an existing NEWS entry for the upcoming release**
-
-If the NEWS file already has a section heading for the upcoming release version, offer to **append** new commits since the last commit already covered rather than regenerating the entire block.
-
-For an unpublished package, the upcoming release version is always `1.0.0`. If the NEWS file has existing headings for pre-release versions (e.g. `0.99.2`, or a heading such as `(development version)`), do not add another one: offer to merge those entries into the `1.0.0` block and remove the pre-release headings.
-
-**Retrieve commits for the determined range**:
-```
-git log <range> --oneline
-```
-
-Also retrieve merge commits separately:
-```
-git log <range> --merges --format="%H %s %b"
-```
-
-### 4. Extract PR Titles from Merge Commits
-
-For each merge commit in the log, attempt to extract the pull request title:
-
-- GitHub-style merge commits have the format: `Merge pull request #NNN from <branch>` followed by the PR title on the next line
-- Parse the commit body (from `git show <sha> --format="%b" -s`) to extract the PR title
-- If a PR title is found, use it as the primary description for that merge commit; otherwise fall back to the merge commit subject line
-
-For non-merge commits, use the commit subject line directly.
-
-**Look up issue and PR authors**: For each issue or pull request number referenced in the commit messages, merge commits, or PR titles (e.g. `#1`, `Fixes #12`, `Addresses problem 1 in #1`, `Merge pull request #45`), find the GitHub username of the person who opened it so the NEWS entry can credit them. Determine the repository from the `BugReports` or `URL` field in `DESCRIPTION`, falling back to the `origin` remote, then run:
 ```
 gh api repos/<owner>/<repo>/issues/<number> --jq .user.login
 ```
 
-The `issues` endpoint returns pull requests as well, so the same call works for both and gives the PR author for a PR.
+If the lookup fails, keep the number without a username and flag the entry in Step 8.
 
-If `gh` is unavailable, the repository is not on GitHub, or the lookup fails, keep the number without a username and flag the entry for review in step 10.
+### 5. Inspect Diffs for Vague Commits
 
-### 5. Classify Commits by Message Specificity
+When a commit message doesn't say what changed for users (e.g. `fix`, `wip`, `API update`, `minor changes`), read its diff, limited to the paths that carry user-visible changes:
 
-For each commit, evaluate its message for vagueness using these criteria — a commit is **vague** if it meets any of the following:
-
-**Word count rule**: The commit message (after stripping conventional-commit type prefixes like `fix:`, `feat:`, `chore:`) contains **3 words or fewer**.
-
-**Filler phrase rule**: The lowercased message matches any of these patterns:
-- Single words: `fix`, `update`, `wip`, `cleanup`, `refactor`, `changes`, `misc`, `tweaks`, `improvements`
-- Short phrases: `minor update`, `minor fix`, `minor changes`, `api update`, `small fix`, `small update`, `bug fix`, `quick fix`, `more fixes`, `various fixes`, `various changes`
-
-Split all commits into two lists: **specific** and **vague**.
-
-### 6. Inspect Diffs for Vague Commits
-
-For each vague commit, run:
 ```
 git show <sha> --stat --patch -- R/ src/ DESCRIPTION NAMESPACE
 ```
 
-Limiting the diff to code-bearing paths avoids noise from unrelated files.
+Look for added, removed, or changed exports, generics, classes, methods, arguments, and defaults. For a commit with more than about 500 changed lines, summarise by file.
 
-From the diff, summarise:
-- **Files changed**: list each changed file and whether it was added, deleted, or modified
-- **Functions affected**: scan `+` and `-` diff lines for patterns such as `function(`, `setGeneric(`, `setClass(`, `setMethod(`, `setRefClass(`, `R6Class(`, `export(` — note added (`+`) vs removed (`-`) occurrences; this list is representative and agents may extend it based on what they observe in the diff
-- **Scale of change**: lines added and removed
+`NAMESPACE` can change in layout without changing in meaning: a new roxygen2 version may regroup or reorder directives. Compare the set of `export()`, `import*()`, and `S3method()` directives before and after, and treat a layout-only change as internal.
 
-If a diff is very large (> 500 changed lines total), summarise by file rather than by line to avoid context overflow.
+### 6. Choose Categories
 
-Generated files can change in layout without changing in meaning. For `NAMESPACE` in particular, a new roxygen2 version may regroup or reorder directives; compare the set of `export()`, `import*()`, and `S3method()` directives before and after rather than the diff lines, and treat a layout-only change as internal.
+Use the category headings the NEWS file already has, and match its version heading style (e.g. `# pkgname 1.18.0` or `# Changes in version 1.18.0`) and bullet marker. Introduce a new heading only if the user asks.
 
-Combine the diff summary with the original vague commit message to produce an enriched description to use in subsequent steps.
+If the file has entries but no category headings, don't add any. If the file is new, propose this default set and let the user change it, including only headings that receive entries:
 
-### 7. Detect Existing NEWS Categories
+| Heading | Changes |
+| --- | --- |
+| `NEW FEATURES` | New exported functions, classes, methods, vignettes |
+| `SIGNIFICANT USER-VISIBLE CHANGES` | Breaking changes, renamed arguments, changed defaults |
+| `BUG FIXES AND MINOR IMPROVEMENTS` | Fixes, plus internal changes: dependencies, documentation, CI, tests |
+| `DEPRECATED AND DEFUNCT` | Deprecated or removed exports |
 
-If the NEWS file already exists, read its content and extract all unique category/section headings currently in use. Examples vary by package — typical headings include `NEW FEATURES`, `BUG FIXES`, `SIGNIFICANT USER-VISIBLE CHANGES`, `DEPRECATED AND DEFUNCT`, `INTERNAL CHANGES`, and others.
+Internal changes get an `INTERNAL CHANGES` heading only if the file already has one.
 
-Use these detected headings as the allowed category set for the new entries. If no headings can be detected (e.g. the file is new or has no previous entries), present this default set for the user to choose from and allow custom headings:
+- Omit commits that only change `Version:` in `DESCRIPTION`, including the release-bump commits.
+- Combine commits about the same change (e.g. a fix and its follow-up tests) into one entry.
+- If the category is uncertain, use `BUG FIXES AND MINOR IMPROVEMENTS` (or the file's equivalent) and mark the entry `# TODO: verify category` (`% TODO: verify category` in `NEWS.Rd`) for the user to resolve in Step 8.
 
-- `NEW FEATURES`
-- `SIGNIFICANT USER-VISIBLE CHANGES`
-- `BUG FIXES AND MINOR IMPROVEMENTS`
-- `DEPRECATED AND DEFUNCT`
+### 7. Draft the Entries
 
-The default set has no separate heading for internal changes; dependency, documentation, CI, and test changes go under `BUG FIXES AND MINOR IMPROVEMENTS`. Only include headings that receive entries.
+Each entry:
+- Is one line written for package users: what changed in behaviour, not how the code changed
+- Ends with the issue or PR number and the username from Step 4, only when the commit or PR references one. Use the order the file already uses, or `(#12, @username)` if it has none
+- Has no commit SHA; the version heading already says which release the change is in
 
-Also record the style of the existing version headings (e.g. `# pkgname 1.18.0` or `# Changes in version 1.18.0`) and bullet marker (`*` or `-`) so the new block matches them.
+Bioconductor NEWS files must use list elements, not free text. For a file with no previous entries, use the `NEWS.md` layout in Example 1, or one of these:
 
-### 8. Categorise All Changes
-
-For each commit (using the enriched description for previously vague commits), assign it to one of the detected categories:
-
-- Assign based on the content of the message and diff:
-  - New exported functions/classes/methods/vignettes → `NEW FEATURES` (or equivalent)
-  - Bug/error/warning fixes, test changes → `BUG FIXES AND MINOR IMPROVEMENTS` (or `BUG FIXES`, or equivalent)
-  - Removal of exports, `Deprecated`/`defunct` patterns → `DEPRECATED AND DEFUNCT` (or equivalent)
-  - Breaking changes, renamed arguments, changed defaults → `SIGNIFICANT USER-VISIBLE CHANGES` (or equivalent)
-  - Non-exported code, CI, documentation-only, `DESCRIPTION`-only → `BUG FIXES AND MINOR IMPROVEMENTS` (or `INTERNAL CHANGES` if the NEWS file already uses that heading)
-- If a commit is ambiguous and cannot be confidently classified, assign it to the most conservative applicable category — typically `BUG FIXES AND MINOR IMPROVEMENTS`, or `INTERNAL CHANGES` or `MISCELLANEOUS` if the NEWS file already uses one of those — and always mark it with a `# TODO: verify category` annotation so the user can reclassify it during the preview step
-- Omit commits that only change the `Version:` field in `DESCRIPTION` (manual version bumps and the Bioconductor release-bump commits); the version heading already records them
-- Several commits about the same change (e.g. a fix and its follow-up tests) can be combined into one entry
-
-### 9. Draft NEWS Entries
-
-Group entries by category under the upcoming release version heading. Match the version heading style and bullet marker recorded in step 7; the examples below are for files with no previous entries.
-
-Format entries according to the detected NEWS file format:
-
-**NEWS.md** (markdown):
-```markdown
-# Changes in version 1.20.0
-
-## NEW FEATURES
-
-- Description of new feature
-
-## BUG FIXES AND MINOR IMPROVEMENTS
-
-- Description of fix (#12, @username)
-```
-
-**NEWS** (plain text, Bioconductor-style):
+**NEWS** (plain text):
 ```
         Changes in version 1.20.0 (YYYY-MM-DD)
         + NEW FEATURES
@@ -236,7 +127,7 @@ Format entries according to the detected NEWS file format:
         o Description of fix (#12, @username)
 ```
 
-**NEWS.Rd** (R documentation format):
+**NEWS.Rd**:
 ```
 \section{Changes in version 1.20.0}{
   \subsection{NEW FEATURES}{
@@ -244,157 +135,45 @@ Format entries according to the detected NEWS file format:
       \item Description of new feature
     }
   }
-  \subsection{BUG FIXES AND MINOR IMPROVEMENTS}{
-    \itemize{
-      \item Description of fix (#12, @username)
-    }
-  }
 }
 ```
 
-Each bullet/item:
-- Is a concise one-liner derived from the commit message (or enriched description for previously vague commits)
-- Is written for package users: say what changed in behaviour, not how the code changed
-- Ends with an issue or PR number in parentheses only when the commit or PR references one, followed by the GitHub username of the person who opened that issue or PR, e.g. `(#1, @username)`, to credit the reporter or contributor
-- Does not include commit SHAs; the version heading tells users which release the change is in, and SHAs are noise for readers of NEWS
-- Uses `# TODO: verify category` (NEWS.md/NEWS) or a comment equivalent to flag uncertain entries
+### 8. Confirm, Then Write
 
-### 10. Show Preview and Confirm
-
-Display the complete drafted NEWS block in the chat. Also provide a brief summary:
-- Total commits processed
-- Number of commits that needed diff inspection
-- Breakdown of entries by category
-- Any entries flagged for manual review, including issues or PRs whose author could not be looked up
-
-Ask for confirmation before writing:
-```
-Does this NEWS draft look correct?
-  [yes] - write to <filename>
-  [edit] - specify which entries to revise
-  [abort] - discard and exit
-```
-
-If the user requests edits, apply them interactively and show the updated preview again before writing.
-
-**Do not write to disk until the user confirms.**
-
-### 11. Write NEWS File
-
-Once confirmed:
-- **Prepend** the new version block to the existing NEWS file (new releases go at the top)
-- If no NEWS file existed, create it with just the new block
-- Confirm with: `✅ NEWS updated for version X.Y.Z — N entries across K categories written to <filename>`
-
-## Output Format
-
-- A drafted NEWS block displayed in the chat for review prior to any file writes
-- Upon user confirmation, the updated (or newly created) `NEWS.md`, `NEWS`, or `NEWS.Rd` file on disk
-
-## Error Handling
-
-- **Not an R package directory** (`DESCRIPTION` missing): abort with "No DESCRIPTION file found — run this skill from an R package root"
-- **Not a git repository**: abort with "No git repository found — initialise git first"
-- **`git` not on PATH**: abort with "git is not available — install git and ensure it is on your PATH"
-- **No commits in range**: report "No new commits since `<starting-commit>` — NEWS is already up to date"
-- **No release-bump commit and version ≥ 1.0.0**: prompt the user to supply a starting commit SHA; do not guess
-- **No release-bump commit and version < 1.0.0**: use full history, note this appears to be a new package submission, and put the new entries under a `1.0.0` heading
-- **No `biocViews` or `BiocType` in `DESCRIPTION`**: treat the package as CRAN or GitHub; ask for the heading version, and start from the latest release tag or a user-supplied commit SHA (Step 2)
-- **Multiple NEWS files found**: list them and ask user which to update
-- **Diff too large** (> 500 changed lines for a single commit): summarise by file, note the limitation
+Show the drafted block, with the entries flagged for review (uncertain category, vague commit, author not found). Do not write to disk until the user confirms. Then add the block above the previous release's block (in `NEWS.Rd`, after the `\name` and `\title` header), extend the existing block for the upcoming release, or create the file.
 
 ## Examples
 
-### Example 1: Clean Commit History
+### Example 1: Vague commits on a released Bioconductor package
 
-**Invocation**: "Update the NEWS file from recent commits"
+`DESCRIPTION` has `Version: 1.19.4`. The range starts at the "odd y following creation of RELEASE_3_18" commit and holds three commits:
 
-**Scenario**: Package with prior releases; all commits since the previous release have descriptive messages.
+```
+c7d8e9f wip
+e4f5a6b API update
+9a8b7c6 Merge pull request #45 from user/tse-input
+```
 
-**Process**:
-1. Finds `NEWS.md`, detects existing headings `NEW FEATURES` and `BUG FIXES`
-2. Derives release version `1.20.0` from current devel `1.19.4`
-3. Finds release-bump commit `"bump x.y.z version to even y prior to creation of RELEASE_3_18 branch"`, then locates the subsequent devel-bump commit `"bump x.y.z version to odd y following creation of RELEASE_3_18 branch"` (`b2c3d4e`)
-4. Retrieves 12 commits in range `b2c3d4e..HEAD` — none are vague
-5. Categorises and drafts 12 entries
-6. Shows preview, user confirms
-7. Prepends block to `NEWS.md`
+The diff of `e4f5a6b` shows `returnSamples()` gained a required `assay` argument; the diff of `c7d8e9f` touches only a non-exported helper. The body of `9a8b7c6` gives the PR title "Add support for TreeSummarizedExperiment input", and the lookup for #45 returns `contributor`. The existing `NEWS.md` uses the default headings, `# Changes in version` version headings, and `-` bullets:
 
----
+```markdown
+# Changes in version 1.20.0
 
-### Example 2: Vague Commits Needing Diff Inspection
+## NEW FEATURES
 
-**Invocation**: "Generate a changelog based on git commits"
+- `importData()` accepts `TreeSummarizedExperiment` input (#45, @contributor)
 
-**Scenario**: Several commits have messages like "API update", "fix", and "wip".
+## SIGNIFICANT USER-VISIBLE CHANGES
 
-**Process**:
-1. Finds `NEWS.md`; locates release-bump and subsequent devel-bump commit
-2. Retrieves 8 commits in range: 5 specific, 3 vague
-3. For "API update" (commit `a1b2c3d`): inspects diff, finds `returnSamples()` signature changed — classifies as `SIGNIFICANT USER-VISIBLE CHANGES`
-4. For "fix" (commit `e4f5a6b`): inspects diff, finds test file edit — classifies as `BUG FIXES AND MINOR IMPROVEMENTS`
-5. For "wip" (commit `c7d8e9f`): diff shows only internal helper changes — classifies as `BUG FIXES AND MINOR IMPROVEMENTS`
-6. Drafts preview noting 3 commits were diff-inspected
-7. User confirms; file updated
+- `returnSamples()` now requires an `assay` argument
 
----
+## BUG FIXES AND MINOR IMPROVEMENTS
 
-### Example 3: New Package Submission (version < 1.0.0)
+- Internal changes to sample lookup
+```
 
-**Invocation**: "Add a NEWS entry for the upcoming release"
+The preview flags the last two entries as drafted from diffs, not commit messages.
 
-**Scenario**: New package submission; `DESCRIPTION` shows `Version: 0.99.3`; no release-bump commit exists.
+### Example 2: New submission with pre-release headings
 
-**Process**:
-1. No NEWS file found; asks user which format to create → user selects `NEWS.md`
-2. No release-bump commit found; version is `0.99.3` (below `1.0.0`) — treat entire commit history as the range
-3. Uses `1.0.0` as the heading (Bioconductor's first release version), not `0.99.3` or `0.100.0`
-4. Drafts first-ever NEWS block under `# Changes in version 1.0.0`, noting this is a new package submission
-5. Shows preview, user confirms
-6. Creates `NEWS.md` with the new block
-
----
-
-### Example 4: No Release-Bump Commit but Version ≥ 1.0.0
-
-**Invocation**: "Update the NEWS file"
-
-**Scenario**: Package is at `1.3.2` on devel but has no release-bump commit (e.g. history was rewritten or imported without full history).
-
-**Process**:
-1. Searches git log — no commit matching the release-bump pattern is found
-2. Version is `1.3.2` (≥ 1.0.0) — cannot determine range safely
-3. Tells the user: "No release-bump commit was found and the version is ≥ 1.0.0. Please specify a commit SHA to use as the starting point for the diff and NEWS entry generation."
-4. User provides `f9e8d7c`; skill uses `f9e8d7c..HEAD` as the range and proceeds normally
-
----
-
-### Example 5: PR Titles Used
-
-**Invocation**: "Draft NEWS entries from git history"
-
-**Scenario**: Repository uses GitHub pull requests merged with squash-merge.
-
-**Process**:
-1. Locates release-bump and devel-bump commits to establish range
-2. Merge commits parsed; PR titles extracted (e.g. "Add support for TreeSummarizedExperiment input" from PR #45)
-3. PR title used in place of merge commit subject "Merge pull request #45 from feature-branch"
-4. Looks up the PR author with `gh api repos/<owner>/<repo>/issues/45 --jq .user.login`
-5. Richer, human-readable entries appear in draft with a `(#45, @username)` reference crediting the PR author
-
-## Notes
-
-- This skill assumes the Bioconductor convention where the `devel` branch carries odd-numbered minor versions and each release has an even minor version; no git tags are used or required
-- A package is treated as Bioconductor only when `DESCRIPTION` has a `biocViews` or `BiocType` field; otherwise it is treated as a CRAN or GitHub package and the Bioconductor versioning rules are skipped
-- Unpublished Bioconductor packages (version below `1.0.0`) always put new entries under `1.0.0`, the version Bioconductor gives a package's first release
-- The commit range is derived from the release-bump commit pattern ("bump x.y.z version to even y prior to creation of RELEASE_..."); if that pattern is absent and the version is ≥ 1.0.0, the user must supply a starting commit SHA
-- Category headings, the version heading style, and the bullet marker are inferred from the existing NEWS file; no new heading names are introduced unless the file has no headings yet or the user requests them
-- Entries reference issues and PRs but not commit SHAs; each reference credits the GitHub username of the person who opened the issue or PR
-- Looking up authors uses `gh` and network access; without them, entries keep the number only
-- Diff inspection is scoped to `R/`, `src/`, `DESCRIPTION`, and `NAMESPACE` to avoid irrelevant noise from documentation or test-only commits
-- The skill does not run R or install packages; it relies on `git`, file reads, and `gh` for issue and PR authors
-- For large repositories with hundreds of commits, consider narrowing the range manually if the preview is unwieldy
-
----
-
-**Related**: See [analyze-r-package](../analyze-r-package/SKILL.md) for package structure analysis. See [SKILL_STANDARD.md](../../SKILL_STANDARD.md) for skill format details.
+`DESCRIPTION` has `Version: 0.99.3` and `biocViews`, and `NEWS.md` has a `# pkgname 0.99.2` heading. No release-bump commit exists, so the range is the entire history and the heading is `# pkgname 1.0.0`. The skill offers to move the `0.99.2` entries into the `1.0.0` block and remove the `0.99.2` heading.

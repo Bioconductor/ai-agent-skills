@@ -8,6 +8,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- **AGENTS.md** (v2.0.0 → v2.1.0) - Adds core principle 7, "Only What an Agent Wouldn't Do
+  Unprompted": each line of a skill must change what a competent coding agent does. General
+  practice, rules stated twice, examples that replay the process, and provenance are removed or
+  moved to a `SOURCES.md`. SKILL_STANDARD.md's checklist references it.
+- **draft-r-package-pr** (v1.0.0 → v1.1.0) and **update-r-news** (v1.2.0 → v1.3.0) - Trimmed
+  under the new principle, as a pilot for the other skills. Each is about half its previous length.
+  - **draft-r-package-pr**: general title and description advice is removed, leaving what is
+    particular to R and Bioconductor packages. Sources and the list of the skill's own conventions
+    move to `SOURCES.md`. The PR description lists new dependencies, the agent is told not to
+    introduce the focus problems it checks for (including roxygen2 churn when regenerating
+    `man/`), and the whitespace check also covers blank lines. The separate vignette
+    check is dropped, since `R CMD build` builds them. The description no longer cites tidyverse
+    guidance.
+  - **update-r-news**: the Error Handling and Notes sections, which restated the steps, are
+    removed, and five examples become two that show input commits and the drafted output. Vague
+    commits are identified by judgment instead of a word count and phrase list. The commit range
+    is found with one `git log --grep` command. NEWS files in `inst/` are now detected, a file
+    with entries but no category headings stays that way, entries follow the file's existing
+    order for the issue number and username, and a block added to `NEWS.Rd` goes after its header.
 - **update-r-news** (v1.1.0 → v1.2.0) - Specifies the version heading for unpublished packages
   and handles non-Bioconductor packages.
   - A Bioconductor package below version `1.0.0` (e.g. `0.99.3` or `0.0.14`) puts new entries

@@ -62,6 +62,22 @@ Skills are **prompts**, not code. Agents interpret and execute them using their 
 
 Skills must define workflows (the *intent*, *multi-step process*, and *domain knowledge*), not just provide raw code. While highly specific code snippets can be provided to overcome LLM anti-patterns, handle unique APIs, or adhere to strict lab standards (e.g., `BiocParallel` vs `lapply`), they must serve strictly as **guardrails** embedded within a numbered workflow step, never as the entire skill itself.
 
+### 7. Only What an Agent Wouldn't Do Unprompted
+
+A skill is loaded into an agent's context every time it runs, so each line has to change what the agent does. Test each line with one question: *would a competent coding agent do this, or know this, without being told?* If so, delete it.
+
+Keep:
+- Bioconductor, R, and package-ecosystem facts and conventions (e.g. the release-bump commit messages, the `1.0.0` heading for a first release)
+- Conventions this repository or the skill sets, marked as such where they differ from upstream policy
+- Decisions where an agent's default would be wrong, and the points where the user must be asked
+- A reason, in one clause, where the agent has to judge an edge case or persuade the user
+
+Delete:
+- General practice an agent already follows (e.g. checking that `git` is installed, writing a clear PR title, reporting a summary when done)
+- A rule stated a second time. State it once, in the step that applies it, not again in Notes, Error Handling, or Examples
+- Examples that replay the process. Keep an example only when it shows an input or output the steps leave unclear
+- Provenance: source lists, commit pins, and the history of a decision go in a `SOURCES.md` beside the skill, read when the skill is updated and not on every run
+
 ## Skill File Format
 
 ### Minimal Required Fields
@@ -303,6 +319,7 @@ See [AGENTS.md](../AGENTS.md) for canonical behavior and [SKILLS.md](../SKILLS.m
 
 ## Version History
 
+- **2.1.0** (2026-11-20) - Added core principle 7, "Only What an Agent Wouldn't Do Unprompted"
 - **2.0.0** (2026-04-03) - Agent behavior standard
 
 ## Maintenance
