@@ -20,7 +20,7 @@ Draft or update an R package NEWS file (`NEWS.md`, `NEWS`, or `NEWS.Rd`) from th
 ## Prerequisites
 
 - Working directory is an R package root (contains `DESCRIPTION`) in a git repository
-- Optional: the GitHub CLI (`gh`) and network access, to credit issue and PR authors
+- Optional: the GitHub CLI (`gh`) and network access, to credit contributors
 
 ## Process
 
@@ -46,7 +46,7 @@ Any version below `1.0.0` maps to `1.0.0`, the version Bioconductor assigns to a
 
 ### 3. Determine the Commit Range (Bioconductor packages)
 
-Bioconductor does not tag releases. At each release it applies two commits to every package, with these literal messages (the release number varies):
+Bioconductor does not tag releases. At each release it applies two commits to every package, with these messages. `x.y.z` and `y` are literal text, not placeholders; only the release number varies:
 
 ```
 bump x.y.z version to even y prior to creation of RELEASE_3_18 branch
@@ -69,7 +69,7 @@ Use `<sha>..HEAD`. If no such commit exists:
 
 For a merge commit, use the PR title from the commit body in place of the `Merge pull request #NNN` subject line.
 
-For each issue or PR number referenced in a commit message or PR title, look up the GitHub username of the person who opened it, so the entry can credit them. Take the repository from `BugReports` or `URL` in `DESCRIPTION`, falling back to the `origin` remote. The `issues` endpoint returns PRs as well:
+Credit the person who wrote the change. When a change came through a PR (a merge commit, or a squash commit whose subject ends in `(#N)`), cite the PR number and its author, even if the PR fixes an issue someone else reported. When a commit references only an issue, cite the issue and the person who opened it. Look up the username with the call below, taking the repository from `BugReports` or `URL` in `DESCRIPTION` and falling back to the `origin` remote. The `issues` endpoint returns PRs as well:
 
 ```
 gh api repos/<owner>/<repo>/issues/<number> --jq .user.login
@@ -82,7 +82,7 @@ If the lookup fails, keep the number without a username and flag the entry in St
 When a commit message doesn't say what changed for users (e.g. `fix`, `wip`, `API update`, `minor changes`), read its diff, limited to the paths that carry user-visible changes:
 
 ```
-git show <sha> --stat --patch -- R/ src/ DESCRIPTION NAMESPACE
+git show <sha> --stat --patch -- R/ src/ vignettes/ DESCRIPTION NAMESPACE
 ```
 
 Look for added, removed, or changed exports, generics, classes, methods, arguments, and defaults. For a commit with more than about 500 changed lines, summarise by file.
@@ -115,7 +115,7 @@ Each entry:
 - Ends with the issue or PR number and the username from Step 4, only when the commit or PR references one. Use the order the file already uses, or `(#12, @username)` if it has none
 - Has no commit SHA; the version heading already says which release the change is in
 
-Bioconductor NEWS files must use list elements, not free text. For a file with no previous entries, use the `NEWS.md` layout in Example 1, or one of these:
+Bioconductor requires each change to be a list element; don't write prose paragraphs under a heading. For a file with no previous entries, use the `NEWS.md` layout in Example 1, or one of these:
 
 **NEWS** (plain text):
 ```

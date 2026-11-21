@@ -27,6 +27,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     is found with one `git log --grep` command. NEWS files in `inst/` are now detected, a file
     with entries but no category headings stays that way, entries follow the file's existing
     order for the issue number and username, and a block added to `NEWS.Rd` goes after its header.
+    Diff inspection also covers `vignettes/`.
+  - **Credit in NEWS entries**: both skills now credit the person who wrote the change. For a
+    change that came through a PR, `update-r-news` cites the PR and its author, even when the PR
+    fixes an issue someone else reported; before, it credited whoever opened the referenced issue
+    or PR, which disagreed with `draft-r-package-pr`.
 - **update-r-news** (v1.1.0 → v1.2.0) - Specifies the version heading for unpublished packages
   and handles non-Bioconductor packages.
   - A Bioconductor package below version `1.0.0` (e.g. `0.99.3` or `0.0.14`) puts new entries

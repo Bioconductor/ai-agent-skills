@@ -91,7 +91,8 @@ by hand:
   `(development version)` heading, as a list element in the file's existing style.
 - Say what now happens, with the function name near the start.
 - Credit the PR author's GitHub username, whether or not they are a package author, with the
-  issue or PR number, in the order the file already uses or `(#42, @user)` if it has none.
+  PR number if the PR is already open and otherwise the issue it fixes, in the order the file
+  already uses or `(#42, @user)` if it has none.
 
 ### 5. Do not bump the version in the PR
 
