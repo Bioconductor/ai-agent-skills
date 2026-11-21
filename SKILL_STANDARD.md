@@ -62,6 +62,7 @@ Use this checklist when creating or updating skills (or run `validate-skill` to 
 - [ ] Prerequisites are clear and complete
 - [ ] Cross-references use correct relative paths
 - [ ] Strategic code snippets are embedded only as guardrails within workflows, not as the primary logic
+- [ ] Every line passes the test in [AGENTS.md](AGENTS.md) § Only What an Agent Wouldn't Do Unprompted, and no rule is stated twice
 
 ### Portability
 - [ ] Tool references are generalized or in platform-specific notes

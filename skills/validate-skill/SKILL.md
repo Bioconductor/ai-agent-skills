@@ -1,7 +1,7 @@
 ---
 name: validate-skill
 description: Validate that a skill conforms to the ai-agent-skills repository standards
-version: 1.2.0
+version: 1.3.0
 category: meta
 tags: [meta, infrastructure, validation, quality-control]
 author: bioconductor
@@ -40,6 +40,7 @@ Invoke this skill to validate a skill file:
    - Verify agent neutrality (no tool references or platform commands in instructions).
    - Confirm it describes a workflow, not just code snippets.
    - Ensure it does not duplicate content from SSOT documents.
+   - Flag lines that fail [AGENTS.md](../../AGENTS.md) § Only What an Agent Wouldn't Do Unprompted, and rules stated more than once.
 4. **Generate Validation Report**: Produce a summary of passed and failed checks, categorized by CRITICAL, WARNING, and INFO.
 5. **Suggest Next Steps**: Offer to help fix any identified issues.
 
