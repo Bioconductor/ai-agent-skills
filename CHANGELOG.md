@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Unprompted": each line of a skill must change what a competent coding agent does. General
   practice, rules stated twice, examples that replay the process, and provenance are removed or
   moved to a `SOURCES.md`. SKILL_STANDARD.md's checklist references it.
+- **validate-skill** (v1.2.0 → v1.3.0) - Checks skills against the new principle: flags lines a
+  competent coding agent would not need, and rules stated more than once.
 - **draft-r-package-pr** (v1.0.0 → v1.1.0) and **update-r-news** (v1.2.0 → v1.3.0) - Trimmed
   under the new principle, as a pilot for the other skills. Each is about half its previous length.
   - **draft-r-package-pr**: general title and description advice is removed, leaving what is
