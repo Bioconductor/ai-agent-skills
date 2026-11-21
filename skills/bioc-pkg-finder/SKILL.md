@@ -66,7 +66,8 @@ the request is for data or annotation, not software, lead with a Hub `query()`, 
 package name.
 
 Present the shortlist as the output of a `biocPkgList()` filter or Hub `query()` that the user can
-paste and rerun each release, even when the query cannot be executed here. Quote a package's
+paste and rerun each release. When the query cannot be executed here, give it as the query to
+run and do not present the shortlist as its result. Quote a package's
 biocViews terms only if they were retrieved; otherwise say "approximate, confirm with
 biocPkgList()".
 
@@ -99,7 +100,8 @@ Weight, in this order:
 
 ### 5. Compose the recommendation
 
-- **Package(s) and source**: name the biocViews term or Task View each was found under.
+- **Package(s) and source**: name the biocViews term or Task View each was found under, marked
+  approximate as in step 2 if it was not retrieved.
 - **Install path**: tag each package with its repository (`BiocManager::install()` for
   Bioconductor, `install.packages()` for CRAN) and flag mixed stacks such as `org.*.eg.db` with
   `msigdbr`. Package names are case-sensitive: confirm the exact spelling and case against the

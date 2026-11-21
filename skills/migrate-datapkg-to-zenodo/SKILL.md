@@ -64,7 +64,8 @@ updating the skill.
 - Find every consumer of `data(X)`: vignettes, examples, man pages, bundled
   analysis scripts (e.g. `inst/extdata/createEsetList.R` in the curated*Data
   family), and tests.
-- Tag the current commit `pre-zenodo-refactor` and push the tag. The integrity
+- Tag the current commit `pre-zenodo-refactor`. The tag is only needed locally;
+  ask the user before pushing it. The integrity
   report (step 9) checks out this tag in a git worktree to prove the uploaded
   objects are identical to what the package used to ship. For the same reason,
   do not rewrite git history as part of this refactor, even if the old `.rda`
@@ -260,7 +261,8 @@ the live-download test enabled.
 
 ### 10. Commit and propagate
 
-- Deliver the work as a pull request against the package.
+- Deliver the work as a pull request against the package. Ask the user before
+  pushing the branch or opening it.
 - Agents follow the commit gates in
   [AGENTS.md § Agent Responsibilities](../../AGENTS.md#agent-responsibilities):
   show a draft commit message and obtain explicit approval before each commit,

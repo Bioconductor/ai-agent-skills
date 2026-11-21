@@ -25,18 +25,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     `migrate-datapkg-to-zenodo`.
   - **bioc-pkg-finder**: the detail sections are folded into five numbered steps, each rule
     stated once. Its example no longer lists `Seurat`, a CRAN package, as a `biocPkgList()` hit.
+    A query that could not be run is given as the query to run, not as the source of the shortlist.
   - **bioc-pkg-review**: the data-package patterns are reported as `consider` findings without a
     rubric id, and the submitter is asked how the package differs from overlapping ones.
   - **migrate-datapkg-to-zenodo**: the user creates and publishes the Zenodo record, or confirms
-    first; the work is delivered as a pull request; two references to the integrity report now
+    first, and is asked before the `pre-zenodo-refactor` tag or the branch is pushed; the work is
+    delivered as a pull request; two references to the integrity report now
     point to step 9, not step 8.
   - **adr-author**: step 5 applies the supersession and amendment banners from Conventions.
   - **create-package-instructions** and **update-package-instructions** gain the `## Examples`
     section CI requires, and say the templates are at the root of the skills repository.
 - **create-skill** (v1.3.1 → v1.4.0) - Asks what a coding agent gets wrong without the skill,
   instead of asking the user to walk through every step, and drafts only steps that carry that
-  content. Says when a skill is not needed or when an existing skill should be extended, and puts
-  sources in `SOURCES.md`.
+  content. Says when a skill is not needed or when an existing skill should be extended, puts
+  sources in `SOURCES.md`, and sets the version and the `CHANGELOG.md` entry.
 - **AGENTS.md** (v2.0.0 → v2.1.0) - Adds core principle 7, "Only What an Agent Wouldn't Do
   Unprompted": each line of a skill must change what a competent coding agent does. General
   practice, rules stated twice, examples that replay the process, and provenance are removed or
