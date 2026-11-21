@@ -1,7 +1,7 @@
 ---
 name: bioc-pkg-dev
 description: "Guide an R package or a set of analysis scripts through Bioconductor submission: the pre-submission gate, the Contributions tracker, and post-acceptance maintenance"
-version: 1.2.0
+version: 1.2.1
 category: r-packages
 author: bioconductor
 tags: [r-packages, bioconductor, submission, bioccheck, biocviews, peer-review]
@@ -9,27 +9,21 @@ tags: [r-packages, bioconductor, submission, bioccheck, biocviews, peer-review]
 
 # bioc-pkg-dev
 
-Takes existing R work - a package, or just a pile of analysis scripts - and moves it toward an
-accepted Bioconductor package. Covers the pre-submission gate, the Contributions tracker, and
-what happens after acceptance.
-
-The common case is conversion, not creation: there is already a working tool on GitHub, and the
-question is what stands between it and acceptance. Start from what exists and find the gaps
+Takes existing R work, a package or loose analysis scripts, and moves it toward an accepted
+Bioconductor package. The common case is conversion: start from what exists and find the gaps
 against the gate. Do not scaffold from scratch unless there is no package yet.
 
 Condensed from the official guide,
 [Bioconductor Packages: Development, Maintenance, and Peer Review](https://contributions.bioconductor.org).
 Detail lives in [knowledge/](knowledge/index.md), one file per topic; open the file for the task
 at hand rather than reading all of it. Each file links back to its canonical chapter, which stays
-authoritative when the two disagree.
+authoritative when the two disagree. Upstream pins are in
+[knowledge/SOURCES.md](knowledge/SOURCES.md), needed at run time only for step 2.
 
 ## Usage
 
 - "Is this package ready to submit to Bioconductor?"
-- "Get this package ready for Bioconductor"
 - "Turn these analysis scripts into a Bioconductor package"
-- "Move my package from CRAN to Bioconductor"
-- "What would a Bioconductor reviewer flag here?"
 - "How do I push to git.bioconductor.org after acceptance?"
 
 Applies whenever the work targets Bioconductor, even when the user does not name it: `biocViews`,
@@ -53,9 +47,9 @@ BiocManager::install(c(
 ))
 ```
 
-Use these tools rather than reimplementing them. `BiocCheck` is the authoritative validator and
-`biocthis` writes Bioconductor-shaped files; reusing existing infrastructure is itself a review
-criterion (see [Reusing methods and classes](https://contributions.bioconductor.org/important-bioconductor-package-development-features.html)).
+Use `BiocCheck` (the authoritative validator) and `biocthis` (writes Bioconductor-shaped files)
+rather than reimplementing them; reusing existing infrastructure is itself a review criterion
+(see [Reusing methods and classes](https://contributions.bioconductor.org/important-bioconductor-package-development-features.html)).
 
 ## Process
 
@@ -72,11 +66,10 @@ setup in [knowledge/development/general-dev.md](knowledge/development/general-de
 
 ### 2. Pin the current Bioconductor cycle
 
-Never assert the release/devel pair from memory - it changes twice a year, and a stale value sends
-someone to build against the wrong R. Read it from
+Never assert the release/devel pair from memory; it changes twice a year. Read it from
 [config.yaml](https://bioconductor.org/config.yaml), which is authoritative, and note the date.
-The last verified value is recorded in
-[knowledge/SOURCES.md](knowledge/SOURCES.md) with its fetch date.
+The last verified value is recorded in [knowledge/SOURCES.md](knowledge/SOURCES.md) with its
+fetch date.
 
 ### 3. Check the package against the gate, in two tiers
 
@@ -87,7 +80,10 @@ Tier 1, stated as requirements:
 
 - `R CMD check` and `BiocCheck` pass with no ERROR and no WARNING on current R-devel. The
   tracker's own wording is "a minimum requirement for package acceptance". It also says "Passing
-  these checks does not result in automatic acceptance" - a human review follows.
+  these checks does not result in automatic acceptance": a human review follows, and it looks at
+  things no checker measures, such as whether the package duplicates an existing one, whether it
+  reuses Bioconductor core classes instead of inventing parallel ones, and whether the vignette
+  shows a real analysis ([knowledge/reviewer.md](knowledge/reviewer.md)).
 - At least 80% of man pages documenting exported objects have a runnable example. Below that,
   BiocCheck raises an ERROR, not a warning. An example wrapped entirely in `\dontrun` or
   `\donttest` counts as no example at all, because BiocCheck comments both out before parsing.
@@ -124,9 +120,7 @@ ExperimentData, Workflow) do not count on their own. Pick specific terms from th
 
 A vignette that shows the actual analysis, not a stub, plus man pages with runnable examples:
 [knowledge/development/documentation.md](knowledge/development/documentation.md). Count the
-examples rather than eyeballing them - the 80% threshold in step 3 is an ERROR, and a package can
-look well documented while failing it, since pages whose only example sits inside `\dontrun` score
-as zero. Unit tests:
+examples against the 80% threshold in step 3 rather than eyeballing them. Unit tests:
 [knowledge/development/tests.md](knowledge/development/tests.md). Large data belongs in
 ExperimentHub or AnnotationHub rather than in the package:
 [knowledge/development/data.md](knowledge/development/data.md).
@@ -140,21 +134,19 @@ on either leads its report and the other findings wait until it is settled.
 
 ### 6. Run the gate
 
-Invoke the **`build-check-bioccheck`** skill for this step. It runs the four commands in the
-right order, on the right artifact each time, and classifies what comes back - separating real
-defects from environment gaps, account-level actions, and known false positives such as
-`checkSingleColon` flagging a range expression over a local named like a CRAN package.
+Invoke the **`build-check-bioccheck`** skill for this step; it runs the commands and separates
+real defects from environment gaps, account-level actions, and known false positives.
 
-Both entry points are required, on current R-devel. They check different things - the first
-inspects the git clone, the second the built package:
+Both entry points are required, on current R-devel. The first inspects the git clone, the second
+the built package:
 
 ```r
 BiocCheck::BiocCheckGitClone()
 BiocCheck::BiocCheck('new-package' = TRUE)
 ```
 
-BiocCheck cannot measure the two timing items in tier 2 (`R CMD check --no-build-vignettes` under
-10 minutes, under 8 GB memory). Those need a real build, so time and measure one.
+BiocCheck cannot measure the two tier-2 limits on check time and memory. Those need a real
+build, so time and measure one.
 
 ### 7. Do the style pass last, and keep it a style pass
 
@@ -180,16 +172,14 @@ questions this repository publishes, will look for all three:
   to come back as reviewer requests if you leave them.
 - **State overlap and dependence.** Name every package yours overlaps with or builds on, found
   with `bioc-pkg-finder` and never from memory, and say in the vignette introduction how yours
-  differs and how it fits a Bioconductor workflow. A reviewer who has to discover an overlapping
-  package on their own will ask why you did not.
+  differs and how it fits a Bioconductor workflow.
 - **State provenance.** Put a short statement in the tracker issue body (for an annotation
   package, in the submission email instead), under a heading such as "Provenance and AI
   assistance": what was written by hand, what was generated with an AI tool
   (which), what was copied or vendored from where and under which license, per
   [knowledge/development/ai-policy.md](knowledge/development/ai-policy.md). "None" is a valid
-  statement. The reviewer's tool (Bioconductor/BiocPkgReviewer, pinned in
-  [knowledge/SOURCES.md](knowledge/SOURCES.md)) reads the issue and stops flagging undisclosed
-  assistance when the statement is there.
+  statement. The reviewer's tool (Bioconductor/BiocPkgReviewer) reads the issue and stops
+  flagging undisclosed assistance when the statement is there.
 
 Host on the GitHub default branch, then open an issue whose title is the package name at the
 [BiocContributions tracker](https://github.com/Bioconductor/BiocContributions/issues/new). Annotation
@@ -209,7 +199,7 @@ changed only by the Bioconductor team. Git workflow, build reports, and deprecat
 
 ## Output Format
 
-For a readiness question, report gaps in the two tiers above, never merged into one list:
+For a readiness question, report gaps in the two tiers of step 3, never merged into one list:
 
 - **Blockers** - tier-1 items that currently fail, each with the file and the fix.
 - **Likely reviewer requests** - tier-2 items and anything in
@@ -229,18 +219,6 @@ no vignette. Likely reviewer requests: `Version` is `0.1.0` rather than `0.99.0`
 functions have no runnable examples. Verdict: not submittable yet; the three blockers must clear
 first.
 
-**User**: "Turn these RNA-seq scripts into a Bioconductor package."
-
-**Skill produces**: a plan starting from package structure and naming, then the metadata files,
-then a vignette built from the existing analysis, then tests, and only then the gate - with a note
-that a Software package declaring no Bioconductor dependencies draws a BiocCheck warning
-suggesting CRAN instead, so the S4 or `SummarizedExperiment` integration should be settled early
-rather than bolted on.
-
-**User**: "Why does `R CMD build` fail right after I scaffolded the package?"
-
-**Skill produces**: the `inst/CITATION` diagnosis in Notes below, plus the fix.
-
 ## Integration
 
 - **Uses**: `build-check-bioccheck` (the gate step), `bioc-pkg-review` (the reviewer's rubric,
@@ -249,28 +227,21 @@ rather than bolted on.
 
 ## Notes
 
-Three `biocthis` behaviors that cost time if they are not known in advance. Verified against
-biocthis 1.23.0 on 2026-08-14.
+Three `biocthis` behaviors to know before scaffolding:
 
 - `use_bioc_description()` writes a **fresh** `DESCRIPTION`; it does not merge into an existing
-  one. It calls `usethis::use_description()`, which calls `write_over()`, which asks before
-  replacing an existing file - and declines silently in a non-interactive session. On a package
-  that already has a `DESCRIPTION`, the call therefore often does nothing at all, with no error.
-  Add `biocViews` by hand instead, or approve the overwrite knowing it discards the `DESCRIPTION`
-  already present. The rest of the `biocthis` chain appends and is safe on an existing package.
-- `use_bioc_citation()` leaves `inst/CITATION` unfinished, and unfinished here means broken. The
-  template substitutes `{{Title}}` and `{{github_owner}}`; the function passes neither a title
-  nor - on a package with no GitHub remote configured yet - an owner. The file lands with an empty
-  title and an empty author, `utils::citation()` errors on either ("a bibentry of bibtype 'Manual'
-  has to specify the field: title"), and because the generated vignette calls `citation()`,
-  `R CMD build` fails at "creating vignettes". Fill in the title, the author, and the placeholder
-  `10.1101/TODO` DOI before building anything.
+  one. It asks before replacing an existing file (through `usethis::use_description()` and
+  `write_over()`) and declines silently in a non-interactive session, so on a package that
+  already has a `DESCRIPTION` the call often does nothing at all, with no error. Add `biocViews`
+  by hand instead, or approve the overwrite knowing it discards the `DESCRIPTION` already
+  present. The rest of the `biocthis` chain appends and is safe on an existing package.
+- `use_bioc_citation()` leaves `inst/CITATION` broken. The template substitutes `{{Title}}` and
+  `{{github_owner}}`, but the function passes no title and, on a package with no GitHub remote
+  configured yet, no owner. `utils::citation()` errors on the empty title or author ("a bibentry
+  of bibtype 'Manual' has to specify the field: title"), and because the generated vignette
+  calls `citation()`, `R CMD build` fails at "creating vignettes". Fill in the title, the
+  author, and the placeholder `10.1101/TODO` DOI before building anything.
 - A freshly scaffolded package also draws two BiocCheck complaints worth pre-empting: the
   placeholder Description is "too concise", since it wants at least three sentences, and a
-  Software package with no Bioconductor dependencies gets a warning suggesting CRAN instead.
-
-Passing the gate is necessary, not sufficient. Human peer review follows, and it looks at things
-no checker measures - whether the package duplicates an existing one, whether it reuses
-Bioconductor core classes instead of inventing parallel ones, and whether the vignette shows a
-real analysis. Those expectations are in
-[knowledge/reviewer.md](knowledge/reviewer.md).
+  Software package with no Bioconductor dependencies gets a warning suggesting CRAN instead, so
+  settle the S4 or `SummarizedExperiment` integration early.
