@@ -1,7 +1,7 @@
 ---
 name: build-check-bioccheck
 description: Run and interpret R CMD build, R CMD check, and both BiocCheck entry points against a Bioconductor package, separating real defects from environment gaps and known false positives
-version: 1.1.0
+version: 1.1.1
 category: r-packages
 tags: [r-packages, bioconductor, validation, quality-control, bioccheck, submission]
 author: bioconductor
@@ -9,20 +9,14 @@ author: bioconductor
 
 # build-check-bioccheck
 
-Run the Bioconductor validation toolchain against a package and interpret what comes back.
-
-This is the operational counterpart to the policy chapters: it covers *how to run* the tools,
-*in what order*, and *how to read* the output, including the failure modes that look like
-package defects but are not.
+Run the Bioconductor validation toolchain against a package and interpret what comes back,
+including the failures that look like package defects but are not.
 
 ## Usage
-
-Invoke this skill when you need to know whether a package passes:
 
 - "Run BiocCheck on this package"
 - "Does this package pass the Bioconductor checks?"
 - "Why is BiocCheck reporting this error?"
-- "Check this package before I submit it"
 
 ## Prerequisites
 
@@ -34,7 +28,7 @@ Invoke this skill when you need to know whether a package passes:
 
 ## Process
 
-Run in this order. Each step consumes the previous step's artifact.
+Run in this order.
 
 1. **Build the tarball.**
 
@@ -42,9 +36,8 @@ Run in this order. Each step consumes the previous step's artifact.
    R CMD build <package_dir>
    ```
 
-   Then check the tarball rather than the source directory. Checking the built artifact is
-   what the Bioconductor build system does, and it exercises the build step itself —
-   `.Rbuildignore` handling and vignette rebuilding — which a directory check does not.
+   Then check the tarball, not the source directory: that is what the Bioconductor build system
+   does, and it exercises `.Rbuildignore` handling and vignette rebuilding.
 
 2. **Check the tarball.**
 
@@ -61,12 +54,11 @@ Run in this order. Each step consumes the previous step's artifact.
    BiocCheck::BiocCheckGitClone("<package_dir>")
    ```
 
-   This catches files that must not be tracked in git, and is the only step that reads the
-   working tree rather than the tarball.
+   This catches files that must not be tracked in git; it is the only step that reads the
+   working tree and not the tarball.
 
-4. **BiocCheck on the tarball.** Both entry points accept either a directory or a tarball, so
-   this is guidance rather than a signature constraint: point it at the *built tarball*, which
-   is what the build system checks. Use `new-package = TRUE` only for a first submission:
+4. **BiocCheck on the tarball.** Both entry points accept either a directory or a tarball;
+   point this one at the *built tarball*, which is what the build system checks. Use `new-package = TRUE` only for a first submission:
 
    ```r
    BiocCheck::BiocCheck("<package>_<version>.tar.gz", `new-package` = TRUE)
@@ -84,21 +76,17 @@ Run in this order. Each step consumes the previous step's artifact.
                 capture.output(print(cov))), "coverage_summary.txt")
    ```
 
-   `coverage.json` is `covr::coverage_to_list()` as JSON (`totalcoverage` plus per-file
-   percentages); `coverage_summary.txt` starts with the `Total Coverage:` line and then the
-   per-file table `covr` prints. The `bioc-pkg-review` skill
-   fills the build rows of the rubric and the BiocCheck bullets of the Package Review Checklist
-   from these files, check by check, and Bioconductor's reviewer tool accepts the same files with
-   `--artifacts`.
+   The `bioc-pkg-review` skill reads these files, and Bioconductor's reviewer tool accepts them
+   with `--artifacts`.
 
 6. **Classify every finding** before reporting (see below). Do not hand back raw tool output.
 
 ## Interpreting the results
 
 The gate is **no ERRORs and no WARNINGs** on all of the above; NOTEs should be addressed where
-practical, and unresolved ones may be questioned in review. That rule is Bioconductor policy —
+practical, and unresolved ones may be questioned in review. That rule is Bioconductor policy;
 see `bioc-pkg-dev` (`knowledge/development/build-check-bioccheck.md`) for its wording and
-chapter source. It is repeated here only so this skill is usable on its own.
+chapter source.
 
 Classify each finding into one of four buckets:
 
@@ -158,15 +146,12 @@ Two findings are worth calling out explicitly rather than burying in a count:
 - [environment gaps, account actions, verified false positives]
 ```
 
-Report the per-step counts from the tools themselves. A wrapper script's exit code is not a
-result: `BiocCheck` exits non-zero whenever it reports ERRORs, so a non-zero exit from a
-pipeline says nothing beyond "something was reported".
+Report the per-step counts from the tools themselves, not a wrapper script's exit code:
+`BiocCheck` exits non-zero whenever it reports ERRORs.
 
 ## Examples
 
-**User**: "Run BiocCheck on this package"
-
-**Agent**: (runs the four steps, then reports)
+A report for a first submission:
 
 ```markdown
 ## Validation: examplePkg 0.99.0
@@ -195,11 +180,6 @@ pipeline says nothing beyond "something was reported".
 
 - **Used by**: `bioc-pkg-dev` (as the gate step of the submission workflow)
 - **Works with**: `analyze-r-package`, `improve-code-coverage`
-
-Policy background — what each rule means and which guide chapter it comes from — lives in
-`bioc-pkg-dev`, which mirrors the official guide. This skill is the execution layer: it states
-the pass/fail rule only so far as it needs to act on it, and adds the operational detail that
-the guide does not cover.
 
 ---
 

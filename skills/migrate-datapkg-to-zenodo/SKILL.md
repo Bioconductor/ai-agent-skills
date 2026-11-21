@@ -1,7 +1,7 @@
 ---
 name: migrate-datapkg-to-zenodo
 description: Convert a legacy Bioconductor experiment data package that ships .rda files in data/ to on-demand download from Zenodo with BiocFileCache caching, keeping data() backward compatible and R CMD check offline
-version: 1.1.2
+version: 1.1.3
 category: r-packages
 tags: [r-packages, bioconductor, experiment-data, zenodo, biocfilecache, data-hosting, refactoring]
 author: bioconductor
@@ -9,28 +9,29 @@ author: bioconductor
 
 # migrate-datapkg-to-zenodo
 
-Legacy Bioconductor ExperimentData packages store serialized datasets (`data/*.rda`)
-inside the package, bloating the source tarball to tens or hundreds of MB and
-forcing every user to download every dataset at install time. This skill converts
-such a package to the modern pattern: per-dataset files hosted on a citable Zenodo
-record, downloaded individually on first use into a package-specific
-`BiocFileCache`, verified against md5 checksums, with legacy `data()` access kept
-working and `R CMD check` running entirely offline on small bundled fixtures.
+Converts a legacy Bioconductor ExperimentData package that ships serialized
+datasets in `data/*.rda` to per-dataset files hosted on a citable Zenodo record,
+downloaded individually on first use into a package-specific `BiocFileCache`,
+verified against md5 checksums, with legacy `data()` access kept working and
+`R CMD check` running offline on small bundled fixtures. The pattern suits
+legacy packages where a full ExperimentHub conversion is not worth the churn.
 Zenodo is the default host; step 8 covers substituting another hosting service
 when the user asks for one.
 
 Reference implementations (the canonical code; copy from the newest and keep
-copies in sync):
+copies in sync). Only the package name differs between their copies of
+`R/getData.R` and `inst/scripts/`:
 
 - [curatedBladderData](https://github.com/lima1/curatedBladderData)
-  (75 MB tarball to 1.4 MB)
 - [curatedOvarianData](https://github.com/waldronlab/curatedOvarianData)
 - [curatedCRCData](https://github.com/waldronlab/curatedCRCData)
+
+[SOURCES.md](SOURCES.md) holds the rationale for the design; read it only when
+updating the skill.
 
 ## Usage
 
 - "Convert this data package to Zenodo and BiocFileCache"
-- "Move the datasets in this package out of data/ and host them on Zenodo"
 - "Refactor this legacy experiment data package so it stops shipping .rda files"
 - "Move this package's datasets to download-on-demand from
   [OSF / figshare / our institutional repository / an S3 bucket]"
@@ -47,8 +48,6 @@ copies in sync):
   other than Zenodo" in step 8). Zenodo grants one-off size quota increases on
   request, but do not count on the 100-file cap moving, and zipping datasets
   together would defeat per-dataset download.
-- The reference implementations above, for copying `R/getData.R` and
-  `inst/scripts/`. Only the package name differs between their copies.
 - Datasets in the references are `ExpressionSet`s. The download, cache,
   manifest, and stub machinery is class-agnostic (each `.rda` holds one object
   whose name matches the file name), but two scripts use `ExpressionSet`
@@ -65,10 +64,12 @@ copies in sync):
 - Find every consumer of `data(X)`: vignettes, examples, man pages, bundled
   analysis scripts (e.g. `inst/extdata/createEsetList.R` in the curated*Data
   family), and tests.
-- Tag the current commit `pre-zenodo-refactor` and push the tag. The integrity
-  report (step 8) checks out this tag in a git worktree to prove the uploaded
-  objects are identical to what the package used to ship, so the tag is
-  load-bearing, not cosmetic.
+- Tag the current commit `pre-zenodo-refactor`. The tag is only needed locally;
+  ask the user before pushing it. The integrity
+  report (step 9) checks out this tag in a git worktree to prove the uploaded
+  objects are identical to what the package used to ship. For the same reason,
+  do not rewrite git history as part of this refactor, even if the old `.rda`
+  files bloat it.
 
 ### 2. Add the regeneration scripts in inst/scripts/
 
@@ -83,16 +84,18 @@ possible):
   - the `data/` stub files and `datalist` (step 4);
   - `upload-manifest.txt` for eyeball comparison against Zenodo's reported md5s.
 
-  It must be idempotent: already-compressed files are left untouched, so
-  re-running it with the record ID after publishing only rewrites the manifest.
-  Never regenerate the `.rda` files after uploading; the manifest checksums must
-  match the published bytes.
-- `make-test-data.R`: builds small offline fixtures in `inst/extdata/testdata/`,
-  one per dataset, subset to roughly the first 200 features and at most 100
-  samples with full sample metadata retained. Also keep any specific features the
-  vignette or examples reference by name (gene symbols, probe patterns), or the
-  vignette will break on the fixtures.
-- `data-integrity-report.Rmd`: see step 8.
+  The xz re-serialization changes the bytes, so all checksums refer to the
+  uploaded files, not to the old `data/*.rda`. The script must be idempotent:
+  already-compressed files are left untouched, so re-running it with the record
+  ID after publishing only rewrites the manifest. Never regenerate the `.rda`
+  files after uploading; the manifest checksums must match the published bytes.
+- `make-test-data.R`: builds small offline fixtures (tens of KB each; they ship
+  in the tarball) in `inst/extdata/testdata/`, one per dataset, subset to
+  roughly the first 200 features and at most 100 samples with full sample
+  metadata retained. Also keep any specific features the vignette or examples
+  reference by name (gene symbols, probe patterns), or the vignette will break
+  on the fixtures.
+- `data-integrity-report.Rmd`: see step 9.
 
 ### 3. Add the getter in R/getData.R
 
@@ -153,8 +156,8 @@ convention in this family). Its behavior:
 
 ### 6. Update documentation and bundled scripts
 
-- Add a man page for the getter (copy the reference `man/<pkg>.Rd`): arguments,
-  return value for each calling pattern, cache location and how to clear it, and
+- Add a man page for the getter (copy the reference `man/<pkg>.Rd`): return
+  value for each calling pattern, cache location and how to clear it, and
   examples that use `test = TRUE`.
 - Fix the package-level man page if it still describes the old access pattern.
 - Vignette: add a short "Data access and caching" section (where the data lives,
@@ -185,8 +188,11 @@ Copy `tests/testthat/test-getData.R` from a reference implementation and adapt:
 ### 8. Upload to Zenodo and finalize the manifest
 
 1. Run `Rscript inst/scripts/make-data.R` (placeholder URLs) to produce
-   `../<pkg>-zenodo-upload/`.
-2. Create a new Zenodo record and upload the compressed `.rda` files. Metadata
+   `../<pkg>-zenodo-upload/`. Check the compressed upload size and dataset
+   count it reports against the record limits in Prerequisites before creating
+   the record.
+2. Ask the user to create a new Zenodo record and upload the compressed `.rda`
+   files, or do it through the API only if they ask you to. Metadata
    conventions from the reference records:
    - Title: `<pkg>: <short data description> for Bioconductor`.
    - Description: states these are the serialized objects for the Bioconductor
@@ -203,22 +209,22 @@ Copy `tests/testthat/test-getData.R` from a reference implementation and adapt:
 3. While the record is still an unpublished draft, compare the checksums
    Zenodo displays for each file against `upload-manifest.txt`. A bad upload
    can still be replaced at this stage; after publication the record is
-   immutable and fixing a file means a new record version. Then publish and
-   note the record ID.
+   immutable, and fixing a file means a new record version with a new record
+   ID and re-running step 8.4 with it. Then have the user publish, or confirm
+   with them before publishing, and note the record ID.
 4. Re-run `Rscript inst/scripts/make-data.R <RECORD_ID>`; this rewrites only the
    manifest with real URLs. Copy `zenodo-manifest.csv` to `inst/extdata/`.
 
 #### Using a host other than Zenodo
 
-Zenodo is the default, but if the user names another service, the pattern
-carries over: everything in `R/getData.R` is host-agnostic, because the
-manifest is the only place URLs live. Any host works that serves stable,
-versioned, direct-download HTTPS URLs without authentication: an institutional
-repository, OSF, figshare, Dataverse, or a lab-controlled S3 bucket or web
-server. Avoid hosts that cannot guarantee immutable content at a fixed URL,
-and avoid the hosts Bioconductor review rejects for package data: GitHub
-(including release assets), Dropbox, Google Drive, and personal homepages.
-Adapt the Zenodo-specific pieces:
+If the user names another service, the pattern carries over: everything in
+`R/getData.R` is host-agnostic, because the manifest is the only place URLs
+live. Any host works that serves stable, versioned, direct-download HTTPS URLs
+without authentication: an institutional repository, OSF, figshare, Dataverse,
+or a lab-controlled S3 bucket or web server. Avoid hosts that cannot guarantee
+immutable content at a fixed URL, and avoid the hosts Bioconductor review
+rejects for package data: GitHub (including release assets), Dropbox, Google
+Drive, and personal homepages. Adapt the Zenodo-specific pieces:
 
 - `make-data.R`: change the URL template to the new host's download URL scheme.
 - The manifest URL regex in the testthat suite: relax or retarget it.
@@ -247,15 +253,16 @@ pass all three sections before merging:
    using a throwaway cache (`R_USER_CACHE_DIR` pointed at a tempdir) so the
    user's real cache is untouched.
 
-Because the manifest md5s equal the md5s of byte-identical uploads, sections 1
-and 2 together prove every Zenodo file; only one download needs exercising end
-to end.
+Sections 1 and 2 together prove every Zenodo file, so only one download needs
+exercising end to end.
 
 Then run `R CMD check` (must pass with no network) and the full test suite with
 the live-download test enabled.
 
 ### 10. Commit and propagate
 
+- Deliver the work as a pull request against the package. Ask the user before
+  pushing the branch or opening it.
 - Agents follow the commit gates in
   [AGENTS.md § Agent Responsibilities](../../AGENTS.md#agent-responsibilities):
   show a draft commit message and obtain explicit approval before each commit,
@@ -268,49 +275,20 @@ the live-download test enabled.
   carries a header comment naming its siblings; when changing one, update the
   others and their header lists.
 
-## Output Format
-
-A pull request against the package containing: `R/getData.R` with the exported
-getter, `inst/extdata/zenodo-manifest.csv` with published URLs,
-`inst/extdata/testdata/` fixtures, `data/` stubs plus `datalist`, `inst/scripts/`
-regeneration and verification scripts, testthat tests, updated DESCRIPTION,
-NAMESPACE, NEWS, man pages, and vignette, and a published Zenodo record whose
-checksums the integrity report has verified.
-
 ## Examples
 
-**User**: "curatedPancreasData still ships 120 MB of .rda files; move it to
-Zenodo like the other curated*Data packages"
+The finalized manifest and getter in curatedBladderData, as a model for the
+URL scheme and calling patterns:
 
-**Agent**: Tags `pre-zenodo-refactor`; copies `R/getData.R`, `inst/scripts/`,
-and the tests from curatedBladderData, renaming the getter
-`curatedPancreasData`; runs `make-data.R` and `make-test-data.R`; converts
-`data/` to stubs; updates DESCRIPTION, NAMESPACE, docs, and vignette; asks the
-user to upload `../curatedPancreasData-zenodo-upload/` to a new Zenodo record;
-after publication re-runs `make-data.R <RECORD_ID>`, installs the final
-manifest, knits the integrity report, and runs check plus the live download
-test.
+```text
+dataset,filename,url,md5,size_bytes
+GSE89_eset,GSE89_eset.rda,https://zenodo.org/records/23192472/files/GSE89_eset.rda?download=1,93e550b942226b5958f7dad7abefcaa1,1542464
+```
 
-## Notes
-
-- Why Zenodo rather than ExperimentHub: a citable DOI, md5-verified hosting with
-  a public API, and no dependence on a submission pipeline; `BiocFileCache`
-  still provides the local caching users expect from Hub packages. The pattern
-  suits legacy packages where a full ExperimentHub conversion is not worth the
-  churn.
-- The xz re-serialization changes the bytes (usually shrinking them), so all
-  checksums refer to the uploaded files; object-level equality to the old
-  release is what the integrity report proves.
-- Zenodo records are immutable once published. Fixing a bad file means a new
-  record version, a new record ID, and re-running `make-data.R <RECORD_ID>`;
-  this is a feature (users always get exactly the verified bytes).
-- Zenodo limits a single record to 50 GB total and 100 files. Check the
-  compressed upload size and dataset count that `make-data.R` reports before
-  creating the record; above either limit, split files across multiple records
-  or switch hosts (step 8). Size quotas can be raised by request; the file cap
-  generally cannot, and zipping would defeat per-dataset download.
-- Keep the fixtures small (tens of KB each); they ship in the tarball and exist
-  only so examples, tests, the vignette, and `R CMD check` run offline.
-- If the package's git history is itself bloated by the old `.rda` files, that
-  is a separate problem; do not rewrite history as part of this refactor, since
-  the `pre-zenodo-refactor` tag and the integrity report depend on it.
+```r
+curatedBladderData()                              # dataset names, no download
+curatedBladderData("GSE89_eset")                  # one object, cached after first call
+curatedBladderData(c("GSE89_eset", "GSE1827_eset"))  # named list
+curatedBladderData("GSE89_eset", test = TRUE)     # offline fixture
+data(GSE89_eset)                                  # still works, with a deprecation message
+```

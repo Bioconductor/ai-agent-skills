@@ -1,7 +1,7 @@
 ---
 name: create-skill
 description: Help create a new AI agent skill through collaborative Q&A
-version: 1.3.1
+version: 1.4.0
 category: meta
 tags: [meta, infrastructure, skill-creation]
 author: bioconductor
@@ -9,86 +9,56 @@ author: bioconductor
 
 # create-skill
 
-Help create new AI agent skills through collaborative Q&A. Guides from rough ideas to structured skill files, focusing on intent over perfect formatting.
+Help a user turn an idea into a skill file through Q&A. The questions look for what an agent would get wrong without the skill, because that is what the skill should contain.
 
 ## Usage
 
-Invoke this skill when you want to create a new skill:
 - "Help me create a new skill for [domain/purpose]"
 
 ## Prerequisites
 
-- You have a general idea of what you want the skill to do
 - Working directory is the ai-agent-skills repository
 
 ## Process
 
-1. Understand the user's intent through Q&A
-2. Determine domain and location
-3. Outline the process steps
-4. Generate the skill file
-5. Review and refine with user feedback
-6. **Validate** the skill against repository standards
-7. Update repository documentation
+### 1. Find What the Skill Must Add
 
-### 1. Understand the Intent
+Ask the user:
+- What task should the skill cover, and what does a typical input and output look like?
+- What does a coding agent get wrong, or not know, when asked to do this without the skill? Ask for a case where they had to correct one.
+- Which Bioconductor, R, or project conventions apply that an agent would not follow by default?
+- Where must the agent stop and ask the user, or get confirmation before acting?
 
-Start with open-ended questions:
-- "What problem are you trying to solve?"
-- "Who would use this skill?"
-- "Can you give me an example of when you'd use this?"
-- "What would be the typical input/output?"
+If the answers show that an agent already does the task well without instructions, say that a skill is not needed. If the task belongs in an existing skill (see [SKILLS.md](../../SKILLS.md)), propose extending that skill; if the user agrees, edit it as step 3 describes, bump its version, and continue from step 4.
 
-### 2. Determine Domain and Location
+### 2. Choose the Category and Name
 
-**Existing domains**: `meta`, `r-packages`, `bioconductor-how-tos`
-If uncertain, suggest the closest match. Convert purpose to kebab-case for the filename: "analyze R package" → `analyze-r-package`.
+Existing categories are `meta`, `r-packages`, and `bioconductor-how-tos`; suggest the closest. The name is the purpose in kebab-case, e.g. "analyze R package" → `analyze-r-package`, and the file is `skills/[skill-name]/SKILL.md`. Draft the one-line `description` with the user, since agents match requests against it.
 
-### 3. Outline the Process
+### 3. Draft the Skill File
 
-Ask the user to walk through the steps. Capture major steps, key decisions, required inputs, expected outputs, and strategic code snippets (as guardrails). Help clarify and break down complex steps.
+Follow [AGENTS.md](../../AGENTS.md) and [SKILL_STANDARD.md](../../SKILL_STANDARD.md); do not copy their rules into the skill. Keep the `## Usage`, `## Prerequisites`, `## Process`, and `## Examples` headings, which CI requires.
 
-### 4. Generate the Skill File
+- Write only steps that carry the content found in step 1. Apply AGENTS.md § Only What an Agent Wouldn't Do Unprompted to each line as you write it, not as a later pass.
+- The result is still a workflow, not a list of pitfalls: keep the steps needed to put the others in order, and leave out a step the agent would do anyway and that carries no instruction, even if that leaves the process short.
+- Put source documents, version pins, and the history of a decision in `skills/[skill-name]/SOURCES.md`.
+- Give one example that shows a concrete input and the output expected, taken from the user's case where possible.
+- Mark what the user has not settled with `TODO`; do not fill a gap with an invented fact.
 
-Create a well-structured skill file following [AGENTS.md](../../AGENTS.md) and [SKILL_STANDARD.md](../../SKILL_STANDARD.md).
-Do not duplicate SSOT guidelines; use references instead.
-Fill in what's clear, use `TODO` markers for uncertainties, and prioritize clarity.
+### 4. Review with the User
 
-### 5. Review and Refine
+Show the draft and ask whether it captures their intent. Point out any step you think an agent would have done without the skill, and ask whether to remove it.
 
-Present a summary to the user, invite feedback ("Did I capture your intent correctly?"), and offer to iterate.
+### 5. Validate
 
-### 6. Validate the Skill
+Run `validate-skill` on the new or changed file and fix any CRITICAL issues before continuing.
 
-Before updating repository documentation, invoke `validate-skill` on the new file. Fix any CRITICAL issues. Only proceed to step 7 if validation passes.
+### 6. Update Repository Documentation
 
-### 7. Update Repository Documentation
-
-Invoke `document-skill` by saying "Document the [skill-name] skill". It will automatically update `SKILLS.md`. Confirm completion with the user and suggest they test the skill.
-
-## Output Format
-
-Generate a markdown file saved to `skills/[skill-name]/SKILL.md`. See [SKILL_STANDARD.md](../../SKILL_STANDARD.md) for the required template and format.
-
-## Key Principles
-
-- **Skills are agent-agnostic**: No platform-specific metadata in the file
-- **Describe what, not how**: Use "read the file" not "use Read tool"
-- **Avoid duplication**: Reference authoritative sources instead of copying content
+Set `version` to `1.0.0` for a new skill, or bump an extended one as [SKILL_STANDARD.md](../../SKILL_STANDARD.md) § Version Management describes, and add a `CHANGELOG.md` entry. Run `document-skill` on the new or changed skill to update `SKILLS.md`, then suggest the user test the skill on a real case.
 
 ## Examples
 
-### Example 1: Creating from Scratch
-**User**: "I want to make a skill that helps validate R package documentation"
-**Agent**: Engages in Q&A to understand documentation aspects, timing, and actions.
-Result: `skills/validate-r-documentation/SKILL.md`
+**User**: "I want a skill for deprecating a function in a Bioconductor package."
 
-## Notes
-
-- First draft doesn't need to be perfect—iteration expected
-- Run `validate-skill` before `document-skill`
-- Goal: lower the barrier to creating skills and sharing workflows
-
----
-
-**Related**: See [SKILL_STANDARD.md](../../SKILL_STANDARD.md) for technical format details. See [AGENTS.md](../../AGENTS.md) for how agent discovery works.
+Asked what an agent gets wrong, the user says it added a deprecation cycle for a function that had never been in a release. The agent finds the deprecation rules, including that exemption, already in `bioc-pkg-dev` (`knowledge/maintenance.md`), so a new skill would repeat them. It asks why the agent missed the rule, and proposes making `bioc-pkg-dev` point to it where maintenance tasks start. Result: an edit to `bioc-pkg-dev` with a version bump, and no new skill.

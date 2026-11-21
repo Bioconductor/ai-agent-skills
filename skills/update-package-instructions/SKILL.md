@@ -1,7 +1,7 @@
 ---
 name: update-package-instructions
 description: Update existing AI instruction documentation when an R/Bioconductor package changes
-version: 1.0.0
+version: 1.0.1
 category: r-packages
 tags: [r-packages, documentation, bioconductor]
 author: bioconductor
@@ -13,7 +13,6 @@ Update existing `.github/instructions/` files when an R/Bioconductor package cha
 
 ## Usage
 
-Invoke this skill when your package has changed and you want to refresh the AI instructions:
 - "Update the package instructions"
 - "Sync instructions with current package state"
 
@@ -25,23 +24,17 @@ Invoke this skill when your package has changed and you want to refresh the AI i
 ## Process
 
 1. **Analyze Current State**: Run the `analyze-r-package` skill to produce a current package analysis.
-2. **Identify Changes**: Read existing `.github/instructions/` `.md` files. Compare the current package analysis to the documented state to identify changes in metadata (version, dependencies), structure (functions, vignettes, classes), and content (data sources).
-3. **Determine Update Scope**: Check which template variables have changed by referencing `templates/package-instructions/README.md`. If a variable differs, its corresponding file needs an update.
+2. **Identify Changes**: Read existing `.github/instructions/` `.md` files. If there are none, direct the user to `create-package-instructions`. Compare the current package analysis to the documented state to identify changes in metadata (version, dependencies), structure (functions, vignettes, classes), and content (data sources).
+3. **Determine Update Scope**: Check which template variables have changed by referencing `templates/package-instructions/README.md` at the root of the skills repository. If a variable differs, its corresponding file needs an update.
 4. **Apply Update Strategy**:
-   - **Preserve Custom Content**: Retain manually-added domain explanations, examples, and warnings.
+   - **Preserve Custom Content**: Retain manually-added domain explanations, examples, and warnings. If a manual change conflicts directly with a template update, ask the user whether to keep, replace, or merge.
    - **Update Systematically**: Update version numbers globally. Add new functions (with `[Description needed]`), remove deleted ones, and preserve custom descriptions.
    - **Targeted Edits**: Modify only the changed variables, rather than completely replacing files.
-5. **Provide Update Summary**: Report the detected changes, updated files, and any items requiring manual review.
+5. **List Items for Manual Review**: Tell the user which entries were left as `[Description needed]` and which conflicts are unresolved.
 
-## Error Handling
+## Examples
 
-- **No instructions found**: Direct the user to `create-package-instructions`.
-- **Conflicts**: Prompt for a keep/replace/merge decision if manual changes conflict directly with template updates.
-
-## Integration
-
-- **Uses**: `analyze-r-package`
-- **Works with**: `create-package-instructions`
+Since the instructions were written, the package version went from 1.4.0 to 1.5.2, `filterSamples()` was added, and `oldLoader()` was removed. The skill replaces `1.4.0` with `1.5.2` wherever it appears, adds a `filterSamples()` entry reading `[Description needed]`, and deletes the `oldLoader()` entry. Hand-written descriptions of the other functions and a maintainer's warning about API rate limits stay as they are, and files whose variables did not change are not touched.
 
 ---
 

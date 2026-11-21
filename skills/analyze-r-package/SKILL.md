@@ -1,7 +1,7 @@
 ---
 name: analyze-r-package
 description: Analyze R/Bioconductor package structure to extract key information about its purpose, exports, and characteristics
-version: 1.0.0
+version: 1.0.1
 category: r-packages
 tags: [r-packages, analysis, bioconductor, documentation]
 author: bioconductor
@@ -13,7 +13,6 @@ Analyze an R/Bioconductor package to understand its structure, purpose, and key 
 
 ## Usage
 
-Invoke this skill when you want to understand an R package's architecture:
 - "Analyze this R package"
 - "Tell me about this package structure"
 
@@ -112,8 +111,4 @@ Produce a structured markdown summary:
 
 ## Integration
 
-This analysis output is consumed by `create-package-instructions` and `update-package-instructions`.
-
----
-
-**See also**: [create-package-instructions](../create-package-instructions/SKILL.md)
+This analysis output is consumed by [create-package-instructions](../create-package-instructions/SKILL.md) and [update-package-instructions](../update-package-instructions/SKILL.md).

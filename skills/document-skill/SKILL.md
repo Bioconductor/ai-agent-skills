@@ -1,7 +1,7 @@
 ---
 name: document-skill
 description: Automate documentation updates to SKILLS.md after creating or modifying a skill
-version: 1.0.2
+version: 1.0.3
 category: meta
 tags: [meta, infrastructure, documentation, automation]
 author: bioconductor
@@ -9,11 +9,10 @@ author: bioconductor
 
 # document-skill
 
-Automate updating SKILLS.md after creating or modifying a skill. Reads the skill file, generates entries, and updates all relevant sections with user confirmation.
+Update SKILLS.md after a skill is created or modified.
 
 ## Usage
 
-Invoke this skill after creating or modifying a skill file:
 - "Document the new skill I just created"
 - "Update SKILLS.md for the validate-r-docs skill"
 
@@ -21,6 +20,7 @@ Invoke this skill after creating or modifying a skill file:
 
 - Skill file exists at `skills/{skill-name}/SKILL.md`
 - SKILLS.md exists in the repository root
+- `validate-skill` should be run on the skill first
 
 ## Process
 
@@ -33,26 +33,6 @@ Invoke this skill after creating or modifying a skill file:
    - Ask the user if the skill should be added to the "Finding Skills by Use Case" section in [USAGE.md](../../USAGE.md).
 4. **Confirm and Apply**: Show a summary of changes to SKILLS.md and apply them upon user confirmation.
 
-## Output Format
-
-This skill produces an updated **SKILLS.md** file. No new files are created.
-
 ## Examples
 
-### Example: Documenting a New Skill
-**User**: "Document the validate-r-docs skill I just created"
-**Agent**:
-1. Reads `skills/validate-r-docs/SKILL.md`.
-2. Generates entry with invocation examples and shows a preview.
-3. Adds to the "R/Bioconductor Domain" section and updates Category/Tag tables.
-4. User confirms, SKILLS.md is updated.
-5. Reports: "✅ Documentation updated successfully!"
-
-## Integration with Other Skills
-
-- **create-skill**: Automatically invoked at the end of the skill creation workflow.
-- **validate-skill**: Should be run before document-skill to ensure standards compliance.
-
----
-
-**Related**: See [SKILLS.md](../../SKILLS.md) for the skill catalog format.
+"Document the validate-r-docs skill I just created": a skill with `category: r-packages` and `tags: [r-packages, validation]` gets an entry under "R/Bioconductor Package Skills", is added to the `r-packages` row of "By Category", and is added to the `validation` row of "By Tag".
