@@ -146,5 +146,5 @@ Describe the expected result structure.
 ---
 
 **Version**: 3.1.0
-**Last Updated**: 2026-10-29
+**Last Updated**: 2026-11-24
 **Authors**: bioconductor

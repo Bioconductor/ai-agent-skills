@@ -56,7 +56,7 @@ Run `validate-skill` on the new or changed file and fix any CRITICAL issues befo
 
 ### 6. Update Repository Documentation
 
-Set `version` to `1.0.0` for a new skill, or bump an extended one as [SKILL_STANDARD.md](../../SKILL_STANDARD.md) § Version Management describes, and add a `CHANGELOG.md` entry. Run `document-skill` on the new or changed skill to update `SKILLS.md`, then suggest the user test the skill on a real case.
+Set `metadata.version` to `1.0.0` for a new skill, or bump an extended one as [SKILL_STANDARD.md](../../SKILL_STANDARD.md) § Version Management describes, and add a `CHANGELOG.md` entry. Run `document-skill` on the new or changed skill to update `SKILLS.md`, then suggest the user test the skill on a real case.
 
 ## Examples
 

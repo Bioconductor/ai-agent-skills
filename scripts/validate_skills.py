@@ -52,6 +52,7 @@ REQUIRED_METADATA = {"version", "category", "author"}
 ALLOWED_FIELDS = {"name", "description", "metadata", "license", "allowed-tools", "compatibility"}
 PROHIBITED_FIELDS = {"platforms", "triggers"}
 NAME_PATTERN = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+RESERVED_NAME_WORDS = ("anthropic", "claude")
 MAX_NAME_LENGTH = 64
 MAX_DESCRIPTION_LENGTH = 1024
 
@@ -192,12 +193,17 @@ def check_prohibited_fields(fm, skill_path, errors):
 def check_upload_limits(fm, skill_path, errors):
     """Check name/description against the limits enforced by Claude skill upload."""
     name = fm.get("name", "")
-    if isinstance(name, str) and name:
-        if not NAME_PATTERN.match(name):
+    if not isinstance(name, str):
+        errors.append(f"[{skill_path.parent.name}] `name` must be a string")
+    elif name:
+        if not NAME_PATTERN.fullmatch(name):
             errors.append(
                 f"[{skill_path.parent.name}] `name: {name}` must be kebab-case "
                 f"(lowercase letters, digits, single hyphens)"
             )
+        for word in RESERVED_NAME_WORDS:
+            if word in name:
+                errors.append(f"[{skill_path.parent.name}] `name` cannot contain the reserved word `{word}`")
         if len(name) > MAX_NAME_LENGTH:
             errors.append(
                 f"[{skill_path.parent.name}] `name` is {len(name)} characters; maximum is {MAX_NAME_LENGTH}"
@@ -344,8 +350,12 @@ def check_marketplace_sync(errors):
 
     listed = {}
     for plugin in marketplace.get("plugins", []):
+        source = plugin.get("source", "./")
+        if not isinstance(source, str):
+            errors.append(f"[marketplace] Plugin `{plugin.get('name')}` must use a relative path as `source`")
+            continue
         for entry in plugin.get("skills", []):
-            skill_dir = (REPO_ROOT / plugin.get("source", "./") / entry).resolve()
+            skill_dir = (REPO_ROOT / source / entry).resolve()
             if not (skill_dir / "SKILL.md").exists():
                 errors.append(f"[marketplace] Plugin `{plugin.get('name')}` lists `{entry}`, which has no SKILL.md")
             listed.setdefault(skill_dir, []).append(plugin.get("name"))
