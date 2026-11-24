@@ -37,4 +37,4 @@ Update SKILLS.md after a skill is created or modified.
 
 ## Examples
 
-"Document the validate-r-docs skill I just created": a skill with `category: r-packages` and `tags: [r-packages, validation]` gets an entry under "R/Bioconductor Package Skills", is added to the `r-packages` row of "By Category", and is added to the `validation` row of "By Tag".
+"Document the validate-r-docs skill I just created": a skill with `metadata.category: r-packages` and `metadata.tags: r-packages, validation` gets an entry under "R/Bioconductor Package Skills", is added to the `r-packages` row of "By Category", and is added to the `validation` row of "By Tag".
