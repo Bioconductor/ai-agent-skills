@@ -16,16 +16,12 @@ description, so Claude still picks the individual skill that matches the request
 
 See [SKILLS.md](../SKILLS.md) for what each skill does.
 
-> **Branch**: until the `metadata:` frontmatter change reaches the default branch, install from the
-> `claude-upload-metadata` branch by appending `#claude-upload-metadata` to the repository, as shown
-> below. Drop the suffix once it is merged.
-
 ## Plugin Install (Recommended)
 
 ### Claude Code
 
 ```
-/plugin marketplace add Bioconductor/ai-agent-skills#claude-upload-metadata
+/plugin marketplace add Bioconductor/ai-agent-skills
 /plugin install bioc-r-packages@bioconductor-skills
 /plugin install bioc-skill-authoring@bioconductor-skills
 ```
@@ -37,29 +33,29 @@ arguments. Run `/plugin marketplace update bioconductor-skills` to pick up new s
 
 **Upload the plugin archives** (works everywhere):
 
-1. From a checkout of the branch, build one archive per plugin:
+1. From an up-to-date checkout of the repository, build one archive per plugin:
    ```bash
-   git switch claude-upload-metadata
    python scripts/build_claude_plugins.py   # writes dist/bioc-r-packages.zip, dist/bioc-skill-authoring.zip
    ```
 2. Open **Customize → Plugins → Add → Upload plugin** and drop in both zips (or only
    `bioc-r-packages.zip` if you don't contribute skills).
 3. To update, pull, rebuild and upload again.
 
-**Or add the marketplace** (if your app offers **Add marketplace**), which follows the branch
-without rebuilding: enter `https://github.com/Bioconductor/ai-agent-skills.git#claude-upload-metadata`
-and install the plugins from it.
+**Or add the marketplace** (if your app offers **Add marketplace**), which follows the
+repository without rebuilding: enter `https://github.com/Bioconductor/ai-agent-skills.git` and install the plugins from it.
 
 Team and Enterprise owners can instead add the repository under **Organization settings → Plugins &
 skills → Sync from GitHub** and make the plugins available to, or installed for, everyone.
 
-### Citing skills
+### Workflow and citation rules
 
-Plugins do not carry instructions outside the skills themselves, so add the citation rule required
-by [AGENTS.md](../AGENTS.md#must-mandatory) to `~/.claude/CLAUDE.md` (Claude Code) or your
-claude.ai profile preferences:
+Plugins do not carry instructions outside the skills themselves, so add the Git workflow and
+citation rules required by [AGENTS.md](../AGENTS.md#must-mandatory) to `~/.claude/CLAUDE.md`
+(Claude Code) or your claude.ai profile preferences:
 
 ```markdown
+When you follow a Bioconductor SKILL.md: ask whether to work on a new branch before editing files; never commit without my explicit approval; show me the draft commit message first; and end each commit message with a co-author trailer for the AI agent, after a blank line.
+
 Whenever you read and execute instructions from a Bioconductor SKILL.md file, you MUST include the following citation block at the start or end of your response, filled from the skill's frontmatter (`name`, `metadata.version`, `metadata.author`):
 > 🛠️ **Bioconductor Skill Executed**: <name> | **Version**: <version> | **Author**: <author>
 ```
