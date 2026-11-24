@@ -1,10 +1,11 @@
 ---
 name: create-skill
 description: Help create a new AI agent skill through collaborative Q&A
-version: 1.4.0
-category: meta
-tags: [meta, infrastructure, skill-creation]
-author: bioconductor
+metadata:
+  version: 1.4.1
+  category: meta
+  author: bioconductor
+  tags: meta, infrastructure, skill-creation
 ---
 
 # create-skill

@@ -1,10 +1,11 @@
 ---
 name: validate-skill
 description: Validate that a skill conforms to the ai-agent-skills repository standards
-version: 1.3.1
-category: meta
-tags: [meta, infrastructure, validation, quality-control]
-author: bioconductor
+metadata:
+  version: 1.3.2
+  category: meta
+  author: bioconductor
+  tags: meta, infrastructure, validation, quality-control
 ---
 
 # validate-skill
@@ -33,7 +34,7 @@ Validate that a skill conforms to bioconductor standards.
 
 1. **Run Generic Validation (Optional)**: Run `markdownlint` on the file, and validate the YAML frontmatter syntax (e.g., by extracting the frontmatter and running `yamllint -d relaxed` on it).
 2. **Validate Repository Standards**: Check the file against the requirements in [AGENTS.md](../../AGENTS.md) and [SKILL_STANDARD.md](../../SKILL_STANDARD.md).
-   - Ensure the YAML frontmatter contains required fields and no prohibited fields (`platforms`, `triggers`).
+   - Ensure the YAML frontmatter contains required fields, no prohibited fields (`platforms`, `triggers`), and no top-level keys outside those AGENTS.md § Minimal Required Fields allows (repository fields such as `version` belong under `metadata:`).
    - Check that the structure matches the standard format.
    - Verify agent neutrality (no tool references or platform commands in instructions).
    - Confirm it describes a workflow, not just code snippets.
