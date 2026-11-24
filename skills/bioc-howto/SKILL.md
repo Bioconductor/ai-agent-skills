@@ -1,7 +1,7 @@
 ---
 name: bioc-howto
 description: A consolidated index of Bioconductor how-to skills covering genomics, sequencing, and omics data analysis tasks
-version: 1.0.0
+version: 1.1.0
 category: bioconductor-how-tos
 author: bioconductor
 ---
@@ -13,6 +13,24 @@ Each entry links to a dedicated file with full step-by-step instructions, requir
 example code, and further reading.
 
 The individual how-to files are located in `skills/bioc-howto/how-tos/`.
+
+## Usage
+
+- "How do I compute read coverage from a BAM file in Bioconductor?"
+- "Show me the Bioconductor how-to for reading gene sets from a GMT file"
+
+## Prerequisites
+
+- R with `BiocManager`; each how-to lists the packages it needs under "Required Packages"
+
+## Process
+
+1. Match the task to a row in the Index of How-Tos below. If no row fits, say so instead of
+   stretching the nearest how-to, and suggest `bioc-pkg-finder` to find suitable packages.
+2. Read the linked file and follow its steps. Its code runs on example data from Bioconductor
+   data packages (e.g. `pasillaBamSubset`); swap in the user's files and keep the same functions.
+3. Install missing packages with `BiocManager::install()`, not `install.packages()`, so their
+   versions match the user's Bioconductor release.
 
 ## Index of How-Tos
 
@@ -31,3 +49,9 @@ The individual how-to files are located in `skills/bioc-howto/how-tos/`.
 | [retrieve-gene-model-from-annotationhub](how-tos/retrieve-gene-model-from-annotationhub.md) | Download a gene model from AnnotationHub as a GRanges or GRangesList object using Bioconductor |
 | [use-tidy-principles-for-granges-manipulation](how-tos/use-tidy-principles-for-granges-manipulation.md) | Manipulate GRanges objects using dplyr-style tidy verbs via the tidyomics/plyranges Bioconductor ecosystem |
 | [use-tidy-principles-for-rna-seq-analysis](how-tos/use-tidy-principles-for-rna-seq-analysis.md) | Manipulate SummarizedExperiment and SingleCellExperiment RNA-seq objects using tidy dplyr-style verbs via tidyomics |
+
+## Examples
+
+"How do I get promoter sequences for my genes?" matches
+[extract-promoter-sequences](how-tos/extract-promoter-sequences.md): follow its steps with the
+user's organism and gene IDs in place of the example ones.
