@@ -14,7 +14,9 @@ description, so Claude still picks the individual skill that matches the request
 | `bioc-r-packages` | Package analysis, BiocCheck, review, submission, coverage, security, NEWS, data migration, how-tos | R/Bioconductor package developers and analysts |
 | `bioc-skill-authoring` | create-skill, validate-skill, document-skill, check-bioconductor-skills, adr-author | Contributors to this repository |
 
-See [SKILLS.md](../SKILLS.md) for what each skill does.
+See [SKILLS.md](../SKILLS.md) for what each skill does. The discovery skill,
+`check-bioconductor-skills` ("Is there a bioconductor skill for X?"), comes with
+`bioc-skill-authoring`; install that plugin too if you want to ask Claude which skill fits a task.
 
 ## Plugin Install (Recommended)
 
