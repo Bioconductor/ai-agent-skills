@@ -1,10 +1,11 @@
 ---
 name: draft-r-package-pr
 description: Check that a pull request against an R/Bioconductor package is focused and ready for review, then draft its title and description, following Bioconductor policy
-version: 1.1.0
-category: r-packages
-tags: [r-packages, bioconductor, git, pull-request, code-review, documentation]
-author: bioconductor
+metadata:
+  version: 1.1.1
+  category: r-packages
+  author: bioconductor
+  tags: r-packages, bioconductor, git, pull-request, code-review, documentation
 ---
 
 # draft-r-package-pr
