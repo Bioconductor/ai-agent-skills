@@ -379,7 +379,7 @@ Skills indexing focused, practical how-tos for common Bioconductor data analysis
 - "Can you show me a Bioconductor how-to for [task]?"
 - "Check the bioc-howto index for [task]"
 
-**Output**: Links to and instructions from the relevant how-to markdown file.
+**Output**: Links to and instructions from the relevant how-to markdown file, or, when no how-to fits, a pointer to `bioc-pkg-finder`.
 
 ---
 

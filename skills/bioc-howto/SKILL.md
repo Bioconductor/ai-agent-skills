@@ -16,21 +16,20 @@ The individual how-to files are located in `skills/bioc-howto/how-tos/`.
 
 ## Usage
 
-- "How do I compute read coverage from a BAM file in Bioconductor?"
-- "Show me the Bioconductor how-to for reading gene sets from a GMT file"
+Invocation examples are listed under `bioc-howto` in [SKILLS.md](../../SKILLS.md).
 
 ## Prerequisites
 
-- R with `BiocManager`; each how-to lists the packages it needs under "Required Packages"
+- R; each how-to gives its install command under "Required Packages"
 
 ## Process
 
 1. Match the task to a row in the Index of How-Tos below. If no row fits, say so instead of
    stretching the nearest how-to, and suggest `bioc-pkg-finder` to find suitable packages.
-2. Read the linked file and follow its steps. Its code runs on example data from Bioconductor
-   data packages (e.g. `pasillaBamSubset`); swap in the user's files and keep the same functions.
-3. Install missing packages with `BiocManager::install()`, not `install.packages()`, so their
-   versions match the user's Bioconductor release.
+2. Read the linked file and follow its steps, using the user's files in place of its example
+   data. If the user's data is of a different kind than the how-to covers (e.g. paired-end
+   rather than single-end reads), switch to the how-to for that kind, or apply step 1's
+   no-match rule if there is none.
 
 ## Index of How-Tos
 
@@ -52,6 +51,6 @@ The individual how-to files are located in `skills/bioc-howto/how-tos/`.
 
 ## Examples
 
-"How do I get promoter sequences for my genes?" matches
-[extract-promoter-sequences](how-tos/extract-promoter-sequences.md): follow its steps with the
-user's organism and gene IDs in place of the example ones.
+"How do I call differentially methylated regions from bisulfite data?" has no row in the index.
+Reply that no bioc-howto covers it, and offer `bioc-pkg-finder` to find packages for the task
+(e.g. `bsseq`, `DSS`) rather than adapting a coverage or sequence how-to.

@@ -9,8 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - **bioc-howto** (v1.0.0 → v1.1.0) - Adds the `## Usage`, `## Prerequisites`, `## Process` and
-  `## Examples` sections CI requires. The process says to report when no how-to fits, to swap
-  the user's data into the example code, and to install packages with `BiocManager::install()`.
+  `## Examples` sections CI requires. The process says to report when no how-to fits and suggest
+  `bioc-pkg-finder`, and to switch how-tos when the user's data differs in kind from the one
+  chosen. Usage points to the invocation examples in `SKILLS.md`.
 - **Remaining skills trimmed** under AGENTS.md principle 7 ("Only What an Agent Wouldn't Do
   Unprompted"), following the pilot on `draft-r-package-pr` and `update-r-news`. Restated rules,
   Notes, Error Handling and Integration sections, process-replay examples, and motivation are
@@ -22,8 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   **check-bioconductor-skills** (v1.1.1), **create-package-instructions** (v1.0.1),
   **document-skill** (v1.0.3), **improve-code-coverage** (v1.1.1),
   **migrate-datapkg-to-zenodo** (v1.1.3), **security-audit-r-package** (v1.0.1),
-  **update-package-instructions** (v1.0.1), **validate-skill** (v1.3.1). `bioc-howto` is an index
-  table and is unchanged.
+  **update-package-instructions** (v1.0.1), **validate-skill** (v1.3.1). `bioc-howto` was not
+  trimmed; it gains the CI-required sections in its own entry above.
   - Provenance moves to a new `SOURCES.md` in `adr-author`, `bioc-pkg-review`, and
     `migrate-datapkg-to-zenodo`.
   - **bioc-pkg-finder**: the detail sections are folded into five numbered steps, each rule
