@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- **bioc-howto** (v1.0.0 → v1.1.0) - Adds the `## Usage`, `## Prerequisites`, `## Process` and
+  `## Examples` sections CI requires. The process says to report when no how-to fits, to swap
+  the user's data into the example code, and to install packages with `BiocManager::install()`.
 - **Remaining skills trimmed** under AGENTS.md principle 7 ("Only What an Agent Wouldn't Do
   Unprompted"), following the pilot on `draft-r-package-pr` and `update-r-news`. Restated rules,
   Notes, Error Handling and Integration sections, process-replay examples, and motivation are
